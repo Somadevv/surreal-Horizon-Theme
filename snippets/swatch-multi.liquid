@@ -1,0 +1,23 @@
+{%- comment -%}
+  Renders multiple color swatches for featured colours
+
+  @param {object} colours - metafield with list of colours
+  @param {number} size - size of the swatch container (default 60)
+
+  @example
+  {% render 'swatch-multi', colours: product.metafields.custom.featured_colour, size: 60 %}
+{%- endcomment -%}
+
+{% liquid
+  assign swatch_size = size | default: 60
+  assign colour_count = colours.value.size | default: 1
+%}
+
+<div class="swatch-multi" style="width: {{ swatch_size }}px; height: {{ swatch_size }}px; display: flex; flex-wrap: wrap; border-radius: 50%; overflow: hidden;">
+  {% if colours.value %}
+    {% for colour in colours.value limit: 4 %}
+      {% assign colour_name = colour | downcase | replace: ' ', '-' %}
+      <div class="swatch-multi__item" style="flex: 1 0 {% if colour_count == 1 %}100%{% elsif colour_count == 2 %}50%{% elsif colour_count == 3 and forloop.first %}100%{% elsif colour_count == 3 %}50%{% else %}50%{% endif %}; background-color: {{ colour | replace: 'Purple', '#9333ea' | replace: 'Pink', '#ec4899' | replace: 'Yellow', '#fbbf24' | replace: 'Green', '#22c55e' | replace: 'Red', '#ef4444' | replace: 'Blue', '#3b82f6' | replace: 'Orange', '#f97316' | replace: 'White', '#ffffff' | replace: 'Black', '#000000' }}; min-height: {% if colour_count > 2 %}50%{% else %}100%{% endif %};"></div>
+    {% endfor %}
+  {% endif %}
+</div>

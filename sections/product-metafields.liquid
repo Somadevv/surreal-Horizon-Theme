@@ -1,0 +1,32 @@
+
+  {% liquid
+    assign product = closest.product
+  %}
+
+  <div style="background: #fff; padding: 20px; margin: 20px 0; border: 1px solid #ddd;">
+    <h2>Plant Care Details</h2>
+
+    {% if product.metafields.custom.care_level != blank %}
+      <p><strong>Care Level:</strong> {{ product.metafields.custom.care_level }}</p>
+    {% endif %}
+
+    {% if product.metafields.custom.light_requirements != blank %}
+      <p><strong>Light Requirements:</strong> {{ product.metafields.custom.light_requirements }}</p>
+    {% endif %}
+
+    {% if product.metafields.custom.watering_frequency != blank %}
+      <p><strong>Watering:</strong> {{ product.metafields.custom.watering_frequency }}</p>
+    {% endif %}
+
+    {% if product.metafields.custom.mature_size != blank %}
+      <p><strong>Mature Size:</strong> {{ product.metafields.custom.mature_size }}</p>
+    {% endif %}
+  </div>
+
+  {% schema %}
+  {
+    "name": "Product Metafields",
+    "tag": "section",
+    "class": "section"
+  }
+  {% endschema %}

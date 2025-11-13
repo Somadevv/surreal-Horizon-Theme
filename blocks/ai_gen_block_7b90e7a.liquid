@@ -1,0 +1,561 @@
+{% doc %}
+  @prompt
+    Minimum temperature: {{ closest.product.metafields.custom.hardiness_celsius_.value }}°cMaximum height and spread: {{ closest.product.metafields.custom.maximum_height_and_spread.value }}Recommended sunlight amount: {{ closest.product.metafields.custom.sunlight_amount.value }}Ideal location: {{ closest.product.metafields.custom.recommended_locations | metafield_text }}Growth form: {{ closest.product.metafields.custom.growth_form | metafield_text }}Synonyms: {{ closest.product.metafields.custom.synonyms | metafield_text }}
+    
+    create a new block that makes thes into a grid section responsive for all device types, with icons., this should be flex, Icon on left, title at top, value underneath with a border-left with each one having their own colour that i can choose in the settings, also add the featured colour section., now make this a 3x3 grid, theres missing items. should have: Difficulty
+    Beginner
+    Growth Form
+    Branching
+    Growth Rate
+    Moderate
+    Minimum Temperature
+    -2°C
+    Maximum Size
+    70 cm x 50 cm
+    Featured Colour
+    Purple, Black, and Green
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-specs-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-product-spec-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background-color: {{ block.settings.background_color }};
+    border-left: {{ block.settings.border_width }}px solid var(--spec-border-color);
+    border-radius: {{ block.settings.border_radius }}px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .ai-product-spec-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-product-spec-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--spec-border-color);
+  }
+
+  .ai-product-spec-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-product-spec-content-{{ ai_gen_id }} {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ai-product-spec-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .ai-product-spec-value-{{ ai_gen_id }} {
+    font-size: {{ block.settings.value_size }}px;
+    color: {{ block.settings.value_color }};
+    margin: 0;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-specs-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.grid_gap | times: 0.75 }}px;
+    }
+
+    .ai-product-spec-item-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+
+    .ai-product-spec-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.85 }}px;
+      height: {{ block.settings.icon_size | times: 0.85 }}px;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-product-specs-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-product-specs-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_difficulty and product.metafields.custom.difficulty.value %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.difficulty_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.difficulty_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.difficulty.value }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_growth_form and product.metafields.custom.growth_form %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.growth_form_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20"></path>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.growth_form_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.growth_form | metafield_text }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_growth_rate and product.metafields.custom.growth_rate.value %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.growth_rate_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+          <polyline points="17 6 23 6 23 12"></polyline>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.growth_rate_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.growth_rate.value }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_temperature and product.metafields.custom.hardiness_celsius_.value %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.temperature_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.temperature_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.hardiness_celsius_.value }}°C</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_height and product.metafields.custom.maximum_height_and_spread.value %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.height_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+          <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+          <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.height_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.maximum_height_and_spread.value }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_featured_colour and product.metafields.custom.featured_colour.value %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.featured_colour_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="13.5" cy="6.5" r=".5"></circle>
+          <circle cx="17.5" cy="10.5" r=".5"></circle>
+          <circle cx="8.5" cy="7.5" r=".5"></circle>
+          <circle cx="6.5" cy="12.5" r=".5"></circle>
+          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.featured_colour_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.featured_colour.value }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_sunlight and product.metafields.custom.sunlight_amount.value %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.sunlight_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.sunlight_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.sunlight_amount.value }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_location and product.metafields.custom.recommended_locations %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.location_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.location_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.recommended_locations | metafield_text }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_synonyms and product.metafields.custom.synonyms %}
+    <div class="ai-product-spec-item-{{ ai_gen_id }}" style="--spec-border-color: {{ block.settings.synonyms_color }};">
+      <div class="ai-product-spec-icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+      </div>
+      <div class="ai-product-spec-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-spec-title-{{ ai_gen_id }}">{{ block.settings.synonyms_label }}</h3>
+        <p class="ai-product-spec-value-{{ ai_gen_id }}">{{ product.metafields.custom.synonyms | metafield_text }}</p>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Product specifications",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "value_color",
+      "label": "Value",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "value_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Value size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Difficulty"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_difficulty",
+      "label": "Show difficulty",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "difficulty_label",
+      "label": "Label",
+      "default": "Difficulty"
+    },
+    {
+      "type": "color",
+      "id": "difficulty_color",
+      "label": "Accent color",
+      "default": "#10b981"
+    },
+    {
+      "type": "header",
+      "content": "Growth form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_growth_form",
+      "label": "Show growth form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "growth_form_label",
+      "label": "Label",
+      "default": "Growth form"
+    },
+    {
+      "type": "color",
+      "id": "growth_form_color",
+      "label": "Accent color",
+      "default": "#ec4899"
+    },
+    {
+      "type": "header",
+      "content": "Growth rate"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_growth_rate",
+      "label": "Show growth rate",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "growth_rate_label",
+      "label": "Label",
+      "default": "Growth rate"
+    },
+    {
+      "type": "color",
+      "id": "growth_rate_color",
+      "label": "Accent color",
+      "default": "#f59e0b"
+    },
+    {
+      "type": "header",
+      "content": "Minimum temperature"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_temperature",
+      "label": "Show minimum temperature",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "temperature_label",
+      "label": "Label",
+      "default": "Minimum temperature"
+    },
+    {
+      "type": "color",
+      "id": "temperature_color",
+      "label": "Accent color",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "header",
+      "content": "Maximum size"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_height",
+      "label": "Show maximum size",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "height_label",
+      "label": "Label",
+      "default": "Maximum size"
+    },
+    {
+      "type": "color",
+      "id": "height_color",
+      "label": "Accent color",
+      "default": "#8b5cf6"
+    },
+    {
+      "type": "header",
+      "content": "Featured colour"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_featured_colour",
+      "label": "Show featured colour",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "featured_colour_label",
+      "label": "Label",
+      "default": "Featured colour"
+    },
+    {
+      "type": "color",
+      "id": "featured_colour_color",
+      "label": "Accent color",
+      "default": "#a855f7"
+    },
+    {
+      "type": "header",
+      "content": "Sunlight amount"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sunlight",
+      "label": "Show sunlight amount",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sunlight_label",
+      "label": "Label",
+      "default": "Sunlight amount"
+    },
+    {
+      "type": "color",
+      "id": "sunlight_color",
+      "label": "Accent color",
+      "default": "#fbbf24"
+    },
+    {
+      "type": "header",
+      "content": "Ideal location"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_location",
+      "label": "Show ideal location",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "location_label",
+      "label": "Label",
+      "default": "Ideal location"
+    },
+    {
+      "type": "color",
+      "id": "location_color",
+      "label": "Accent color",
+      "default": "#06b6d4"
+    },
+    {
+      "type": "header",
+      "content": "Synonyms"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_synonyms",
+      "label": "Show synonyms",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "synonyms_label",
+      "label": "Label",
+      "default": "Synonyms"
+    },
+    {
+      "type": "color",
+      "id": "synonyms_color",
+      "label": "Accent color",
+      "default": "#14b8a6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product specifications"
+    }
+  ]
+}
+{% endschema %}

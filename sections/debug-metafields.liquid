@@ -1,0 +1,38 @@
+{% liquid
+  assign product = closest.product
+%}
+
+<div style="background: #f0f0f0; padding: 20px; margin: 20px 0; border: 2px solid #333;">
+  <h3>🔍 DEBUG: Metafields Test</h3>
+  
+  <p><strong>Product:</strong> {{ product.title }}</p>
+  
+  <h4>Testing Metafields:</h4>
+  <ul>
+    <li><strong>care_level:</strong> "{{ product.metafields.custom.care_level }}"</li>
+    <li><strong>light_requirements:</strong> "{{ product.metafields.custom.light_requirements }}"</li>
+    <li><strong>watering_frequency:</strong> "{{ product.metafields.custom.watering_frequency }}"</li>
+    <li><strong>mature_size:</strong> "{{ product.metafields.custom.mature_size }}"</li>
+  </ul>
+  
+  <h4>All Custom Metafields:</h4>
+  {% for metafield in product.metafields.custom %}
+    <p>{{ metafield.first }}: "{{ metafield.last }}"</p>
+  {% endfor %}
+  
+  <h4>All Metafields (All Namespaces):</h4>
+  {% for namespace in product.metafields %}
+    <h5>Namespace: {{ namespace.first }}</h5>
+    {% for metafield in namespace.last %}
+      <p>&nbsp;&nbsp;{{ metafield.first }}: "{{ metafield.last }}"</p>
+    {% endfor %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Debug Metafields",
+  "tag": "section",
+  "class": "section"
+}
+{% endschema %}

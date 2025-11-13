@@ -1,0 +1,534 @@
+{% doc %}
+  @prompt
+    🔥 1. “Black Friday Countdown” Banner
+    
+    Why: Builds urgency and boosts conversion.
+    What to add:
+    
+    A slim, fixed bar at the top:
+    
+    “🕒 Black Friday Ends in 02 Days 14 Hours 12 Mins — Don’t Miss Out!”
+    
+    Auto-updates via Shopify scripts or a small countdown app (like Hurrify or Countdown Timer Ultimate)., This should be a countdown to when Black Friday event hits which is: Fri, 28 Nov 2025
+    
+    So it should countdown from todays date & time until Black friday. Also let's make this banner a bit bigger and make it a bit more eye catchy, not just a black background., This seems like it has absolute positioning, change this and also add a height option to this block that scales the content inside to match the height of banner., this needs to span the width of the screen
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-countdown-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: {{ block.settings.gradient_start }};
+    background: linear-gradient(135deg, {{ block.settings.gradient_start }} 0%, {{ block.settings.gradient_end }} 100%);
+    color: {{ block.settings.text_color }};
+    min-height: {{ block.settings.banner_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+  }
+
+  .ai-countdown-banner__content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc({{ block.settings.banner_height }}px * 0.15);
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ai-countdown-banner__icon-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.banner_height }}px * 0.35);
+    line-height: 1;
+  }
+
+  .ai-countdown-banner__message-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.banner_height }}px * 0.2);
+    font-weight: {{ block.settings.message_weight }};
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-countdown-banner__timer-{{ ai_gen_id }} {
+    display: inline-flex;
+    gap: calc({{ block.settings.banner_height }}px * 0.12);
+    align-items: center;
+  }
+
+  .ai-countdown-banner__time-unit-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc({{ block.settings.banner_height }}px * 0.04);
+    min-width: calc({{ block.settings.banner_height }}px * 0.7);
+    background: {{ block.settings.unit_background }};
+    padding: calc({{ block.settings.banner_height }}px * 0.12);
+    border-radius: {{ block.settings.unit_radius }}px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-countdown-banner__number-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.banner_height }}px * 0.38);
+    font-weight: 700;
+    line-height: 1;
+    color: {{ block.settings.number_color }};
+  }
+
+  .ai-countdown-banner__label-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.banner_height }}px * 0.12);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    font-weight: 600;
+    color: {{ block.settings.label_color }};
+  }
+
+  .ai-countdown-banner__separator-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.banner_height }}px * 0.3);
+    font-weight: 700;
+    opacity: 0.6;
+  }
+
+  .ai-countdown-banner__cta-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.banner_height }}px * 0.2);
+    font-weight: {{ block.settings.cta_weight }};
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-countdown-banner__close-{{ ai_gen_id }} {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: {{ block.settings.text_color }};
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    width: calc({{ block.settings.banner_height }}px * 0.32);
+    height: calc({{ block.settings.banner_height }}px * 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-countdown-banner__close-{{ ai_gen_id }}:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .ai-countdown-banner__close-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.banner_height }}px * 0.16);
+    height: calc({{ block.settings.banner_height }}px * 0.16);
+  }
+
+  .ai-countdown-banner--hidden-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-countdown-banner-{{ ai_gen_id }} {
+      min-height: calc({{ block.settings.banner_height }}px * 0.8);
+      padding: 15px;
+    }
+
+    .ai-countdown-banner__content-{{ ai_gen_id }} {
+      gap: calc({{ block.settings.banner_height }}px * 0.1);
+    }
+
+    .ai-countdown-banner__icon-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.banner_height }}px * 0.25);
+    }
+
+    .ai-countdown-banner__message-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.banner_height }}px * 0.15);
+    }
+
+    .ai-countdown-banner__timer-{{ ai_gen_id }} {
+      gap: calc({{ block.settings.banner_height }}px * 0.08);
+    }
+
+    .ai-countdown-banner__time-unit-{{ ai_gen_id }} {
+      min-width: calc({{ block.settings.banner_height }}px * 0.5);
+      padding: calc({{ block.settings.banner_height }}px * 0.08);
+    }
+
+    .ai-countdown-banner__number-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.banner_height }}px * 0.28);
+    }
+
+    .ai-countdown-banner__label-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.banner_height }}px * 0.09);
+    }
+
+    .ai-countdown-banner__cta-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.banner_height }}px * 0.15);
+    }
+
+    .ai-countdown-banner__close-{{ ai_gen_id }} {
+      right: 10px;
+      width: calc({{ block.settings.banner_height }}px * 0.25);
+      height: calc({{ block.settings.banner_height }}px * 0.25);
+    }
+
+    .ai-countdown-banner__close-{{ ai_gen_id }} svg {
+      width: calc({{ block.settings.banner_height }}px * 0.12);
+      height: calc({{ block.settings.banner_height }}px * 0.12);
+    }
+  }
+{% endstyle %}
+
+<black-friday-countdown-{{ ai_gen_id }}
+  class="ai-countdown-banner-{{ ai_gen_id }}"
+  data-start-date="{{ block.settings.start_date }}"
+  data-start-time="{{ block.settings.start_time }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-countdown-banner__content-{{ ai_gen_id }}">
+    {% if block.settings.show_icon %}
+      <span class="ai-countdown-banner__icon-{{ ai_gen_id }}">{{ block.settings.icon }}</span>
+    {% endif %}
+
+    <span class="ai-countdown-banner__message-{{ ai_gen_id }}">
+      {{ block.settings.message_text }}
+    </span>
+
+    <div class="ai-countdown-banner__timer-{{ ai_gen_id }}">
+      <div class="ai-countdown-banner__time-unit-{{ ai_gen_id }}">
+        <span class="ai-countdown-banner__number-{{ ai_gen_id }}" data-days>00</span>
+        <span class="ai-countdown-banner__label-{{ ai_gen_id }}">{{ block.settings.days_label }}</span>
+      </div>
+      <span class="ai-countdown-banner__separator-{{ ai_gen_id }}">:</span>
+      <div class="ai-countdown-banner__time-unit-{{ ai_gen_id }}">
+        <span class="ai-countdown-banner__number-{{ ai_gen_id }}" data-hours>00</span>
+        <span class="ai-countdown-banner__label-{{ ai_gen_id }}">{{ block.settings.hours_label }}</span>
+      </div>
+      <span class="ai-countdown-banner__separator-{{ ai_gen_id }}">:</span>
+      <div class="ai-countdown-banner__time-unit-{{ ai_gen_id }}">
+        <span class="ai-countdown-banner__number-{{ ai_gen_id }}" data-minutes>00</span>
+        <span class="ai-countdown-banner__label-{{ ai_gen_id }}">{{ block.settings.minutes_label }}</span>
+      </div>
+      {% if block.settings.show_seconds %}
+        <span class="ai-countdown-banner__separator-{{ ai_gen_id }}">:</span>
+        <div class="ai-countdown-banner__time-unit-{{ ai_gen_id }}">
+          <span class="ai-countdown-banner__number-{{ ai_gen_id }}" data-seconds>00</span>
+          <span class="ai-countdown-banner__label-{{ ai_gen_id }}">{{ block.settings.seconds_label }}</span>
+        </div>
+      {% endif %}
+    </div>
+
+    <span class="ai-countdown-banner__cta-{{ ai_gen_id }}">
+      {{ block.settings.cta_text }}
+    </span>
+  </div>
+
+  {% if block.settings.show_close_button %}
+    <button
+      class="ai-countdown-banner__close-{{ ai_gen_id }}"
+      aria-label="Close banner"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  {% endif %}
+</black-friday-countdown-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BlackFridayCountdown{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.startDate = this.dataset.startDate;
+        this.startTime = this.dataset.startTime;
+        this.interval = null;
+      }
+
+      connectedCallback() {
+        this.daysEl = this.querySelector('[data-days]');
+        this.hoursEl = this.querySelector('[data-hours]');
+        this.minutesEl = this.querySelector('[data-minutes]');
+        this.secondsEl = this.querySelector('[data-seconds]');
+        this.closeButton = this.querySelector('.ai-countdown-banner__close-{{ ai_gen_id }}');
+
+        if (this.closeButton) {
+          this.closeButton.addEventListener('click', () => this.closeBanner());
+        }
+
+        if (sessionStorage.getItem('bf-countdown-closed-{{ ai_gen_id }}') === 'true') {
+          this.classList.add('ai-countdown-banner--hidden-{{ ai_gen_id }}');
+          return;
+        }
+
+        this.startCountdown();
+      }
+
+      disconnectedCallback() {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+      }
+
+      startCountdown() {
+        this.updateCountdown();
+        this.interval = setInterval(() => this.updateCountdown(), 1000);
+      }
+
+      updateCountdown() {
+        const startDateTime = new Date(this.startDate + ' ' + this.startTime).getTime();
+        const now = new Date().getTime();
+        const distance = startDateTime - now;
+
+        if (distance < 0) {
+          clearInterval(this.interval);
+          this.classList.add('ai-countdown-banner--hidden-{{ ai_gen_id }}');
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (this.daysEl) this.daysEl.textContent = String(days).padStart(2, '0');
+        if (this.hoursEl) this.hoursEl.textContent = String(hours).padStart(2, '0');
+        if (this.minutesEl) this.minutesEl.textContent = String(minutes).padStart(2, '0');
+        if (this.secondsEl) this.secondsEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      closeBanner() {
+        this.classList.add('ai-countdown-banner--hidden-{{ ai_gen_id }}');
+        sessionStorage.setItem('bf-countdown-closed-{{ ai_gen_id }}', 'true');
+      }
+    }
+
+    customElements.define('black-friday-countdown-{{ ai_gen_id }}', BlackFridayCountdown{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Black Friday countdown",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Countdown settings"
+    },
+    {
+      "type": "text",
+      "id": "start_date",
+      "label": "Black Friday start date",
+      "default": "2025-11-28",
+      "info": "Format: YYYY-MM-DD"
+    },
+    {
+      "type": "text",
+      "id": "start_time",
+      "label": "Start time",
+      "default": "00:00:00",
+      "info": "Format: HH:MM:SS (24-hour)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Banner height",
+      "default": 100,
+      "info": "All content scales proportionally with height"
+    },
+    {
+      "type": "range",
+      "id": "unit_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Timer box radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon",
+      "default": "🔥"
+    },
+    {
+      "type": "text",
+      "id": "message_text",
+      "label": "Message",
+      "default": "Black Friday Starts In"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Call to action",
+      "default": "Get Ready!"
+    },
+    {
+      "type": "header",
+      "content": "Time labels"
+    },
+    {
+      "type": "text",
+      "id": "days_label",
+      "label": "Days",
+      "default": "Days"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Hours",
+      "default": "Hrs"
+    },
+    {
+      "type": "text",
+      "id": "minutes_label",
+      "label": "Minutes",
+      "default": "Mins"
+    },
+    {
+      "type": "text",
+      "id": "seconds_label",
+      "label": "Seconds",
+      "default": "Secs"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_seconds",
+      "label": "Show seconds",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start",
+      "default": "#FF6B35"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end",
+      "default": "#F7931E"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "unit_background",
+      "label": "Timer box background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Timer numbers",
+      "default": "#FF6B35"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Timer labels",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "message_weight",
+      "label": "Message weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "cta_weight",
+      "label": "CTA weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Show close button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Black Friday countdown"
+    }
+  ]
+}
+{% endschema %}

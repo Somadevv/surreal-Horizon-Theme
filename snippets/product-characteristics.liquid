@@ -1,0 +1,107 @@
+{% comment %}
+  Renders plant characteristics (metafields) within product details.
+  Can be included inside blocks/_product-details.liquid.
+{% endcomment %}
+
+{% liquid
+  assign product = closest.product
+-%}
+
+{% if product %}
+  <div class="plant-characteristics">
+    <div class="plant-characteristics__grid">
+
+      {%- if product.metafields.custom.growability.value -%}
+        <div class="characteristic-card difficulty-{{ product.metafields.custom.growability.value[0] | downcase }}">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">{% render 'icon-difficulty' %}</div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Difficulty</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.growability | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.growth_form -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">{% render 'icon-plant' %}</div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Growth Form</div>
+              <div class="characteristic-card__value">
+                {% for form in product.metafields.custom.growth_form.value %}
+                  <span>{{ form }}{% unless forloop.last %}, {% endunless %}</span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.growth_rate -%}
+        <div class="characteristic-card growth-{{ product.metafields.custom.growth_rate | metafield_text | downcase }}">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">{% render 'icon-speed' %}</div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Growth Rate</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.growth_rate | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.hardiness_celsius_ -%}
+        {% assign temp = product.metafields.custom.hardiness_celsius_ | metafield_text | times: 1 %}
+        <div class="characteristic-card{% if temp > 0 %} temp-hot{% elsif temp <= 0 and temp > -7 %} temp-mild{% else %} temp-cold{% endif %}">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">{% render 'icon-thermometer' %}</div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Minimum Temperature</div>
+              <div class="characteristic-card__value">{{ temp }}°C</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.maximum_height_and_spread -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">{% render 'icon-growing' %}</div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Maximum Size</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.maximum_height_and_spread | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.featured_colour.value -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'swatch-multi', colours: product.metafields.custom.featured_colour, size: 60 %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Featured Colour</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.featured_colour | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.plant_breeders_rights == true -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">{% render 'icon-check-mark' %}</div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Special Status</div>
+              <div class="characteristic-card__value"><span class="pbr-badge">PBR Protected</span></div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+{% endif %}

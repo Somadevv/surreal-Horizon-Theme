@@ -1,0 +1,350 @@
+
+{% liquid
+  assign product = closest.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+%}
+
+{% if product %}
+  <div class="plant-characteristics" {{ block.shopify_attributes }}>
+    <div class="plant-characteristics__grid">
+
+      {%- if product.metafields.custom.growability.value -%}
+        <div class="characteristic-card difficulty-{{ product.metafields.custom.growability.value[0] | downcase }}">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'icon-difficulty' %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Difficulty</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.growability | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.growth_form -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'icon-plant' %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Growth Form</div>
+              <div class="characteristic-card__value">
+                {% for form in product.metafields.custom.growth_form.value %}
+                  <span>{{ form }}{% unless forloop.last %}, {% endunless %}</span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.growth_rate -%}
+        <div class="characteristic-card growth-{{ product.metafields.custom.growth_rate | metafield_text | downcase }}">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'icon-speed' %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Growth Rate</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.growth_rate | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.hardiness_celsius_ -%}
+        {% assign temp = product.metafields.custom.hardiness_celsius_ | metafield_text | times: 1 %}
+        <div class="characteristic-card{% if temp > 0 %} temp-hot{% elsif temp <= 0 and temp > -7 %} temp-mild{% else %} temp-cold{% endif %}">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'icon-thermometer' %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Minimum Temperature</div>
+              <div class="characteristic-card__value">{{ temp }}°C</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.maximum_height_and_spread -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'icon-growing' %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Maximum Size</div>
+              <div class="characteristic-card__value">{{ product.metafields.custom.maximum_height_and_spread | metafield_text }}</div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.featured_colour.value -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'swatch-multi', colours: product.metafields.custom.featured_colour, size: 60 %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Featured Colour</div>
+              <div class="characteristic-card__value">
+                {{ product.metafields.custom.featured_colour | metafield_text }}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.plant_breeders_rights == true -%}
+        <div class="characteristic-card">
+          <div class="characteristic-card__inner">
+            <div class="characteristic-card__icon">
+              {% render 'icon-check-mark' %}
+            </div>
+            <div class="characteristic-card__content">
+              <div class="characteristic-card__title">Special Status</div>
+              <div class="characteristic-card__value">
+                <span class="pbr-badge">PBR Protected</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  /* Main container styling */
+  .plant-characteristics {
+    margin: 2.5rem 0;
+    font-family: inherit;
+  }
+
+  /* Two-column grid layout for the cards */
+  .plant-characteristics__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Individual characteristic card */
+  .characteristic-card {
+    position: relative;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background-color: rgba(var(--color-foreground-rgb), 0.03);
+    height: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+  }
+
+  /* Characteristic card interior layout */
+  .characteristic-card__inner {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Icon styling */
+  .characteristic-card__icon {
+    width: 70px;
+    flex-shrink: 0;
+    margin-right: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .characteristic-card:hover .characteristic-card__icon {
+    transform: scale(1.05);
+  }
+
+  .characteristic-card__icon svg,
+  .characteristic-card__icon img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Content area styling */
+  .characteristic-card__content {
+    flex: 1;
+  }
+
+  /* Title styling */
+  .characteristic-card__title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground-rgb), 0.7);
+    margin-bottom: 0.4rem;
+  }
+
+  /* Value styling */
+  .characteristic-card__value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(var(--color-foreground-rgb), 0.9);
+    line-height: 1.4;
+  }
+
+  /* Background stripe styling for color indicators */
+  .characteristic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    background-color: #5c9a3b;
+    border-radius: 4px 0 0 4px;
+    opacity: 0.7;
+  }
+
+  /* Difficulty color variations */
+  .characteristic-card.difficulty-b::before {
+    background-color: #5c9a3b; /* Green for Beginner */
+  }
+
+  .characteristic-card.difficulty-i::before {
+    background-color: #f59e0b; /* Orange for Intermediate */
+  }
+
+  .characteristic-card.difficulty-a::before {
+    background-color: #ef4444; /* Red for Advanced */
+  }
+
+  /* Growth rate color variations */
+  .characteristic-card.growth-slow::before {
+    background-color: #5c9a3b; /* Green for Slow */
+  }
+
+  .characteristic-card.growth-moderate::before {
+    background-color: #f59e0b; /* Orange for Moderate */
+  }
+
+  .characteristic-card.growth-fast::before {
+    background-color: #ef4444; /* Red for Fast */
+  }
+
+  /* Temperature color variations */
+  .characteristic-card.temp-cold::before {
+    background-color: #3b82f6; /* Blue for cold */
+  }
+
+  .characteristic-card.temp-mild::before {
+    background-color: #f59e0b; /* Orange for mild */
+  }
+
+  .characteristic-card.temp-hot::before {
+    background-color: #ef4444; /* Red for hot */
+  }
+
+  /* PBR Badge styling */
+  .pbr-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(var(--color-foreground-rgb), 0.1);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  /* Mobile responsiveness */
+  @media screen and (max-width: 767px) {
+    .plant-characteristics__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .characteristic-card {
+      padding: 1.25rem;
+    }
+
+    .characteristic-card__icon {
+      width: 60px;
+      margin-right: 1rem;
+    }
+
+    .characteristic-card__value {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* Tablet responsiveness */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .characteristic-card__icon {
+      width: 65px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Plant Characteristics",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Displays plant characteristics from product metafields"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Plant Characteristics",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

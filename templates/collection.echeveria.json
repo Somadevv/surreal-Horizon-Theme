@@ -1,0 +1,627 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_JXDYr3": {
+      "type": "section",
+      "blocks": {
+        "group_AJgGkj": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_KYkjN9": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>{{ closest.collection.title }}</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h1",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_rUBAGw": {
+              "type": "text",
+              "settings": {
+                "text": "<p>{{ collection.metafields.custom.collection_short_description.value }}</p>",
+                "width": "fit-content",
+                "max_width": "narrow",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_LLKUrD": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fit-content",
+                "custom_width": 50,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "popup_link_p9rUTc": {
+                  "type": "popup-link",
+                  "name": "t:names.popup_link",
+                  "settings": {
+                    "behavior": "default",
+                    "heading": "Read more",
+                    "type_preset": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {
+                    "text_npHtCk": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<h2>{{ closest.collection.title }}</h2>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 16,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    },
+                    "text_L6fkER": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>{{ closest.collection.metafields.custom.collection_short_description.value }}</p>{{ closest.collection.description }}",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_npHtCk",
+                    "text_L6fkER"
+                  ]
+                },
+                "popup_link_mrPhAR": {
+                  "type": "popup-link",
+                  "name": "t:names.popup_link",
+                  "settings": {
+                    "behavior": "default",
+                    "heading": "{{ closest.collection.title }} care guide",
+                    "type_preset": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {
+                    "text_4fFNTF": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<h2><strong>{{ closest.collection.title }}</strong><strong> care guide</strong></h2>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 16,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    },
+                    "text_V3dHLP": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Echeverias are among the most popular succulents, admired for their perfect rosettes, vibrant colours, and wide variety of forms. Native to Mexico and Central America, they thrive in sunny, arid conditions – but with the right care, they adapt beautifully to life in the UK. Here’s everything you need to know to keep your plants healthy, colourful, and thriving.</p><h4><strong>Light</strong></h4><h4></h4><ul><li>Echeverias love <strong>bright, direct light</strong>. Outdoors in the UK, they do best in full sun during spring and summer.<br/></li><li>Indoors, place them on the <strong>brightest south-facing windowsill</strong> or under grow lights to maintain compact rosettes and strong colour.<br/></li><li>Without enough light, they may stretch (etiolate), losing their neat shape.</li></ul><h4><strong>Watering (3Ds Method: Drench, Drain, Dry)</strong></h4><h4></h4><ul><li>Water thoroughly, allowing the soil to <strong>drench</strong> and excess to <strong>drain</strong>.<br/></li><li>Always let the soil <strong>dry completely</strong> before watering again.<br/></li><li>In summer, this may be once every 1–2 weeks; in winter, much less.<br/></li><li>Avoid watering into the rosette as it can cause rot.</li></ul><h4><strong>Soil & Repotting</strong></h4><h4></h4><ul><li>Use a <strong>free-draining mix</strong>: 1/3 John Innes no2 compost, 1/3 grit/perlite and 1/3 coconut coir.<br/></li><li>Repot every 1–2 years in spring to refresh nutrients and encourage growth.<br/></li><li>Plant slightly above the soil line and use a <strong>grit/ gravel top dressing</strong> to protect leaves from damp soil.</li><li>Use a pot that is <strong>around the same diameter of the plant</strong>. Too big of a pot and the plant can become <strong>waterlogged</strong>. They like to have cramped roots as this stresses them, bringing out <strong>hardiness and colour</strong>. Shallow pots are <strong>perfect</strong>.</li></ul><h4><strong>Winter Care (UK Specific)</strong></h4><h2></h2><ul><li>Most Echeverias are <strong>not entirely frost hardy</strong> (generally below 0°C will damage them).<br/></li><li>Overwinter under cover: a <strong>cool, airy greenhouse, porch, or bright windowsill</strong>.<br/></li><li>Protect with <a href=\"/products/horticultural-fleece\" title=\"Horticultural Fleece\"><strong>horticultural fleece</strong></a> if temperatures dip suddenly.<br/></li><li>Don't water in winter – Echeveria are dormant in winter and prefer to stay on the dry side. Give them a tiny drink if desperate.</li></ul><h4><strong>Growth & Flowering</strong></h4><h2></h2><ul><li>Echeverias usually grow actively in spring and summer.<br/></li><li>Many produce <strong>colourful, arching flower spikes</strong> in late spring/summer that attract pollinators.<br/></li><li>After flowering, remove the stem to keep rosettes tidy.</li></ul><h4><strong>Propagation</strong></h4><h4></h4><ul><li>Easily propagated by <strong>leaf cuttings, offsets, or seed</strong>.<br/></li><li>Gently twist a full, healthy leaf from the base, allow to callous, then place on dry gritty soil.<br/></li><li>Offsets (‘pups’) can be separated and replanted in their own pot.</li></ul><h4><strong>Common Issues</strong></h4><h4></h4><ul><li><strong>Rot</strong>: caused by excess water, poor drainage or lack of fresh air flow.<br/></li><li><strong>Stretching</strong>: not enough light – move to a sunnier spot.<br/></li><li><strong>Vine weevils</strong>: give them a wobbke test. If wobbly, inspect roots and if maggots present, refresh soil.</li></ul><h4><strong>Key Tips for UK Growers</strong></h4><h4></h4><ul><li><strong>Summer</strong>: Grow outside in full sun for the best colours and compact form.<br/></li><li><strong>Winter</strong>: Always bring indoors or under cover before frost. Some are hardy in coastal areas, such as <a href=\"/products/echeveria-elegans\" title=\"Echeveria elegans\">elegans</a>.<br/></li><li><strong>Display</strong>: Perfect for pots, alpine troughs, or mixed succulent planters.</li></ul><p><br/>With the right care, Echeverias will reward you with long-lasting rosettes, vivid colours, and even new plants to share. They are low-maintenance but love consistency: bright light, dry soil, and frost protection are the secrets to success.</p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_4fFNTF",
+                    "text_V3dHLP"
+                  ]
+                }
+              },
+              "block_order": [
+                "popup_link_p9rUTc",
+                "popup_link_mrPhAR"
+              ]
+            }
+          },
+          "block_order": [
+            "text_KYkjN9",
+            "text_rUBAGw",
+            "group_LLKUrD"
+          ]
+        },
+        "image_td8zEq": {
+          "type": "image",
+          "name": "t:names.image",
+          "disabled": true,
+          "settings": {
+            "image": "{{ collection.image }}",
+            "link": "",
+            "image_ratio": "landscape",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 24,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_CWcVx6": {
+          "type": "group",
+          "name": "t:names.group",
+          "disabled": true,
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "custom",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "ai_gen_block_cd47ff0_c93XcK": {
+              "type": "ai_gen_block_cd47ff0",
+              "settings": {
+                "image_1": "shopify://shop_images/16CF2D20-1548-4054-A4E3-40BA4824911D.jpg",
+                "image_2": "shopify://shop_images/echeveria-elegans-flowers.jpg",
+                "image_3": "shopify://shop_images/Echeveria-Duches-of-Nurnburg.jpg",
+                "image_4": "shopify://shop_images/2B39F9BB-1893-4AE4-8A17-49FC885638BA.jpg",
+                "image_5": "shopify://shop_images/Echeveria_ComptonCarousel_2.jpg",
+                "carousel_height": 300,
+                "border_radius": 24,
+                "background_color": "#ffffff",
+                "show_navigation": false,
+                "nav_button_color": "#ffffff",
+                "nav_button_text_color": "#000000",
+                "nav_button_hover_color": "#242833",
+                "nav_button_hover_text_color": "#ffffff",
+                "show_dots": false,
+                "dot_color": "#cccccc",
+                "dot_active_color": "#242833",
+                "autoplay": true,
+                "autoplay_speed": 4
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "ai_gen_block_cd47ff0_c93XcK"
+          ]
+        }
+      },
+      "block_order": [
+        "group_AJgGkj",
+        "image_td8zEq",
+        "group_CWcVx6"
+      ],
+      "name": "t:names.image_with_text",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 20,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image": "{{ collection.image }}",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 20,
+        "padding-block-end": 20
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "filters": {
+          "type": "filters",
+          "static": true,
+          "settings": {
+            "enable_filtering": true,
+            "filter_style": "vertical",
+            "filter_width": "centered",
+            "text_label_case": "default",
+            "show_swatch_label": false,
+            "show_filter_label": false,
+            "enable_sorting": true,
+            "enable_grid_density": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "padding-block-start": 8,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "facets_margin_bottom": 8,
+            "facets_margin_right": 20
+          },
+          "blocks": {}
+        },
+        "product-card": {
+          "type": "_product-card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 12,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "card-gallery": {
+              "type": "_product-card-gallery",
+              "settings": {
+                "image_ratio": "square",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 24,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group": {
+              "type": "_product-card-group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 4,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "product_title_3QjUff": {
+                  "type": "product-title",
+                  "name": "t:names.product_title",
+                  "settings": {
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h5",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "price": {
+                  "type": "price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "h6",
+                    "width": "fit-content",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "swatches_xWhL7M": {
+                  "type": "swatches",
+                  "name": "t:names.swatches",
+                  "settings": {
+                    "product_swatches_alignment": "flex-start",
+                    "product_swatches_alignment_mobile": "flex-start",
+                    "hide_padding": false,
+                    "product_swatches_padding_top": 4,
+                    "product_swatches_padding_bottom": 0,
+                    "product_swatches_padding_left": 0,
+                    "product_swatches_padding_right": 0
+                  },
+                  "blocks": {}
+                },
+                "review_WN49wE": {
+                  "type": "review",
+                  "name": "t:names.product_review_stars",
+                  "settings": {
+                    "stars_style": "outline",
+                    "show_number": false,
+                    "rating_color": "primary",
+                    "type_preset": "paragraph",
+                    "alignment": "center"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "product_title_3QjUff",
+                "price",
+                "swatches_xWhL7M",
+                "review_WN49wE"
+              ]
+            }
+          },
+          "block_order": [
+            "card-gallery",
+            "group"
+          ]
+        }
+      },
+      "settings": {
+        "layout_type": "grid",
+        "product_card_size": "medium",
+        "mobile_product_card_size": "small",
+        "product_grid_width": "centered",
+        "full_width_on_mobile": true,
+        "columns_gap_horizontal": 6,
+        "columns_gap_vertical": 16,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 0,
+        "padding-block-end": 32
+      }
+    }
+  },
+  "order": [
+    "section_JXDYr3",
+    "main"
+  ]
+}

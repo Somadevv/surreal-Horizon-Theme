@@ -1,0 +1,306 @@
+{% liquid
+  assign display_label = label | default: metafield_key | replace: '_', ' ' | capitalize
+  assign item_class = 'product-metafield-item'
+  
+  if layout_style == 'list'
+    assign item_class = item_class | append: ' product-metafield-item--list'
+  else
+    assign item_class = item_class | append: ' product-metafield-item--grid'
+  endif
+
+  assign metafield_type = metafield_value.type | default: 'single_line_text_field'
+%}
+
+<div class="{{ item_class }}" data-metafield-key="{{ metafield_key }}" {{ block.shopify_attributes }}>
+  {% if show_icons and icon != blank %}
+    <div class="product-metafield-item__icon">
+      {% render 'metafield-icon', icon: icon %}
+    </div>
+  {% endif %}
+
+  <div class="product-metafield-item__content">
+    <div class="product-metafield-item__label">
+      {{ display_label }}
+    </div>
+    
+    <div class="product-metafield-item__value">
+      {% case metafield_type %}
+        {% when 'boolean' %}
+          {% if metafield_value == true %}
+            <span class="metafield-boolean metafield-boolean--true">Yes</span>
+          {% else %}
+            <span class="metafield-boolean metafield-boolean--false">No</span>
+          {% endif %}
+        
+        {% when 'color' %}
+          <div class="metafield-color">
+            <span class="metafield-color__swatch" style="background-color: {{ metafield_value }};"></span>
+            <span class="metafield-color__text">{{ metafield_value }}</span>
+          </div>
+        
+        {% when 'date' %}
+          <time datetime="{{ metafield_value }}">
+            {{ metafield_value | date: '%B %d, %Y' }}
+          </time>
+        
+        {% when 'date_time' %}
+          <time datetime="{{ metafield_value }}">
+            {{ metafield_value | date: '%B %d, %Y at %I:%M %p' }}
+          </time>
+        
+        {% when 'dimension' %}
+          {{ metafield_value.value }} {{ metafield_value.unit }}
+        
+        {% when 'weight' %}
+          {{ metafield_value.value }} {{ metafield_value.unit }}
+        
+        {% when 'volume' %}
+          {{ metafield_value.value }} {{ metafield_value.unit }}
+        
+        {% when 'rating' %}
+          <div class="metafield-rating">
+            <span class="metafield-rating__value">{{ metafield_value.value }}</span>
+            <span class="metafield-rating__scale">/ {{ metafield_value.scale_max }}</span>
+            {% if metafield_value.scale_min != 0 %}
+              <span class="metafield-rating__min">(min: {{ metafield_value.scale_min }})</span>
+            {% endif %}
+          </div>
+        
+        {% when 'money' %}
+          {{ metafield_value | money }}
+        
+        {% when 'url' %}
+          <a href="{{ metafield_value }}" target="_blank" rel="noopener noreferrer" class="metafield-url">
+            {{ metafield_value }}
+          </a>
+        
+        {% when 'multi_line_text_field' %}
+          <div class="metafield-multiline rte">
+            {{ metafield_value | newline_to_br }}
+          </div>
+        
+        {% when 'rich_text_field' %}
+          <div class="metafield-richtext rte">
+            {{ metafield_value }}
+          </div>
+        
+        {% when 'list.single_line_text_field' %}
+          {% unless metafield_value == blank %}
+            <ul class="metafield-list">
+              {% for item in metafield_value.value %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          {% endunless %}
+        
+        {% when 'json' %}
+          {% if metafield_value.value %}
+            <div class="metafield-json">
+              {% for item in metafield_value.value %}
+                {% if item.first %}
+                  <div class="metafield-json__item">
+                    <strong>{{ item.first | capitalize }}:</strong> {{ item.last }}
+                  </div>
+                {% else %}
+                  <div class="metafield-json__item">{{ item }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        
+        {% else %}
+          {{ metafield_value }}
+      {% endcase %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .product-metafield-item {
+    background: rgba(var(--color-foreground), 0.04);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .product-metafield-item:hover {
+    background: rgba(var(--color-foreground), 0.06);
+  }
+
+  .product-metafield-item--grid {
+    text-align: center;
+  }
+
+  .product-metafield-item--list {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    text-align: left;
+  }
+
+  .product-metafield-item__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .product-metafield-item--grid .product-metafield-item__icon {
+    margin: 0 auto 0.5rem;
+  }
+
+  .product-metafield-item__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-metafield-item__label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  .product-metafield-item__value {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+
+  /* Boolean values */
+  .metafield-boolean {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .metafield-boolean--true {
+    background: rgba(var(--color-success), 0.1);
+    color: rgb(var(--color-success));
+  }
+
+  .metafield-boolean--false {
+    background: rgba(var(--color-error), 0.1);
+    color: rgb(var(--color-error));
+  }
+
+  /* Color values */
+  .metafield-color {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .product-metafield-item--grid .metafield-color {
+    justify-content: center;
+  }
+
+  .metafield-color__swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(var(--color-foreground), 0.1);
+    flex-shrink: 0;
+  }
+
+  .metafield-color__text {
+    font-family: monospace;
+    font-size: 0.85rem;
+  }
+
+  /* Rating values */
+  .metafield-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .product-metafield-item--grid .metafield-rating {
+    justify-content: center;
+  }
+
+  .metafield-rating__value {
+    font-weight: 600;
+    font-size: 1.1em;
+  }
+
+  .metafield-rating__scale,
+  .metafield-rating__min {
+    opacity: 0.7;
+    font-size: 0.9em;
+  }
+
+  /* URL values */
+  .metafield-url {
+    color: rgb(var(--color-link));
+    text-decoration: underline;
+    word-break: break-all;
+  }
+
+  .metafield-url:hover {
+    text-decoration: none;
+  }
+
+  /* List values */
+  .metafield-list {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .product-metafield-item--grid .metafield-list {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .product-metafield-item--grid .metafield-list li:not(:last-child)::after {
+    content: " • ";
+    opacity: 0.6;
+  }
+
+  /* JSON values */
+  .metafield-json__item {
+    margin-bottom: 0.25rem;
+  }
+
+  .metafield-json__item:last-child {
+    margin-bottom: 0;
+  }
+
+  /* RTE content */
+  .metafield-multiline,
+  .metafield-richtext {
+    text-align: left;
+  }
+
+  .metafield-multiline p,
+  .metafield-richtext p {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .metafield-multiline p:last-child,
+  .metafield-richtext p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Mobile responsive */
+  @media screen and (max-width: 749px) {
+    .product-metafield-item {
+      padding: 0.75rem;
+    }
+
+    .product-metafield-item__label {
+      font-size: 0.8rem;
+    }
+
+    .product-metafield-item__value {
+      font-size: 0.9rem;
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,660 @@
+{% doc %}
+  @prompt
+    a 6 grid of brand strengths on left half of the page 50/50 split with one main strength showcasing our RHS awards on right half of the page. i'll put in the award picture, make it nice for mobile theres something off about the left border on moblie
+    Give the awards section a corner radius matching the left side, make icons customisable with image insert
+    
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .brand-strengths-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: row;
+    gap: {{ block.settings.gap }}px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-strengths-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+  }
+
+  .brand-strengths-left-{{ ai_gen_id }} {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    background-color: {{ block.settings.left_background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: {{ block.settings.padding }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-strengths-left-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      grid-template-rows: auto;
+      padding: {{ block.settings.mobile_padding }}px;
+    }
+  }
+
+  .brand-strength-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .brand-strength-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .brand-strength-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .brand-strength-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .brand-strength-title-{{ ai_gen_id }} {
+    font-weight: 600;
+    font-size: {{ block.settings.title_size }}px;
+    margin-bottom: 5px;
+    color: {{ block.settings.title_color }};
+  }
+
+  .brand-strength-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+  }
+
+  .brand-strengths-right-{{ ai_gen_id }} {
+    flex: 1;
+    background-color: {{ block.settings.right_background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: {{ block.settings.padding }}px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-strengths-right-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_padding }}px;
+    }
+  }
+
+  .featured-award-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.featured_title_size }}px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: {{ block.settings.featured_title_color }};
+  }
+
+  .featured-award-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.featured_description_size }}px;
+    margin-bottom: 20px;
+    color: {{ block.settings.featured_description_color }};
+    max-width: 90%;
+  }
+
+  .featured-award-image-container-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: {{ block.settings.award_image_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .featured-award-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .featured-award-image-container-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+{% endstyle %}
+
+<div class="brand-strengths-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="brand-strengths-left-{{ ai_gen_id }}">
+    {% for i in (1..6) %}
+      {% assign title_key = 'strength_' | append: i | append: '_title' %}
+      {% assign description_key = 'strength_' | append: i | append: '_description' %}
+      {% assign icon_key = 'strength_' | append: i | append: '_icon' %}
+      {% assign custom_icon_key = 'strength_' | append: i | append: '_custom_icon' %}
+      
+      {% if block.settings[title_key] != blank %}
+        <div class="brand-strength-item-{{ ai_gen_id }}">
+          <div class="brand-strength-icon-{{ ai_gen_id }}">
+            {% if block.settings[custom_icon_key] != blank %}
+              <img 
+                src="{{ block.settings[custom_icon_key] | image_url: width: 100 }}"
+                alt="{{ block.settings[title_key] | escape }}"
+                loading="lazy"
+                width="{{ block.settings.icon_size }}"
+                height="{{ block.settings.icon_size }}"
+              >
+            {% else %}
+              {% case block.settings[icon_key] %}
+                {% when 'award' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                {% when 'shield' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                {% when 'check' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                {% when 'star' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                {% when 'heart' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                {% when 'thumbs-up' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                {% when 'clock' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                {% when 'truck' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                {% when 'package' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+              {% endcase %}
+            {% endif %}
+          </div>
+          <div class="brand-strength-title-{{ ai_gen_id }}">{{ block.settings[title_key] }}</div>
+          <div class="brand-strength-description-{{ ai_gen_id }}">{{ block.settings[description_key] }}</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="brand-strengths-right-{{ ai_gen_id }}">
+    <h3 class="featured-award-title-{{ ai_gen_id }}">{{ block.settings.featured_title }}</h3>
+    <p class="featured-award-description-{{ ai_gen_id }}">{{ block.settings.featured_description }}</p>
+    <div class="featured-award-image-container-{{ ai_gen_id }}">
+      {% if block.settings.award_image %}
+        <img 
+          src="{{ block.settings.award_image | image_url: width: 800 }}"
+          alt="{{ block.settings.award_image.alt | escape }}"
+          loading="lazy"
+          class="featured-award-image-{{ ai_gen_id }}"
+          width="{{ block.settings.award_image.width }}"
+          height="{{ block.settings.award_image.height }}"
+        >
+      {% else %}
+        {{ 'image' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Strengths Grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between sections",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between sections (mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between grid items",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding (mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {"value": "1", "label": "1"},
+        {"value": "2", "label": "2"}
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Brand Strengths Section"
+    },
+    {
+      "type": "color",
+      "id": "left_background_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Strength 1"
+    },
+    {
+      "type": "text",
+      "id": "strength_1_title",
+      "label": "Title",
+      "default": "Quality"
+    },
+    {
+      "type": "text",
+      "id": "strength_1_description",
+      "label": "Description",
+      "default": "Premium materials and craftsmanship"
+    },
+    {
+      "type": "select",
+      "id": "strength_1_icon",
+      "label": "Default icon",
+      "options": [
+        {"value": "award", "label": "Award"},
+        {"value": "shield", "label": "Shield"},
+        {"value": "check", "label": "Check"},
+        {"value": "star", "label": "Star"},
+        {"value": "heart", "label": "Heart"},
+        {"value": "thumbs-up", "label": "Thumbs Up"},
+        {"value": "clock", "label": "Clock"},
+        {"value": "truck", "label": "Truck"},
+        {"value": "package", "label": "Package"}
+      ],
+      "default": "star"
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_1_custom_icon",
+      "label": "Custom icon (overrides default)"
+    },
+    {
+      "type": "header",
+      "content": "Strength 2"
+    },
+    {
+      "type": "text",
+      "id": "strength_2_title",
+      "label": "Title",
+      "default": "Sustainable"
+    },
+    {
+      "type": "text",
+      "id": "strength_2_description",
+      "label": "Description",
+      "default": "Eco-friendly production methods"
+    },
+    {
+      "type": "select",
+      "id": "strength_2_icon",
+      "label": "Default icon",
+      "options": [
+        {"value": "award", "label": "Award"},
+        {"value": "shield", "label": "Shield"},
+        {"value": "check", "label": "Check"},
+        {"value": "star", "label": "Star"},
+        {"value": "heart", "label": "Heart"},
+        {"value": "thumbs-up", "label": "Thumbs Up"},
+        {"value": "clock", "label": "Clock"},
+        {"value": "truck", "label": "Truck"},
+        {"value": "package", "label": "Package"}
+      ],
+      "default": "heart"
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_2_custom_icon",
+      "label": "Custom icon (overrides default)"
+    },
+    {
+      "type": "header",
+      "content": "Strength 3"
+    },
+    {
+      "type": "text",
+      "id": "strength_3_title",
+      "label": "Title",
+      "default": "Fast Shipping"
+    },
+    {
+      "type": "text",
+      "id": "strength_3_description",
+      "label": "Description",
+      "default": "Quick delivery to your doorstep"
+    },
+    {
+      "type": "select",
+      "id": "strength_3_icon",
+      "label": "Default icon",
+      "options": [
+        {"value": "award", "label": "Award"},
+        {"value": "shield", "label": "Shield"},
+        {"value": "check", "label": "Check"},
+        {"value": "star", "label": "Star"},
+        {"value": "heart", "label": "Heart"},
+        {"value": "thumbs-up", "label": "Thumbs Up"},
+        {"value": "clock", "label": "Clock"},
+        {"value": "truck", "label": "Truck"},
+        {"value": "package", "label": "Package"}
+      ],
+      "default": "truck"
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_3_custom_icon",
+      "label": "Custom icon (overrides default)"
+    },
+    {
+      "type": "header",
+      "content": "Strength 4"
+    },
+    {
+      "type": "text",
+      "id": "strength_4_title",
+      "label": "Title",
+      "default": "24/7 Support"
+    },
+    {
+      "type": "text",
+      "id": "strength_4_description",
+      "label": "Description",
+      "default": "Always here to help you"
+    },
+    {
+      "type": "select",
+      "id": "strength_4_icon",
+      "label": "Default icon",
+      "options": [
+        {"value": "award", "label": "Award"},
+        {"value": "shield", "label": "Shield"},
+        {"value": "check", "label": "Check"},
+        {"value": "star", "label": "Star"},
+        {"value": "heart", "label": "Heart"},
+        {"value": "thumbs-up", "label": "Thumbs Up"},
+        {"value": "clock", "label": "Clock"},
+        {"value": "truck", "label": "Truck"},
+        {"value": "package", "label": "Package"}
+      ],
+      "default": "clock"
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_4_custom_icon",
+      "label": "Custom icon (overrides default)"
+    },
+    {
+      "type": "header",
+      "content": "Strength 5"
+    },
+    {
+      "type": "text",
+      "id": "strength_5_title",
+      "label": "Title",
+      "default": "Secure Payments"
+    },
+    {
+      "type": "text",
+      "id": "strength_5_description",
+      "label": "Description",
+      "default": "Your transactions are safe with us"
+    },
+    {
+      "type": "select",
+      "id": "strength_5_icon",
+      "label": "Default icon",
+      "options": [
+        {"value": "award", "label": "Award"},
+        {"value": "shield", "label": "Shield"},
+        {"value": "check", "label": "Check"},
+        {"value": "star", "label": "Star"},
+        {"value": "heart", "label": "Heart"},
+        {"value": "thumbs-up", "label": "Thumbs Up"},
+        {"value": "clock", "label": "Clock"},
+        {"value": "truck", "label": "Truck"},
+        {"value": "package", "label": "Package"}
+      ],
+      "default": "shield"
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_5_custom_icon",
+      "label": "Custom icon (overrides default)"
+    },
+    {
+      "type": "header",
+      "content": "Strength 6"
+    },
+    {
+      "type": "text",
+      "id": "strength_6_title",
+      "label": "Title",
+      "default": "Satisfaction Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "strength_6_description",
+      "label": "Description",
+      "default": "Love it or your money back"
+    },
+    {
+      "type": "select",
+      "id": "strength_6_icon",
+      "label": "Default icon",
+      "options": [
+        {"value": "award", "label": "Award"},
+        {"value": "shield", "label": "Shield"},
+        {"value": "check", "label": "Check"},
+        {"value": "star", "label": "Star"},
+        {"value": "heart", "label": "Heart"},
+        {"value": "thumbs-up", "label": "Thumbs Up"},
+        {"value": "clock", "label": "Clock"},
+        {"value": "truck", "label": "Truck"},
+        {"value": "package", "label": "Package"}
+      ],
+      "default": "thumbs-up"
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_6_custom_icon",
+      "label": "Custom icon (overrides default)"
+    },
+    {
+      "type": "header",
+      "content": "Featured Award Section"
+    },
+    {
+      "type": "color",
+      "id": "right_background_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "text",
+      "id": "featured_title",
+      "label": "Title",
+      "default": "Award-Winning Quality"
+    },
+    {
+      "type": "textarea",
+      "id": "featured_description",
+      "label": "Description",
+      "default": "We're proud to be recognized for our commitment to excellence with multiple industry awards."
+    },
+    {
+      "type": "range",
+      "id": "featured_title_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "featured_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "featured_description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "featured_description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "image_picker",
+      "id": "award_image",
+      "label": "Award image"
+    },
+    {
+      "type": "range",
+      "id": "award_image_max_width",
+      "min": 100,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Image max width",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Strengths Grid"
+    }
+  ]
+}
+{% endschema %}

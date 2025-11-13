@@ -1,0 +1,550 @@
+{% doc %}
+  @prompt
+    product description using the vitals tabs
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-tabs-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-product-tabs__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-product-tabs__tab-list-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.tab_spacing }}px;
+    border-bottom: {{ block.settings.tab_border_width }}px solid {{ block.settings.tab_border_color }};
+    margin-bottom: {{ block.settings.content_spacing }}px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .ai-product-tabs__tab-button-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: {{ block.settings.tab_padding_vertical }}px {{ block.settings.tab_padding_horizontal }}px;
+    font-size: {{ block.settings.tab_font_size }}px;
+    font-weight: {{ block.settings.tab_font_weight }};
+    color: {{ block.settings.tab_text_color }};
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    border-bottom: {{ block.settings.active_tab_border_width }}px solid transparent;
+    margin-bottom: -{{ block.settings.tab_border_width }}px;
+  }
+
+  .ai-product-tabs__tab-button-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.tab_hover_color }};
+  }
+
+  .ai-product-tabs__tab-button-{{ ai_gen_id }}.active {
+    color: {{ block.settings.active_tab_color }};
+    border-bottom-color: {{ block.settings.active_tab_border_color }};
+  }
+
+  .ai-product-tabs__content-{{ ai_gen_id }} {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-product-tabs__content-{{ ai_gen_id }}.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} {
+    font-size: {{ block.settings.content_font_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.content_text_color }};
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} h1,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} h2,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} h3,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} h4,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} h5,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} h6 {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} p {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} ul,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} ol {
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-left: 24px;
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} li {
+    margin-bottom: 8px;
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} th,
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid {{ block.settings.tab_border_color }};
+  }
+
+  .ai-product-tabs__content-inner-{{ ai_gen_id }} th {
+    font-weight: 600;
+    background-color: {{ block.settings.table_header_bg }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-tabs__tab-list-{{ ai_gen_id }} {
+      gap: {{ block.settings.tab_spacing | times: 0.7 }}px;
+    }
+
+    .ai-product-tabs__tab-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.tab_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.tab_padding_vertical | times: 0.8 }}px {{ block.settings.tab_padding_horizontal | times: 0.8 }}px;
+    }
+
+    .ai-product-tabs__content-inner-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<product-tabs-{{ ai_gen_id }} class="ai-product-tabs-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-tabs__container-{{ ai_gen_id }}">
+    <div class="ai-product-tabs__tab-list-{{ ai_gen_id }}" role="tablist">
+      {% if block.settings.show_description and product.description != blank %}
+        <button
+          class="ai-product-tabs__tab-button-{{ ai_gen_id }} active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tab-description-{{ ai_gen_id }}"
+          data-tab="description"
+        >
+          {{ block.settings.description_label }}
+        </button>
+      {% endif %}
+
+      {% if block.settings.show_tab_1 and block.settings.tab_1_content != blank %}
+        <button
+          class="ai-product-tabs__tab-button-{{ ai_gen_id }} {% unless block.settings.show_description and product.description != blank %}active{% endunless %}"
+          role="tab"
+          aria-selected="{% unless block.settings.show_description and product.description != blank %}true{% else %}false{% endunless %}"
+          aria-controls="tab-1-{{ ai_gen_id }}"
+          data-tab="tab-1"
+        >
+          {{ block.settings.tab_1_title }}
+        </button>
+      {% endif %}
+
+      {% if block.settings.show_tab_2 and block.settings.tab_2_content != blank %}
+        <button
+          class="ai-product-tabs__tab-button-{{ ai_gen_id }}"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-2-{{ ai_gen_id }}"
+          data-tab="tab-2"
+        >
+          {{ block.settings.tab_2_title }}
+        </button>
+      {% endif %}
+
+      {% if block.settings.show_tab_3 and block.settings.tab_3_content != blank %}
+        <button
+          class="ai-product-tabs__tab-button-{{ ai_gen_id }}"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-3-{{ ai_gen_id }}"
+          data-tab="tab-3"
+        >
+          {{ block.settings.tab_3_title }}
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="ai-product-tabs__panels-{{ ai_gen_id }}">
+      {% if block.settings.show_description and product.description != blank %}
+        <div
+          class="ai-product-tabs__content-{{ ai_gen_id }} active"
+          role="tabpanel"
+          id="tab-description-{{ ai_gen_id }}"
+          data-panel="description"
+        >
+          <div class="ai-product-tabs__content-inner-{{ ai_gen_id }}">
+            {{ product.description }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_tab_1 and block.settings.tab_1_content != blank %}
+        <div
+          class="ai-product-tabs__content-{{ ai_gen_id }} {% unless block.settings.show_description and product.description != blank %}active{% endunless %}"
+          role="tabpanel"
+          id="tab-1-{{ ai_gen_id }}"
+          data-panel="tab-1"
+        >
+          <div class="ai-product-tabs__content-inner-{{ ai_gen_id }}">
+            {{ block.settings.tab_1_content }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_tab_2 and block.settings.tab_2_content != blank %}
+        <div
+          class="ai-product-tabs__content-{{ ai_gen_id }}"
+          role="tabpanel"
+          id="tab-2-{{ ai_gen_id }}"
+          data-panel="tab-2"
+        >
+          <div class="ai-product-tabs__content-inner-{{ ai_gen_id }}">
+            {{ block.settings.tab_2_content }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_tab_3 and block.settings.tab_3_content != blank %}
+        <div
+          class="ai-product-tabs__content-{{ ai_gen_id }}"
+          role="tabpanel"
+          id="tab-3-{{ ai_gen_id }}"
+          data-panel="tab-3"
+        >
+          <div class="ai-product-tabs__content-inner-{{ ai_gen_id }}">
+            {{ block.settings.tab_3_content }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</product-tabs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-product-tabs__tab-button-{{ ai_gen_id }}');
+        this.panels = this.querySelectorAll('.ai-product-tabs__content-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const targetPanel = tab.getAttribute('data-tab');
+            this.switchTab(targetPanel);
+          });
+        });
+      }
+
+      switchTab(targetPanel) {
+        this.tabs.forEach((tab) => {
+          const isActive = tab.getAttribute('data-tab') === targetPanel;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', isActive);
+        });
+
+        this.panels.forEach((panel) => {
+          const isActive = panel.getAttribute('data-panel') === targetPanel;
+          panel.classList.toggle('active', isActive);
+        });
+      }
+    }
+
+    customElements.define('product-tabs-{{ ai_gen_id }}', ProductTabs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product tabs",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Description tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "description_label",
+      "label": "Description label",
+      "default": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tab_1",
+      "label": "Show tab 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Title",
+      "default": "Shipping"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_1_content",
+      "label": "Content",
+      "default": "<p>Free shipping on orders over £50. Standard delivery takes 3-5 business days.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tab_2",
+      "label": "Show tab 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Title",
+      "default": "Care instructions"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_2_content",
+      "label": "Content",
+      "default": "<p>Water weekly and place in bright, indirect light. Avoid overwatering.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tab_3",
+      "label": "Show tab 3",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Title",
+      "default": "Returns"
+    },
+    {
+      "type": "richtext",
+      "id": "tab_3_content",
+      "label": "Content",
+      "default": "<p>30-day return policy. Items must be in original condition.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1000
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Content spacing",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Tab style"
+    },
+    {
+      "type": "range",
+      "id": "tab_spacing",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Tab spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_horizontal",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_vertical",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "tab_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_color",
+      "label": "Hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_color",
+      "label": "Active text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_width",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "active_tab_border_color",
+      "label": "Active border color",
+      "default": "#242833"
+    },
+    {
+      "type": "range",
+      "id": "active_tab_border_width",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Active border width",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Content style"
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "content_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "table_header_bg",
+      "label": "Table header background",
+      "default": "#f5f5f5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product tabs"
+    }
+  ]
+}
+{% endschema %}

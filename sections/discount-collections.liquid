@@ -1,0 +1,1066 @@
+{% liquid
+  assign layout_type = section.settings.layout_type
+  assign badge_style = section.settings.badge_style
+  assign badge_position = section.settings.badge_position
+  assign pagination_style = section.settings.pagination_style
+  assign show_pagination = section.settings.show_pagination
+%}
+
+<div
+  class="discount-collections section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    --discount-badge-style: {{ badge_style }};
+    --columns: {{ section.settings.columns }};
+    --columns-mobile: {{ section.settings.mobile_columns }};
+    --gap: {{ section.settings.columns_gap }}px;
+    {% if section.settings.card_background != blank %}
+      --card-background: {{ section.settings.card_background }};
+    {% endif %}
+  "
+>
+  {% if section.settings.heading != blank or section.settings.subheading != blank %}
+    <div class="discount-collections__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="discount-collections__heading h2">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <div class="discount-collections__subheading rte">{{ section.settings.subheading }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="discount-collections__carousel-wrapper">
+    <div class="discount-collections__grid discount-collections__grid--{{ layout_type }} discount-collections__grid--badge-{{ badge_position }}" id="carousel-{{ section.id }}">
+      {% for block in section.blocks %}
+        {% liquid
+          assign collection = block.settings.collection
+          assign discount_percentage = block.settings.discount_percentage
+          assign custom_badge_color = block.settings.custom_badge_color
+          assign default_badge_color = section.settings.default_badge_color
+
+          if custom_badge_color != blank
+            assign badge_color = custom_badge_color
+          elsif default_badge_color != blank
+            assign badge_color = default_badge_color
+          else
+            assign badge_color = '#d0312d'
+          endif
+        %}
+
+        <div class="discount-collection-card" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <a href="{{ collection.url }}" class="discount-collection-card__link">
+            {% comment %} Discount Badge {% endcomment %}
+            <div
+              class="discount-badge discount-badge--{{ badge_style }} discount-badge--{{ badge_position }}"
+              style="--badge-bg-color: {{ badge_color }};"
+            >
+              <span class="discount-badge__percentage">{{ discount_percentage }}%</span>
+              <span class="discount-badge__label">OFF</span>
+            </div>
+
+            {% comment %} Collection Image {% endcomment %}
+            <div class="discount-collection-card__image-wrapper">
+              {% if collection.featured_image %}
+                {{
+                  collection.featured_image
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'lazy',
+                    width: collection.featured_image.width,
+                    height: collection.featured_image.height,
+                    alt: collection.title,
+                    class: 'discount-collection-card__image'
+                }}
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'discount-collection-card__image placeholder' }}
+              {% endif %}
+              <div class="discount-collection-card__overlay"></div>
+            </div>
+
+            {% comment %} Collection Info {% endcomment %}
+            <div class="discount-collection-card__content">
+              <h3 class="discount-collection-card__title {{ section.settings.title_typography }}">{{ collection.title }}</h3>
+              {% if block.settings.show_product_count %}
+                <p class="discount-collection-card__count {{ section.settings.count_typography }}">{{ collection.products_count }} products</p>
+              {% endif %}
+              {% if block.settings.show_description and collection.description != blank %}
+                <div class="discount-collection-card__description {{ section.settings.description_typography }}">
+                  {{ collection.description | strip_html | truncatewords: section.settings.description_word_limit }}
+                </div>
+              {% endif %}
+              {% if section.settings.show_cta %}
+                <span class="discount-collection-card__cta button button--secondary">
+                  {{ section.settings.cta_text | default: 'Shop Now' }}
+                </span>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if layout_type == 'carousel' and show_pagination %}
+      <div class="carousel-pagination carousel-pagination--{{ pagination_style }}" id="pagination-{{ section.id }}">
+        {% if pagination_style == 'arrows' or pagination_style == 'arrows-dots' %}
+          <button class="carousel-nav carousel-nav--prev" aria-label="Previous">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+        {% endif %}
+
+        {% if pagination_style == 'dots' or pagination_style == 'arrows-dots' %}
+          <div class="carousel-dots">
+            {% for block in section.blocks %}
+              <button class="carousel-dot" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if pagination_style == 'numbers' %}
+          <div class="carousel-numbers">
+            <span class="carousel-current">1</span>
+            <span class="carousel-separator">/</span>
+            <span class="carousel-total">{{ section.blocks.size }}</span>
+          </div>
+        {% endif %}
+
+        {% if pagination_style == 'arrows' or pagination_style == 'arrows-dots' %}
+          <button class="carousel-nav carousel-nav--next" aria-label="Next">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .discount-collections {
+    container-type: inline-size;
+    overflow: hidden;
+  }
+
+  .discount-collections__header {
+    text-align: center;
+    margin-block-end: 3rem;
+  }
+
+  .discount-collections__heading {
+    margin-block-end: 1rem;
+  }
+
+  .discount-collections__subheading {
+    max-width: 600px;
+    margin-inline: auto;
+    font-size: 1.125rem;
+    opacity: 0.85;
+  }
+
+  .discount-collections__grid {
+    display: grid;
+    gap: var(--gap);
+  }
+
+  .discount-collections__grid--grid {
+    grid-template-columns: repeat(var(--columns-mobile), 1fr);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(var(--columns), 1fr);
+    }
+  }
+
+  .discount-collections__grid--carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline-end: var(--gap);
+    align-items: stretch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .discount-collection-card {
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+      align-self: stretch;
+
+      @media screen and (min-width: 750px) {
+        flex: 0 0 calc((100% / var(--columns)) - var(--gap));
+        max-width: 400px;
+      }
+    }
+  }
+
+  .discount-collections__grid--stacked {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  /* Discount Collection Card */
+  .discount-collection-card {
+    position: relative;
+    transition: transform 0.3s ease;
+    background: var(--card-background, rgb(var(--color-background-rgb)));
+    overflow: hidden;
+  }
+
+  .discount-collections__grid--grid .discount-collection-card,
+  .discount-collections__grid--stacked .discount-collection-card {
+    height: 100%;
+  }
+
+  .discount-collection-card:hover {
+    transform: scale(1.02);
+  }
+
+  .discount-collection-card__link {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .discount-collection-card__image-wrapper {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .discount-collection-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+
+  .discount-collection-card:hover .discount-collection-card__image {
+    transform: scale(1.02);
+  }
+
+  .discount-collection-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .discount-collection-card:hover .discount-collection-card__overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 40%, transparent 100%);
+  }
+
+  .discount-collection-card__content {
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .discount-collection-card__title {
+    margin-block-end: 0.5rem;
+  }
+
+  .discount-collection-card__count {
+    opacity: 0.7;
+    margin-block-end: 0.5rem;
+  }
+
+  .discount-collection-card__description {
+    opacity: 0.8;
+    margin-block-end: 1rem;
+    flex-grow: 1;
+  }
+
+  .discount-collection-card__cta {
+    display: inline-block;
+    margin-block-start: auto;
+    align-self: center;
+  }
+
+  /* Discount Badge Styles */
+  .discount-badge {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Badge Position: Overlay */
+  .discount-collections__grid--badge-overlay .discount-badge {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  /* Badge Position: Top */
+  .discount-collections__grid--badge-top .discount-badge {
+    top: -0.75rem;
+    right: 1rem;
+  }
+
+  /* Badge Position: Corner */
+  .discount-collections__grid--badge-corner .discount-badge {
+    top: 0;
+    right: 0;
+    border-radius: 0 16px 0 8px;
+  }
+
+  .discount-badge__percentage {
+    font-size: 2rem;
+    line-height: 1;
+
+    @media screen and (min-width: 750px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .discount-badge__label {
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+
+  /* Badge Style: Solid */
+  .discount-badge--solid {
+    background: var(--badge-bg-color, #d0312d);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+  }
+
+  /* Badge Style: Outlined */
+  .discount-badge--outlined {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--badge-bg-color, #d0312d);
+    border: 3px solid var(--badge-bg-color, #d0312d);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Badge Style: Gradient */
+  .discount-badge--gradient {
+    background: linear-gradient(135deg, var(--badge-bg-color, #d0312d) 0%, #ff6b6b 100%);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .discount-badge--gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .discount-collection-card:hover .discount-badge--gradient::before {
+    opacity: 1;
+  }
+
+  /* Badge Style: Starburst */
+  .discount-badge--starburst {
+    background: var(--badge-bg-color, #d0312d);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    clip-path: polygon(
+      50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+    );
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Badge Style: Ribbon */
+  .discount-badge--ribbon {
+    background: var(--badge-bg-color, #d0312d);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    position: relative;
+  }
+
+  .discount-badge--ribbon::before,
+  .discount-badge--ribbon::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  .discount-badge--ribbon::before {
+    left: 0;
+    border-width: 10px 0 0 15px;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.2);
+  }
+
+  .discount-badge--ribbon::after {
+    right: 0;
+    border-width: 10px 15px 0 0;
+    border-color: transparent rgba(0, 0, 0, 0.2) transparent transparent;
+  }
+
+  /* Badge Style: Neon */
+  .discount-badge--neon {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--badge-bg-color, #00ff88);
+    padding: 0.75rem 1.25rem;
+    border: 2px solid var(--badge-bg-color, #00ff88);
+    border-radius: 8px;
+    text-shadow: 0 0 10px var(--badge-bg-color, #00ff88);
+  }
+
+
+  /* Carousel Pagination */
+  .discount-collections__carousel-wrapper {
+    position: relative;
+  }
+
+  .carousel-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-block-start: 2rem;
+  }
+
+  .carousel-nav {
+    background: rgb(var(--color-background-rgb));
+    border: 2px solid rgb(var(--color-border-rgb));
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgb(var(--color-foreground-rgb));
+  }
+
+  .carousel-nav:hover:not(:disabled) {
+    background: rgb(var(--color-foreground-rgb));
+    color: rgb(var(--color-background-rgb));
+    transform: scale(1.1);
+  }
+
+  .carousel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgb(var(--color-border-rgb));
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .carousel-dot:hover {
+    background: rgb(var(--color-foreground-rgb));
+    transform: scale(1.2);
+  }
+
+  .carousel-dot.active {
+    background: rgb(var(--color-foreground-rgb));
+    width: 32px;
+    border-radius: 6px;
+  }
+
+  .carousel-numbers {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .carousel-current {
+    color: rgb(var(--color-foreground-rgb));
+  }
+
+  .carousel-separator {
+    opacity: 0.5;
+  }
+
+  .carousel-total {
+    opacity: 0.7;
+  }
+
+  .carousel-pagination--arrows {
+    gap: 1rem;
+  }
+
+  .carousel-pagination--arrows-dots {
+    gap: 2rem;
+  }
+
+  /* Responsive adjustments */
+  @container (max-width: 749px) {
+    .discount-badge__percentage {
+      font-size: 1.75rem;
+    }
+
+    .discount-badge__label {
+      font-size: 0.75rem;
+    }
+
+    .discount-collection-card__content {
+      padding: 1rem;
+    }
+
+    .carousel-nav {
+      width: 40px;
+      height: 40px;
+    }
+
+    .carousel-pagination {
+      margin-block-start: 1.5rem;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  class DiscountCollectionsCarousel {
+    constructor(sectionId) {
+      this.carousel = document.getElementById(`carousel-${sectionId}`);
+      this.pagination = document.getElementById(`pagination-${sectionId}`);
+
+      if (!this.carousel || !this.pagination) return;
+
+      this.cards = this.carousel.querySelectorAll('.discount-collection-card');
+      this.prevBtn = this.pagination.querySelector('.carousel-nav--prev');
+      this.nextBtn = this.pagination.querySelector('.carousel-nav--next');
+      this.dots = this.pagination.querySelectorAll('.carousel-dot');
+      this.currentEl = this.pagination.querySelector('.carousel-current');
+
+      this.currentIndex = 0;
+
+      this.init();
+    }
+
+    init() {
+      if (this.prevBtn && this.nextBtn) {
+        this.prevBtn.addEventListener('click', () => this.navigate(-1));
+        this.nextBtn.addEventListener('click', () => this.navigate(1));
+      }
+
+      if (this.dots.length > 0) {
+        this.dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const index = parseInt(dot.dataset.index);
+            this.scrollToCard(index);
+          });
+        });
+      }
+
+      this.carousel.addEventListener('scroll', () => this.updatePagination());
+
+      this.updatePagination();
+    }
+
+    navigate(direction) {
+      const newIndex = this.currentIndex + direction;
+      if (newIndex >= 0 && newIndex < this.cards.length) {
+        this.scrollToCard(newIndex);
+      }
+    }
+
+    scrollToCard(index) {
+      const card = this.cards[index];
+      if (card) {
+        card.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start'
+        });
+      }
+    }
+
+    updatePagination() {
+      const scrollLeft = this.carousel.scrollLeft;
+      const cardWidth = this.cards[0]?.offsetWidth || 0;
+      const gap = parseInt(getComputedStyle(this.carousel).gap) || 0;
+
+      this.currentIndex = Math.round(scrollLeft / (cardWidth + gap));
+
+      if (this.prevBtn && this.nextBtn) {
+        this.prevBtn.disabled = this.currentIndex === 0;
+        this.nextBtn.disabled = this.currentIndex >= this.cards.length - 1;
+      }
+
+      if (this.dots.length > 0) {
+        this.dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === this.currentIndex);
+        });
+      }
+
+      if (this.currentEl) {
+        this.currentEl.textContent = this.currentIndex + 1;
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionId = '{{ section.id }}';
+    new DiscountCollectionsCarousel(sectionId);
+  });
+
+  if (Shopify.designMode) {
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.target.querySelector('.discount-collections')) {
+        const sectionId = event.detail.sectionId;
+        new DiscountCollectionsCarousel(sectionId);
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Discount Collections",
+  "tag": "section",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Black Friday Deals by Discount"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Shop by discount tier and save big on your favorite collections</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_type",
+      "label": "Layout Type",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+        {
+          "value": "stacked",
+          "label": "Stacked (Single Column)"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (Desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "visible_if": "{{ section.settings.layout_type == 'grid' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Columns (Mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Gap between cards",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section Width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page Width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Carousel Pagination",
+      "default": true,
+      "info": "Only applies to carousel layout"
+    },
+    {
+      "type": "select",
+      "id": "pagination_style",
+      "label": "Pagination Style",
+      "options": [
+        {
+          "value": "arrows",
+          "label": "Arrows Only"
+        },
+        {
+          "value": "dots",
+          "label": "Dots Only"
+        },
+        {
+          "value": "arrows-dots",
+          "label": "Arrows + Dots"
+        },
+        {
+          "value": "numbers",
+          "label": "Numbers (1/5)"
+        }
+      ],
+      "default": "arrows-dots",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "header",
+      "content": "Discount Badge"
+    },
+    {
+      "type": "select",
+      "id": "badge_style",
+      "label": "Badge Style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "outlined",
+          "label": "Outlined"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient"
+        },
+        {
+          "value": "starburst",
+          "label": "Starburst"
+        },
+        {
+          "value": "ribbon",
+          "label": "Ribbon"
+        },
+        {
+          "value": "neon",
+          "label": "Neon (Animated)"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "select",
+      "id": "badge_position",
+      "label": "Badge Position",
+      "options": [
+        {
+          "value": "overlay",
+          "label": "Overlay (Top Left)"
+        },
+        {
+          "value": "top",
+          "label": "Above Card (Top Right)"
+        },
+        {
+          "value": "corner",
+          "label": "Corner (Top Right)"
+        }
+      ],
+      "default": "overlay"
+    },
+    {
+      "type": "color",
+      "id": "default_badge_color",
+      "label": "Default Badge Color",
+      "default": "#d0312d",
+      "info": "This color will be applied to all badges. Individual collections can override this."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "title_typography",
+      "label": "Collection Title Style",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "select",
+      "id": "count_typography",
+      "label": "Product Count Style",
+      "options": [
+        {
+          "value": "p",
+          "label": "Paragraph"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        },
+        {
+          "value": "small",
+          "label": "Small Text"
+        }
+      ],
+      "default": "p"
+    },
+    {
+      "type": "select",
+      "id": "description_typography",
+      "label": "Description Style",
+      "options": [
+        {
+          "value": "p",
+          "label": "Paragraph"
+        },
+        {
+          "value": "rte",
+          "label": "Rich Text"
+        },
+        {
+          "value": "small",
+          "label": "Small Text"
+        }
+      ],
+      "default": "rte"
+    },
+    {
+      "type": "range",
+      "id": "description_word_limit",
+      "label": "Description Word Limit",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "info": "Maximum number of words to display in collection descriptions"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card Background Color",
+      "info": "Custom background color for collection cards. Leave empty to use theme default."
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection with Discount",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "discount_percentage",
+          "label": "Discount Percentage",
+          "min": 5,
+          "max": 90,
+          "step": 5,
+          "unit": "%",
+          "default": 40
+        },
+        {
+          "type": "color",
+          "id": "custom_badge_color",
+          "label": "Custom Badge Color (Optional)",
+          "info": "Override the default badge color for this collection only"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_count",
+          "label": "Show Product Count",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_description",
+          "label": "Show Collection Description",
+          "default": true,
+          "info": "Display collection description (limited to 20 words)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Discount Collections",
+      "category": "Promotional",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            "discount_percentage": 40
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "discount_percentage": 30
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "discount_percentage": 20
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "discount_percentage": 10
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

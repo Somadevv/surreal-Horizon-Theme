@@ -1,0 +1,610 @@
+{% doc %}
+  @prompt
+    cart progress bar with options
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-cart-progress-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    text-align: center;
+  }
+
+  .ai-cart-progress-header-{{ ai_gen_id }} {
+    margin-bottom: 16px;
+  }
+
+  .ai-cart-progress-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+
+  .ai-cart-progress-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .ai-cart-progress-bar-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: {{ block.settings.bar_height }}px;
+    background-color: {{ block.settings.bar_background_color }};
+    border-radius: {{ block.settings.bar_border_radius }}px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .ai-cart-progress-bar-fill-{{ ai_gen_id }} {
+    height: 100%;
+    background: {{ block.settings.bar_fill_color }};
+    border-radius: {{ block.settings.bar_border_radius }}px;
+    transition: width 0.3s ease;
+    position: relative;
+  }
+
+  .ai-cart-progress-bar-fill-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: ai-cart-progress-shimmer-{{ ai_gen_id }} 2s infinite;
+  }
+
+  @keyframes ai-cart-progress-shimmer-{{ ai_gen_id }} {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .ai-cart-progress-percentage-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: {{ block.settings.percentage_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.percentage_color }};
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .ai-cart-progress-info-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: {{ block.settings.info_size }}px;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 12px;
+  }
+
+  .ai-cart-progress-current-{{ ai_gen_id }} {
+    font-weight: 600;
+  }
+
+  .ai-cart-progress-target-{{ ai_gen_id }} {
+    opacity: 0.8;
+  }
+
+  .ai-cart-progress-message-{{ ai_gen_id }} {
+    font-size: {{ block.settings.message_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-cart-progress-message-{{ ai_gen_id }}.completed {
+    color: {{ block.settings.success_color }};
+    font-weight: 600;
+  }
+
+  .ai-cart-progress-remaining-{{ ai_gen_id }} {
+    color: {{ block.settings.accent_color }};
+    font-weight: 600;
+  }
+
+  .ai-cart-progress-benefits-{{ ai_gen_id }} {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-cart-progress-benefits-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.benefits_title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+
+  .ai-cart-progress-benefits-list-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-cart-progress-benefits-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: {{ block.settings.benefits_size }}px;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 4px;
+  }
+
+  .ai-cart-progress-benefits-icon-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    color: {{ block.settings.success_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-cart-progress-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding | times: 0.8 }}px;
+    }
+    
+    .ai-cart-progress-info-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<cart-progress-{{ ai_gen_id }}
+  class="ai-cart-progress-{{ ai_gen_id }}"
+  data-target-amount="{{ block.settings.target_amount | times: 100 }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.title != blank %}
+    <div class="ai-cart-progress-header-{{ ai_gen_id }}">
+      <h3 class="ai-cart-progress-title-{{ ai_gen_id }}">{{ block.settings.title }}</h3>
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-cart-progress-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-cart-progress-info-{{ ai_gen_id }}">
+    <span class="ai-cart-progress-current-{{ ai_gen_id }}">
+      Current: <span data-cart-total>{{ cart.total_price | money }}</span>
+    </span>
+    <span class="ai-cart-progress-target-{{ ai_gen_id }}">
+      Target: {{ block.settings.target_amount | times: 100 | money }}
+    </span>
+  </div>
+
+  <div class="ai-cart-progress-bar-container-{{ ai_gen_id }}">
+    <div 
+      class="ai-cart-progress-bar-fill-{{ ai_gen_id }}"
+      data-progress-fill
+    ></div>
+    {% if block.settings.show_percentage %}
+      <div class="ai-cart-progress-percentage-{{ ai_gen_id }}" data-progress-percentage>0%</div>
+    {% endif %}
+  </div>
+
+  <p class="ai-cart-progress-message-{{ ai_gen_id }}" data-progress-message>
+    {% if block.settings.incomplete_message != blank %}
+      {{ block.settings.incomplete_message }}
+    {% else %}
+      Add <span class="ai-cart-progress-remaining-{{ ai_gen_id }}" data-remaining-amount></span> more to reach your goal!
+    {% endif %}
+  </p>
+
+  {% if block.settings.show_benefits %}
+    <div class="ai-cart-progress-benefits-{{ ai_gen_id }}">
+      {% if block.settings.benefits_title != blank %}
+        <h4 class="ai-cart-progress-benefits-title-{{ ai_gen_id }}">{{ block.settings.benefits_title }}</h4>
+      {% endif %}
+      <ul class="ai-cart-progress-benefits-list-{{ ai_gen_id }}">
+        {% if block.settings.benefit_1 != blank %}
+          <li class="ai-cart-progress-benefits-item-{{ ai_gen_id }}">
+            <svg class="ai-cart-progress-benefits-icon-{{ ai_gen_id }}" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            {{ block.settings.benefit_1 }}
+          </li>
+        {% endif %}
+        {% if block.settings.benefit_2 != blank %}
+          <li class="ai-cart-progress-benefits-item-{{ ai_gen_id }}">
+            <svg class="ai-cart-progress-benefits-icon-{{ ai_gen_id }}" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            {{ block.settings.benefit_2 }}
+          </li>
+        {% endif %}
+        {% if block.settings.benefit_3 != blank %}
+          <li class="ai-cart-progress-benefits-item-{{ ai_gen_id }}">
+            <svg class="ai-cart-progress-benefits-icon-{{ ai_gen_id }}" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            {{ block.settings.benefit_3 }}
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+</cart-progress-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CartProgress{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.targetAmount = parseInt(this.dataset.targetAmount);
+      }
+
+      connectedCallback() {
+        this.progressFill = this.querySelector('[data-progress-fill]');
+        this.progressPercentage = this.querySelector('[data-progress-percentage]');
+        this.progressMessage = this.querySelector('[data-progress-message]');
+        this.cartTotal = this.querySelector('[data-cart-total]');
+        this.remainingAmount = this.querySelector('[data-remaining-amount]');
+        
+        this.updateProgress();
+        this.setupCartListener();
+      }
+
+      setupCartListener() {
+        document.addEventListener('cart:updated', () => {
+          this.fetchCartAndUpdate();
+        });
+
+        document.addEventListener('cart:changed', () => {
+          this.fetchCartAndUpdate();
+        });
+      }
+
+      async fetchCartAndUpdate() {
+        try {
+          const response = await fetch('/cart.js');
+          const cart = await response.json();
+          this.updateProgressWithCart(cart);
+        } catch (error) {
+          console.error('Error fetching cart:', error);
+        }
+      }
+
+      updateProgressWithCart(cart) {
+        const currentAmount = cart.total_price;
+        const percentage = Math.min((currentAmount / this.targetAmount) * 100, 100);
+        const isComplete = currentAmount >= this.targetAmount;
+        const remainingAmount = Math.max(this.targetAmount - currentAmount, 0);
+
+        this.progressFill.style.width = percentage + '%';
+        
+        if (this.progressPercentage) {
+          this.progressPercentage.textContent = Math.round(percentage) + '%';
+        }
+
+        if (this.cartTotal) {
+          this.cartTotal.textContent = this.formatMoney(currentAmount);
+        }
+
+        if (this.remainingAmount) {
+          this.remainingAmount.textContent = this.formatMoney(remainingAmount);
+        }
+
+        if (isComplete) {
+          this.progressMessage.classList.add('completed');
+          this.progressMessage.innerHTML = '{{ block.settings.complete_message | default: "Congratulations! You've reached your goal!" }}';
+        } else {
+          this.progressMessage.classList.remove('completed');
+          const incompleteMessage = '{{ block.settings.incomplete_message }}';
+          if (incompleteMessage) {
+            this.progressMessage.innerHTML = incompleteMessage;
+          } else {
+            this.progressMessage.innerHTML = 'Add <span class="ai-cart-progress-remaining-{{ ai_gen_id }}">' + this.formatMoney(remainingAmount) + '</span> more to reach your goal!';
+          }
+        }
+      }
+
+      updateProgress() {
+        const cartTotalElement = document.querySelector('[data-cart-total]');
+        if (!cartTotalElement) return;
+
+        const cartTotalText = cartTotalElement.textContent;
+        const currentAmount = this.parseMoney(cartTotalText);
+        const percentage = Math.min((currentAmount / this.targetAmount) * 100, 100);
+        const isComplete = currentAmount >= this.targetAmount;
+        const remainingAmount = Math.max(this.targetAmount - currentAmount, 0);
+
+        this.progressFill.style.width = percentage + '%';
+        
+        if (this.progressPercentage) {
+          this.progressPercentage.textContent = Math.round(percentage) + '%';
+        }
+
+        if (this.remainingAmount) {
+          this.remainingAmount.textContent = this.formatMoney(remainingAmount);
+        }
+
+        if (isComplete) {
+          this.progressMessage.classList.add('completed');
+          this.progressMessage.innerHTML = '{{ block.settings.complete_message | default: "Congratulations! You've reached your goal!" }}';
+        }
+      }
+
+      parseMoney(moneyString) {
+        return parseInt(moneyString.replace(/[^\d]/g, '')) || 0;
+      }
+
+      formatMoney(cents) {
+        return new Intl.NumberFormat('{{ localization.language.iso_code }}', {
+          style: 'currency',
+          currency: '{{ cart.currency.iso_code }}',
+          minimumFractionDigits: 2
+        }).format(cents / 100);
+      }
+    }
+
+    customElements.define('cart-progress-{{ ai_gen_id }}', CartProgress{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cart Progress Bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Free Shipping Progress"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "You're almost there!"
+    },
+    {
+      "type": "range",
+      "id": "target_amount",
+      "min": 25,
+      "max": 500,
+      "step": 5,
+      "unit": "$",
+      "label": "Target amount",
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "incomplete_message",
+      "label": "Incomplete message"
+    },
+    {
+      "type": "text",
+      "id": "complete_message",
+      "label": "Complete message",
+      "default": "Congratulations! You qualify for free shipping!"
+    },
+    {
+      "type": "header",
+      "content": "Progress Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_percentage",
+      "label": "Show percentage",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Bar height",
+      "default": 20},
+    {
+      "type": "range",
+      "id": "bar_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Bar border radius",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "bar_background_color",
+      "label": "Bar background color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "bar_fill_color",
+      "label": "Bar fill color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "header",
+      "content": "Benefits"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show benefits list",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Benefits title",
+      "default": "What you'll get:"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Free shipping"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Free returns"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Priority support"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6b35"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "percentage_color",
+      "label": "Percentage text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "info_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Info text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "message_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Message size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "percentage_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Percentage size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "benefits_title_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Benefits title size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "benefits_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Benefits text size",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Progress Bar"
+    }
+  ]
+}
+{% endschema %}

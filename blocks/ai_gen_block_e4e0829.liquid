@@ -1,0 +1,473 @@
+{% doc %}
+  @prompt
+    pills collection carousel but with a scroll navigation below the block, have arrows for the pagination and allow more collections to be added. allow for the pill size to be edited rather than pills per page. Amend it to the size of the collection name
+    
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-pills-carousel-{{ ai_gen_id }} {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-pills-carousel__container-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.gap }}px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 10px 0;
+  }
+
+  .ai-pills-carousel__item-{{ ai_gen_id }} {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    border-radius: {{ block.settings.pill_border_radius }}px;
+    overflow: hidden;
+    position: relative;
+    background-color: {{ block.settings.pill_background_color }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-pills-carousel__item-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-pills-carousel__link-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: {{ block.settings.pill_text_color }};
+    padding: {{ block.settings.pill_padding }}px {{ block.settings.pill_padding | times: 2 }}px;
+    height: 100%;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .ai-pills-carousel__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .ai-pills-carousel__nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .ai-pills-carousel__dots-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .ai-pills-carousel__dot-{{ ai_gen_id }} {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: {{ block.settings.dot_color }};
+    opacity: 0.3;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-pills-carousel__dot-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  .ai-pills-carousel__arrow-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: {{ block.settings.arrow_background_color }};
+    color: {{ block.settings.arrow_color }};
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-pills-carousel__arrow-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.arrow_hover_background_color }};
+  }
+
+  .ai-pills-carousel__arrow-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-pills-carousel__arrow-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-pills-carousel__link-{{ ai_gen_id }} {
+      padding: {{ block.settings.pill_padding | times: 0.8 }}px {{ block.settings.pill_padding | times: 1.6 }}px;
+    }
+    
+    .ai-pills-carousel__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<pills-carousel-{{ ai_gen_id }} class="ai-pills-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-pills-carousel__container-{{ ai_gen_id }}" id="carousel-container-{{ ai_gen_id }}">
+    {% if block.settings.collection_list != blank %}
+      {% for collection in block.settings.collection_list %}
+        <div class="ai-pills-carousel__item-{{ ai_gen_id }}">
+          <a href="{{ collection.url }}" class="ai-pills-carousel__link-{{ ai_gen_id }}">
+            <h3 class="ai-pills-carousel__title-{{ ai_gen_id }}">{{ collection.title }}</h3>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      {% for i in (1..5) %}
+        <div class="ai-pills-carousel__item-{{ ai_gen_id }}">
+          <a href="#" class="ai-pills-carousel__link-{{ ai_gen_id }}">
+            <h3 class="ai-pills-carousel__title-{{ ai_gen_id }}">Collection {{ i }}</h3>
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  
+  <div class="ai-pills-carousel__nav-{{ ai_gen_id }}">
+    <button class="ai-pills-carousel__arrow-{{ ai_gen_id }}" id="prev-button-{{ ai_gen_id }}" aria-label="Previous">
+      <svg class="ai-pills-carousel__arrow-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    
+    <div class="ai-pills-carousel__dots-{{ ai_gen_id }}" id="scroll-nav-{{ ai_gen_id }}">
+      <!-- Dots will be generated by JavaScript -->
+    </div>
+    
+    <button class="ai-pills-carousel__arrow-{{ ai_gen_id }}" id="next-button-{{ ai_gen_id }}" aria-label="Next">
+      <svg class="ai-pills-carousel__arrow-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</pills-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PillsCarousel extends HTMLElement {
+      constructor() {
+        super();
+        this.container = this.querySelector('#carousel-container-{{ ai_gen_id }}');
+        this.scrollNav = this.querySelector('#scroll-nav-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('#prev-button-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('#next-button-{{ ai_gen_id }}');
+        this.items = this.querySelectorAll('.ai-pills-carousel__item-{{ ai_gen_id }}');
+        this.dots = [];
+        this.currentPage = 0;
+        this.totalPages = 0;
+        this.visibleWidth = 0;
+        this.totalWidth = 0;
+      }
+
+      connectedCallback() {
+        if (this.items.length === 0) return;
+        
+        // Calculate widths based on content
+        this.calculateItemWidths();
+        
+        this.setupScrollNav();
+        this.setupNavButtons();
+        this.setupIntersectionObserver();
+        this.setupScrollListener();
+        this.setupResizeObserver();
+        
+        // Initial active dot and button states
+        if (this.dots.length > 0) {
+          this.dots[0].classList.add('active');
+        }
+        this.updateButtonStates();
+      }
+      
+      calculateItemWidths() {
+        // Let items size to their content
+        this.items.forEach(item => {
+          item.style.width = 'auto';
+        });
+        
+        // Calculate visible width and total width
+        this.visibleWidth = this.container.offsetWidth;
+        this.totalWidth = Array.from(this.items).reduce((total, item) => {
+          return total + item.offsetWidth + {{ block.settings.gap }};
+        }, -{{ block.settings.gap }}); // Subtract the last gap
+      }
+      
+      setupScrollNav() {
+        // Calculate how many pages we need
+        const totalScroll = this.totalWidth - this.visibleWidth;
+        this.totalPages = Math.max(1, Math.ceil(totalScroll / (this.visibleWidth * 0.8)) + 1);
+        
+        // Create dots
+        for (let i = 0; i < this.totalPages; i++) {
+          const dot = document.createElement('div');
+          dot.classList.add('ai-pills-carousel__dot-{{ ai_gen_id }}');
+          dot.dataset.index = i;
+          
+          dot.addEventListener('click', () => {
+            this.scrollToPage(i);
+          });
+          
+          this.scrollNav.appendChild(dot);
+          this.dots.push(dot);
+        }
+        
+        // Hide navigation if only one page
+        if (this.totalPages <= 1) {
+          this.querySelector('.ai-pills-carousel__nav-{{ ai_gen_id }}').style.display = 'none';
+        }
+      }
+      
+      setupNavButtons() {
+        this.prevButton.addEventListener('click', () => {
+          if (this.currentPage > 0) {
+            this.scrollToPage(this.currentPage - 1);
+          }
+        });
+        
+        this.nextButton.addEventListener('click', () => {
+          if (this.currentPage < this.totalPages - 1) {
+            this.scrollToPage(this.currentPage + 1);
+          }
+        });
+      }
+      
+      setupIntersectionObserver() {
+        const options = {
+          root: this.container,
+          rootMargin: '0px',
+          threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const index = Array.from(this.items).indexOf(entry.target);
+              let accumulatedWidth = 0;
+              
+              // Find which page this item is on
+              for (let i = 0; i < index; i++) {
+                accumulatedWidth += this.items[i].offsetWidth + {{ block.settings.gap }};
+              }
+              
+              const page = Math.floor(accumulatedWidth / this.visibleWidth);
+              
+              if (page !== this.currentPage) {
+                this.updateActiveDot(page);
+                this.currentPage = page;
+                this.updateButtonStates();
+              }
+            }
+          });
+        }, options);
+        
+        this.items.forEach(item => {
+          observer.observe(item);
+        });
+      }
+      
+      setupScrollListener() {
+        let scrollTimeout;
+        
+        this.container.addEventListener('scroll', () => {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            const scrollLeft = this.container.scrollLeft;
+            const scrollRatio = scrollLeft / (this.totalWidth - this.visibleWidth);
+            const page = Math.round(scrollRatio * (this.totalPages - 1));
+            
+            if (page !== this.currentPage) {
+              this.updateActiveDot(page);
+              this.currentPage = page;
+              this.updateButtonStates();
+            }
+          }, 100);
+        });
+      }
+      
+      setupResizeObserver() {
+        const resizeObserver = new ResizeObserver(entries => {
+          // Recalculate on resize
+          this.scrollNav.innerHTML = '';
+          this.dots = [];
+          this.calculateItemWidths();
+          this.setupScrollNav();
+          
+          // Reset current page and update UI
+          this.currentPage = 0;
+          if (this.dots.length > 0) {
+            this.dots[0].classList.add('active');
+          }
+          this.updateButtonStates();
+          
+          // Scroll back to start
+          this.container.scrollLeft = 0;
+        });
+        
+        resizeObserver.observe(this);
+      }
+      
+      scrollToPage(pageIndex) {
+        // Calculate scroll position based on page index
+        const scrollPosition = pageIndex * (this.visibleWidth * 0.8);
+        
+        this.container.scrollTo({
+          left: Math.min(scrollPosition, this.totalWidth - this.visibleWidth),
+          behavior: 'smooth'
+        });
+        
+        this.updateActiveDot(pageIndex);
+        this.currentPage = pageIndex;
+        this.updateButtonStates();
+      }
+      
+      updateActiveDot(activeIndex) {
+        this.dots.forEach((dot, index) => {
+          if (index === activeIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+      
+      updateButtonStates() {
+        this.prevButton.disabled = this.currentPage === 0;
+        this.nextButton.disabled = this.currentPage >= this.totalPages - 1;
+      }
+    }
+    
+    customElements.define('pills-carousel-{{ ai_gen_id }}', PillsCarousel);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Pills Collection Carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "limit": 20
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "default": 20,
+      "label": "Space between pills",
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Pill Style"
+    },
+    {
+      "type": "range",
+      "id": "pill_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 40,
+      "label": "Border radius",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pill_padding",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "default": 12,
+      "label": "Padding",
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "pill_background_color",
+      "label": "Background color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "pill_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "label": "Title size",
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_background_color",
+      "label": "Arrow background color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_background_color",
+      "label": "Arrow hover background",
+      "default": "#e0e0e0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pills Collection Carousel"
+    }
+  ]
+}
+{% endschema %}

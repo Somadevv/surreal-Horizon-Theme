@@ -1,0 +1,542 @@
+{% doc %}
+  @prompt
+    a 6 grid of brand strengths on left half of the page 50/50 split with one main strength showcasing our RHS awards on right half of the page. i'll put in the award picture, make it nice for mobile theres something off about the left border on moblie
+    
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .brand-strengths-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .brand-strengths-{{ ai_gen_id }} {
+      flex-direction: row;
+    }
+  }
+
+  .brand-strengths__left-{{ ai_gen_id }} {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    padding: {{ block.settings.section_padding }}px;
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-strengths__left-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding }}px;margin: 0;width: 100%;box-sizing: border-box;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .brand-strengths__left-{{ ai_gen_id }} {
+      width: 50%;
+      grid-template-columns: repeat(2, 1fr);}
+  }
+
+  @media screen and (min-width: 990px) {
+    .brand-strengths__left-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .brand-strengths__right-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.section_padding }}px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.right_bg_color }};box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-strengths__right-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding }}px;
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .brand-strengths__right-{{ ai_gen_id }} {
+      width: 50%;
+    }
+  }
+
+  .strength-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: {{ block.settings.item_padding }}px;
+    background-color: {{ block.settings.item_bg_color }};
+    border-radius: {{ block.settings.item_border_radius }}px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .strength-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;}
+
+  @media screen and (max-width: 749px) {
+    .strength-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.8 }}px;
+      height: {{ block.settings.icon_size | times: 0.8 }}px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .strength-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: {{ block.settings.title_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .strength-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .strength-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .strength-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.9 }}px;
+    }
+  }
+
+  .featured-strength-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding:0 15px;
+    box-sizing: border-box;
+  }
+
+  .featured-strength-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.featured_title_size }}px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: {{ block.settings.featured_title_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-strength-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.featured_title_size | times: 0.8 }}px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .featured-strength-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.featured_text_size }}px;
+    color: {{ block.settings.featured_text_color }};
+    margin-bottom: 30px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-strength-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.featured_text_size | times: 0.9 }}px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .award-image-container-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;}
+
+  .award-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .award-image-container-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    max-height: 300px;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .award-image-container-{{ ai_gen_id }} svg {
+      max-width: 250px;
+      max-height: 250px;
+    }
+  }
+{% endstyle %}
+
+<div class="brand-strengths-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="brand-strengths__left-{{ ai_gen_id }}">
+    {% for i in (1..6) %}
+      {% liquid
+        assign strength_title = 'strength_' | append: i | append: '_title'
+        assign strength_description = 'strength_' | append: i | append: '_description'
+        assign strength_icon = 'strength_' | append: i | append: '_icon'%}
+      
+      {% if block.settings[strength_title] != blank %}
+        <div class="strength-item-{{ ai_gen_id }}">
+          <div class="strength-icon-{{ ai_gen_id }}">
+            {% if block.settings[strength_icon] %}
+              <img 
+                src="{{ block.settings[strength_icon] | img_url: 'master' }}" 
+                alt="{{ block.settings[strength_title] }}"
+                width="{{ block.settings.icon_size }}"
+                height="{{ block.settings.icon_size }}"
+                loading="lazy"
+              >
+            {% endif %}
+          </div>
+          <h3 class="strength-title-{{ ai_gen_id }}">{{ block.settings[strength_title] }}</h3>
+          <div class="strength-description-{{ ai_gen_id }}">{{ block.settings[strength_description] }}</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="brand-strengths__right-{{ ai_gen_id }}"><div class="featured-strength-{{ ai_gen_id }}">
+      <h2 class="featured-strength-title-{{ ai_gen_id }}">{{ block.settings.featured_title }}</h2>
+      <div class="featured-strength-description-{{ ai_gen_id }}">{{ block.settings.featured_description }}</div>
+      <div class="award-image-container-{{ ai_gen_id }}">
+        {% if block.settings.award_image %}
+          <img 
+            src="{{ block.settings.award_image | img_url: 'master' }}" 
+            alt="{{ block.settings.featured_title }}"
+            class="award-image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="{{ block.settings.award_image.width }}"
+            height="{{ block.settings.award_image.height }}"
+          >
+        {% else %}
+          <div class="award-image-container-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Strengths Grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid Gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Item Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Item Border Radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Grid Strengths"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon Size",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Font Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "item_bg_color",
+      "label": "Item Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Strength 1"
+    },
+    {
+      "type": "text",
+      "id": "strength_1_title",
+      "label": "Title",
+      "default": "Quality"
+    },
+    {
+      "type": "textarea",
+      "id": "strength_1_description",
+      "label": "Description",
+      "default": "We ensure the highest quality in all our products and services."
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Strength 2"
+    },
+    {
+      "type": "text",
+      "id": "strength_2_title",
+      "label": "Title",
+      "default": "Innovation"
+    },
+    {
+      "type": "textarea",
+      "id": "strength_2_description",
+      "label": "Description",
+      "default": "We constantly innovate to stay ahead of the curve."
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Strength 3"
+    },
+    {
+      "type": "text",
+      "id": "strength_3_title",
+      "label": "Title",
+      "default": "Reliability"
+    },
+    {
+      "type": "textarea",
+      "id": "strength_3_description",
+      "label": "Description",
+      "default": "Our customers can always count on us to deliver."
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Strength 4"
+    },
+    {
+      "type": "text",
+      "id": "strength_4_title",
+      "label": "Title",
+      "default": "Expertise"
+    },
+    {
+      "type": "textarea",
+      "id": "strength_4_description",
+      "label": "Description",
+      "default": "Our team brings years of industry expertise to every project."
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Strength 5"
+    },
+    {
+      "type": "text",
+      "id": "strength_5_title",
+      "label": "Title",
+      "default": "Customer Service"
+    },
+    {
+      "type": "textarea",
+      "id": "strength_5_description",
+      "label": "Description",
+      "default": "We pride ourselves on exceptional customer service."
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_5_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Strength 6"
+    },
+    {
+      "type": "text",
+      "id": "strength_6_title",
+      "label": "Title",
+      "default": "Sustainability"
+    },
+    {
+      "type": "textarea",
+      "id": "strength_6_description",
+      "label": "Description",
+      "default": "We're committed to sustainable practices in everything we do."
+    },
+    {
+      "type": "image_picker",
+      "id": "strength_6_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Featured Strength & Award"
+    },
+    {
+      "type": "color",
+      "id": "right_bg_color",
+      "label": "Background Color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "text",
+      "id": "featured_title",
+      "label": "Title",
+      "default": "Award-Winning Excellence"
+    },
+    {
+      "type": "textarea",
+      "id": "featured_description",
+      "label": "Description",
+      "default": "We're proud to be recognized for our commitment to excellence with multiple industry awards."
+    },
+    {
+      "type": "image_picker",
+      "id": "award_image",
+      "label": "Award Image"
+    },
+    {
+      "type": "range",
+      "id": "featured_title_size",
+      "min": 20,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "featured_text_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Font Size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "featured_title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "featured_text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Strengths Grid"
+    }
+  ]
+}
+{% endschema %}

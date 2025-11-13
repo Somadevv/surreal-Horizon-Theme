@@ -1,0 +1,451 @@
+{% doc %}
+  @prompt
+    pill buttons carousel for collections but give space for the navigation arrows
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-pill-carousel-{{ ai_gen_id }} {
+    position: relative;
+    padding: 0 {{ block.settings.arrow_space }}px;
+    margin: {{ block.settings.margin }}px 0;
+  }
+
+  .ai-pill-carousel-container-{{ ai_gen_id }} {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: flex;
+    gap: {{ block.settings.gap }}px;
+    padding: {{ block.settings.padding }}px 0;
+  }
+
+  .ai-pill-carousel-container-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-pill-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: max-content;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    text-decoration: none;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .ai-pill-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.hover_background_color }};
+    color: {{ block.settings.hover_text_color }};
+    border-color: {{ block.settings.hover_border_color }};
+  }
+
+  .ai-pill-button-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.active_background_color }};
+    color: {{ block.settings.active_text_color }};
+    border-color: {{ block.settings.active_border_color }};
+  }
+
+  .ai-pill-carousel-arrow-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: {{ block.settings.arrow_size }}px;
+    height: {{ block.settings.arrow_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.arrow_background_color }};
+    color: {{ block.settings.arrow_color }};
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-pill-carousel-arrow-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-pill-carousel-arrow-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-pill-carousel-arrow-left-{{ ai_gen_id }} {
+    left: 0;
+  }
+
+  .ai-pill-carousel-arrow-right-{{ ai_gen_id }} {
+    right: 0;
+  }
+
+  .ai-pill-carousel-arrow-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.arrow_size }}px * 0.5);
+    height: calc({{ block.settings.arrow_size }}px * 0.5);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-pill-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | minus: 2 }}px;
+      padding: {{ block.settings.vertical_padding | minus: 2 }}px {{ block.settings.horizontal_padding | minus: 4 }}px;
+    }
+
+    .ai-pill-carousel-arrow-{{ ai_gen_id }} {
+      width: {{ block.settings.arrow_size | minus: 4 }}px;
+      height: {{ block.settings.arrow_size | minus: 4 }}px;
+    }
+
+    .ai-pill-carousel-arrow-{{ ai_gen_id }} svg {
+      width: calc(({{ block.settings.arrow_size | minus: 4 }}px) * 0.5);
+      height: calc(({{ block.settings.arrow_size | minus: 4 }}px) * 0.5);
+    }
+  }
+{% endstyle %}
+
+<pill-carousel-{{ ai_gen_id }} class="ai-pill-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <button 
+    class="ai-pill-carousel-arrow-{{ ai_gen_id }} ai-pill-carousel-arrow-left-{{ ai_gen_id }}" 
+    aria-label="Scroll left"
+    disabled
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <div class="ai-pill-carousel-container-{{ ai_gen_id }}">
+    {% if block.settings.collection_list != blank %}
+      {% for collection in block.settings.collection_list %}
+        <a 
+          href="{{ collection.url }}" 
+          class="ai-pill-button-{{ ai_gen_id }} {% if collection.url == request.path %}active{% endif %}"
+        >
+          {{ collection.title }}
+        </a>
+      {% endfor %}
+    {% else %}
+      {% for i in (1..5) %}
+        <a href="#" class="ai-pill-button-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}">
+          Collection {{ i }}
+        </a>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <button 
+    class="ai-pill-carousel-arrow-{{ ai_gen_id }} ai-pill-carousel-arrow-right-{{ ai_gen_id }}" 
+    aria-label="Scroll right"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</pill-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PillCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.container = this.querySelector('.ai-pill-carousel-container-{{ ai_gen_id }}');
+        this.leftArrow = this.querySelector('.ai-pill-carousel-arrow-left-{{ ai_gen_id }}');
+        this.rightArrow = this.querySelector('.ai-pill-carousel-arrow-right-{{ ai_gen_id }}');
+        this.scrollAmount = {{ block.settings.scroll_amount }};
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        this.checkArrowsVisibility();
+
+        // Add resize observer to handle window size changes
+        this.resizeObserver = new ResizeObserver(() => {
+          this.checkArrowsVisibility();
+        });
+        this.resizeObserver.observe(this);
+
+        // Check if we need to scroll to the active item
+        const activeItem = this.container.querySelector('.active');
+        if (activeItem) {
+          this.scrollToElement(activeItem);
+        }
+      }
+
+      disconnectedCallback() {
+        if (this.resizeObserver) {
+          this.resizeObserver.disconnect();
+        }
+      }
+
+      setupEventListeners() {
+        this.leftArrow.addEventListener('click', () => this.scroll(-this.scrollAmount));
+        this.rightArrow.addEventListener('click', () => this.scroll(this.scrollAmount));
+        
+        this.container.addEventListener('scroll', () => {
+          this.checkArrowsVisibility();
+        });
+      }
+
+      scroll(amount) {
+        this.container.scrollBy({
+          left: amount,
+          behavior: 'smooth'
+        });
+      }
+
+      scrollToElement(element) {
+        if (!element) return;
+        
+        const containerRect = this.container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        
+        // Calculate the scroll position to center the element
+        const scrollLeft = elementRect.left - containerRect.left - 
+                          (containerRect.width / 2) + (elementRect.width / 2);
+        
+        this.container.scrollBy({
+          left: scrollLeft,
+          behavior: 'smooth'
+        });
+      }
+
+      checkArrowsVisibility() {
+        // Check if we can scroll left
+        this.leftArrow.disabled = this.container.scrollLeft <= 0;
+        
+        // Check if we can scroll right
+        const canScrollRight = this.container.scrollWidth > this.container.clientWidth &&
+                              this.container.scrollLeft < (this.container.scrollWidth - this.container.clientWidth - 1);
+        this.rightArrow.disabled = !canScrollRight;
+      }
+    }
+
+    customElements.define('pill-carousel-{{ ai_gen_id }}', PillCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection Pills",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "limit": 20
+    },
+    {
+      "type": "header",
+      "content": "Pill Button Style"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "min": 6,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "hover_background_color",
+      "label": "Hover background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "hover_text_color",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "hover_border_color",
+      "label": "Hover border color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "active_background_color",
+      "label": "Active background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Active text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_border_color",
+      "label": "Active border color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between pills",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "margin",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical margin",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Navigation Arrows"
+    },
+    {
+      "type": "range",
+      "id": "arrow_size",
+      "min": 24,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Arrow size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "arrow_space",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Space for arrows",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_background_color",
+      "label": "Arrow background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "scroll_amount",
+      "min": 100,
+      "max": 500,
+      "step": 50,
+      "unit": "px",
+      "label": "Scroll amount",
+      "default": 200
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Pills"
+    }
+  ]
+}
+{% endschema %}

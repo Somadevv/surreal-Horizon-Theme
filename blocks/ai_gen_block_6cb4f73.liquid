@@ -1,0 +1,366 @@
+{% doc %}
+  @prompt
+    pills collection carousel
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .pills-collection-carousel-{{ ai_gen_id }} {
+    overflow: hidden;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px;
+  }
+
+  .pills-collection-carousel__heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: 20px;
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .pills-collection-carousel__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: {{ block.settings.gap }}px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .pills-collection-carousel__container-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pills-collection-carousel__pill-{{ ai_gen_id }} {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    min-width: {{ block.settings.pill_min_width }}px;
+    border-radius: {{ block.settings.pill_border_radius }}px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+    background-color: {{ block.settings.pill_background }};
+    border: {{ block.settings.pill_border_width }}px solid {{ block.settings.pill_border_color }};
+  }
+
+  .pills-collection-carousel__pill-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+  }
+
+  .pills-collection-carousel__pill-link-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: {{ block.settings.pill_padding }}px;
+    height: 100%;
+    width: 100%;
+    color: {{ block.settings.pill_text_color }};
+  }
+
+  .pills-collection-carousel__pill-image-{{ ai_gen_id }} {
+    width: {{ block.settings.image_size }}px;
+    height: {{ block.settings.image_size }}px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .pills-collection-carousel__pill-image-container-{{ ai_gen_id }} {
+    width: {{ block.settings.image_size }}px;
+    height: {{ block.settings.image_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pills-collection-carousel__pill-image-container-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+  }
+
+  .pills-collection-carousel__pill-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    font-weight: {{ block.settings.text_weight }};
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pills-collection-carousel__container-{{ ai_gen_id }} {
+      display: grid;
+      grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+      overflow-x: visible;
+    }
+    
+    .pills-collection-carousel__pill-{{ ai_gen_id }} {
+      min-width: unset;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .pills-collection-carousel__container-{{ ai_gen_id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-left: -20px;
+      margin-right: -20px;
+      width: calc(100% + 40px);
+    }
+    
+    .pills-collection-carousel__pill-{{ ai_gen_id }} {
+      width: auto;
+    }
+  }
+{% endstyle %}
+
+<div class="pills-collection-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank %}
+    <h2 class="pills-collection-carousel__heading-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+  {% endif %}<div class="pills-collection-carousel__container-{{ ai_gen_id }}">
+    {% for collection_item in block.settings.collection_list %}
+      {% if collection_item != blank %}
+        <div class="pills-collection-carousel__pill-{{ ai_gen_id }}">
+          <a href="{{ collection_item.url }}" class="pills-collection-carousel__pill-link-{{ ai_gen_id }}">
+            {% if collection_item.image %}
+              <img 
+                src="{{ collection_item.image | image_url: width: 100 }}" 
+                alt="{{ collection_item.title | escape }}" 
+                class="pills-collection-carousel__pill-image-{{ ai_gen_id }}"
+                width="{{ block.settings.image_size }}"
+                height="{{ block.settings.image_size }}"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="pills-collection-carousel__pill-image-container-{{ ai_gen_id }}">
+                {{ 'collection-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            <span class="pills-collection-carousel__pill-title-{{ ai_gen_id }}">{{ collection_item.title }}</span>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pills Collection Carousel",
+  "tag": null,
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by collection"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "limit": 12
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Space between pills",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Pill Style"
+    },
+    {
+      "type": "range",
+      "id": "pill_min_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum width",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "pill_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "pill_padding",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "pill_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "pill_background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "pill_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "pill_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Image size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Text weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pills Collection Carousel"
+    }
+  ]
+}
+{% endschema %}

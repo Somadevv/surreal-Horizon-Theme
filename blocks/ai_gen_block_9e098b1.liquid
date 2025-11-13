@@ -1,0 +1,366 @@
+{% doc %}
+  @prompt
+    pill buttons carousel for collections allow space at the side of the pill buttons. allow this side space to be toggled off on mobile, allow up to 100 px side space, hide buttons on mobile
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .pill-carousel-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .pill-carousel-container-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-left: {{ block.settings.side_space }}px;
+    padding-right: {{ block.settings.side_space }}px;
+  }
+
+  .pill-carousel-container-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pill-button-{{ ai_gen_id }} {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    padding: 8px 16px;
+    background-color: {{ block.settings.pill_background }};
+    color: {{ block.settings.pill_text_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid {{ block.settings.pill_border_color }};
+    min-width: {{ block.settings.min_width }}px;
+    height: {{ block.settings.height }}px;
+  }
+
+  .pill-button-{{ ai_gen_id }}:last-child {
+    margin-right: 0;
+  }
+
+  .pill-button-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.active_pill_background }};
+    color: {{ block.settings.active_pill_text_color }};
+    border-color: {{ block.settings.active_pill_border_color }};
+  }
+
+  .pill-button-{{ ai_gen_id }}:hover:not(.active) {
+    background-color: {{ block.settings.pill_hover_background }};
+    color: {{ block.settings.pill_hover_text_color }};
+  }
+
+  .pill-carousel-nav-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_color }};
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .pill-carousel-prev-{{ ai_gen_id }} {
+    left: 5px;
+  }
+
+  .pill-carousel-next-{{ ai_gen_id }} {
+    right: 5px;
+  }
+
+  .pill-carousel-nav-{{ ai_gen_id }} svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pill-carousel-container-{{ ai_gen_id }} {
+      padding-left: {% if block.settings.remove_side_space_mobile %}0{% else %}{{ block.settings.side_space }}px{% endif %};
+      padding-right: {% if block.settings.remove_side_space_mobile %}0{% else %}{{ block.settings.side_space }}px{% endif %};
+    }
+
+    {% if block.settings.hide_buttons_mobile %}
+    .pill-carousel-nav-{{ ai_gen_id }} {
+      display: none;
+    }
+    {% endif %}
+  }
+{% endstyle %}
+
+<pill-carousel-{{ ai_gen_id }} class="pill-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="pill-carousel-container-{{ ai_gen_id }}">
+    {% for collection in block.settings.collection_list %}
+      {% if collection != blank %}
+        <a 
+          href="{{ collection.url }}" 
+          class="pill-button-{{ ai_gen_id }} {% if collection.id == collection.current.id %}active{% endif %}"
+          data-collection-id="{{ collection.id }}"
+        >
+          {{ collection.title }}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% unless block.settings.hide_buttons_mobile %}
+    <button class="pill-carousel-nav-{{ ai_gen_id }} pill-carousel-prev-{{ ai_gen_id }}" aria-label="Previous collections">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="pill-carousel-nav-{{ ai_gen_id }} pill-carousel-next-{{ ai_gen_id }}" aria-label="Next collections">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  {% endunless %}
+</pill-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PillCarousel extends HTMLElement {
+      constructor() {
+        super();
+        this.container = this.querySelector('.pill-carousel-container-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.pill-carousel-prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.pill-carousel-next-{{ ai_gen_id }}');
+        this.scrollAmount = 200;
+      }
+
+      connectedCallback() {
+        if (this.prevButton && this.nextButton) {
+          this.prevButton.addEventListener('click', this.scrollPrev.bind(this));
+          this.nextButton.addEventListener('click', this.scrollNext.bind(this));
+        }
+
+        // Check if an active pill exists and scroll it into view
+        const activePill = this.querySelector('.pill-button-{{ ai_gen_id }}.active');
+        if (activePill) {
+          setTimeout(() => {
+            this.scrollToElement(activePill);
+          }, 100);
+        }
+
+        // Update button visibility on scroll
+        this.container.addEventListener('scroll', this.updateButtonVisibility.bind(this));
+        // Initial button visibility check
+        this.updateButtonVisibility();
+      }
+
+      scrollPrev() {
+        this.container.scrollBy({
+          left: -this.scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+
+      scrollNext() {
+        this.container.scrollBy({
+          left: this.scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+
+      scrollToElement(element) {
+        if (!element) return;
+        
+        const containerRect = this.container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        
+        const scrollLeft = elementRect.left - containerRect.left - 
+                          (containerRect.width / 2) + (elementRect.width / 2);
+        
+        this.container.scrollBy({
+          left: scrollLeft,
+          behavior: 'smooth'
+        });
+      }
+
+      updateButtonVisibility() {
+        if (!this.prevButton || !this.nextButton) return;
+        
+        const isAtStart = this.container.scrollLeft <= 10;
+        const isAtEnd = this.container.scrollLeft + this.container.clientWidth >= this.container.scrollWidth - 10;
+        
+        this.prevButton.style.opacity = isAtStart ? '0.5' : '1';
+        this.prevButton.style.pointerEvents = isAtStart ? 'none' : 'auto';
+        
+        this.nextButton.style.opacity = isAtEnd ? '0.5' : '1';
+        this.nextButton.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+      }
+    }
+
+    customElements.define('pill-carousel-{{ ai_gen_id }}', PillCarousel);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection Pills",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "limit": 15
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "side_space",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Side space",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_side_space_mobile",
+      "label": "Remove side space on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_buttons_mobile",
+      "label": "Hide navigation buttons on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "min_width",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum pill width",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Pill height",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Pill Colors"
+    },
+    {
+      "type": "color",
+      "id": "pill_background",
+      "label": "Background color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "pill_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "pill_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "pill_hover_background",
+      "label": "Hover background color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "pill_hover_text_color",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Active Pill"
+    },
+    {
+      "type": "color",
+      "id": "active_pill_background",
+      "label": "Active background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "active_pill_text_color",
+      "label": "Active text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_pill_border_color",
+      "label": "Active border color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Buttons"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button icon color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Pills"
+    }
+  ]
+}
+{% endschema %}

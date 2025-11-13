@@ -1,0 +1,621 @@
+{% doc %}
+  @prompt
+    progress bar for customer cart amount. as they add to their cart they unlock discounts. allow me to input the discounts, price targets and names for each spend tier, add markers to progress bar for spend tier but make each spend tier equidistant
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-cart-progress-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    margin: 16px 0;
+  }
+
+  .ai-cart-progress__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .ai-cart-progress__title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.title_size }}px;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-cart-progress__subtitle-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .ai-cart-progress__bar-container-{{ ai_gen_id }} {
+    position: relative;
+    margin: 24px 0;
+  }
+
+  .ai-cart-progress__track-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.bar_height }}px;
+    background-color: {{ block.settings.track_color }};
+    border-radius: {{ block.settings.bar_height | divided_by: 2 }}px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ai-cart-progress__fill-{{ ai_gen_id }} {
+    height: 100%;
+    background: linear-gradient(90deg, {{ block.settings.progress_color_start }}, {{ block.settings.progress_color_end }});
+    border-radius: {{ block.settings.bar_height | divided_by: 2 }}px;
+    transition: width 0.5s ease;
+    position: relative;
+  }
+
+  .ai-cart-progress__markers-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .ai-cart-progress__marker-{{ ai_gen_id }} {
+    width: {{ block.settings.marker_size }}px;
+    height: {{ block.settings.marker_size }}px;
+    border-radius: 50%;
+    background-color: {{ block.settings.marker_inactive_color }};
+    border: 2px solid {{ block.settings.background_color }};
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-cart-progress__marker-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.marker_active_color }};
+    transform: scale(1.2);
+  }
+
+  .ai-cart-progress__tiers-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    gap: 8px;
+  }
+
+  .ai-cart-progress__tier-{{ ai_gen_id }} {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+  }
+
+  .ai-cart-progress__tier-amount-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.tier_amount_size }}px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
+  .ai-cart-progress__tier-name-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.tier_name_size }}px;
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.2;
+  }
+
+  .ai-cart-progress__tier-{{ ai_gen_id }}.achieved {
+    opacity: 1;
+  }
+
+  .ai-cart-progress__tier-{{ ai_gen_id }}.achieved .ai-cart-progress__tier-amount-{{ ai_gen_id }} {
+    color: {{ block.settings.achieved_color }};
+  }
+
+  .ai-cart-progress__tier-{{ ai_gen_id }}.achieved .ai-cart-progress__tier-name-{{ ai_gen_id }} {
+    color: {{ block.settings.achieved_color }};
+    opacity: 1;
+  }
+
+  .ai-cart-progress__current-status-{{ ai_gen_id }} {
+    text-align: center;
+    margin-top: 16px;
+    padding: 12px;
+    background-color: {{ block.settings.status_background_color }};
+    border-radius: {{ block.settings.border_radius | divided_by: 2 }}px;
+  }
+
+  .ai-cart-progress__current-amount-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.current_amount_size }}px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
+  .ai-cart-progress__next-tier-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.next_tier_size }}px;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-cart-progress__tiers-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ai-cart-progress__tier-{{ ai_gen_id }} {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      padding: 4px 0;
+    }
+
+    .ai-cart-progress__tier-amount-{{ ai_gen_id }} {
+      margin: 0;
+    }
+
+    .ai-cart-progress__tier-name-{{ ai_gen_id }} {
+      margin: 0;
+    }
+  }
+{% endstyle %}
+
+<cart-progress-{{ ai_gen_id }}
+  class="ai-cart-progress-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+  data-cart-total="{{ cart.total_price }}"
+  data-tier-1-amount="{{ block.settings.tier_1_amount | times: 100 }}"
+  data-tier-2-amount="{{ block.settings.tier_2_amount | times: 100 }}"
+  data-tier-3-amount="{{ block.settings.tier_3_amount | times: 100 }}"
+  data-tier-4-amount="{{ block.settings.tier_4_amount | times: 100 }}"
+>
+  <div class="ai-cart-progress__header-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h3 class="ai-cart-progress__title-{{ ai_gen_id }}">{{ block.settings.title }}</h3>
+    {% endif %}
+    {% if block.settings.subtitle != blank %}
+      <p class="ai-cart-progress__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  <div class="ai-cart-progress__bar-container-{{ ai_gen_id }}">
+    <div class="ai-cart-progress__track-{{ ai_gen_id }}">
+      <div class="ai-cart-progress__fill-{{ ai_gen_id }}" data-progress-fill></div>
+      <div class="ai-cart-progress__markers-{{ ai_gen_id }}">
+        <div class="ai-cart-progress__marker-{{ ai_gen_id }}" data-marker="1"></div>
+        <div class="ai-cart-progress__marker-{{ ai_gen_id }}" data-marker="2"></div>
+        <div class="ai-cart-progress__marker-{{ ai_gen_id }}" data-marker="3"></div>
+        <div class="ai-cart-progress__marker-{{ ai_gen_id }}" data-marker="4"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-cart-progress__tiers-{{ ai_gen_id }}">
+    <div class="ai-cart-progress__tier-{{ ai_gen_id }}" data-tier="1">
+      <div class="ai-cart-progress__tier-amount-{{ ai_gen_id }}">{{ block.settings.tier_1_amount | money }}</div>
+      <div class="ai-cart-progress__tier-name-{{ ai_gen_id }}">{{ block.settings.tier_1_name }}</div>
+    </div>
+    <div class="ai-cart-progress__tier-{{ ai_gen_id }}" data-tier="2">
+      <div class="ai-cart-progress__tier-amount-{{ ai_gen_id }}">{{ block.settings.tier_2_amount | money }}</div>
+      <div class="ai-cart-progress__tier-name-{{ ai_gen_id }}">{{ block.settings.tier_2_name }}</div>
+    </div>
+    <div class="ai-cart-progress__tier-{{ ai_gen_id }}" data-tier="3">
+      <div class="ai-cart-progress__tier-amount-{{ ai_gen_id }}">{{ block.settings.tier_3_amount | money }}</div>
+      <div class="ai-cart-progress__tier-name-{{ ai_gen_id }}">{{ block.settings.tier_3_name }}</div>
+    </div>
+    <div class="ai-cart-progress__tier-{{ ai_gen_id }}" data-tier="4">
+      <div class="ai-cart-progress__tier-amount-{{ ai_gen_id }}">{{ block.settings.tier_4_amount | money }}</div>
+      <div class="ai-cart-progress__tier-name-{{ ai_gen_id }}">{{ block.settings.tier_4_name }}</div>
+    </div>
+  </div>
+
+  <div class="ai-cart-progress__current-status-{{ ai_gen_id }}">
+    <div class="ai-cart-progress__current-amount-{{ ai_gen_id }}" data-current-amount>
+      {{ cart.total_price | money }}
+    </div>
+    <div class="ai-cart-progress__next-tier-{{ ai_gen_id }}" data-next-tier-message>
+      {% assign next_tier_amount = 0 %}
+      {% assign current_total = cart.total_price %}
+      
+      {% if current_total < block.settings.tier_1_amount %}
+        {% assign next_tier_amount = block.settings.tier_1_amount | minus: current_total %}
+        Spend {{ next_tier_amount | money }} more to unlock {{ block.settings.tier_1_name }}
+      {% elsif current_total < block.settings.tier_2_amount %}
+        {% assign next_tier_amount = block.settings.tier_2_amount | minus: current_total %}
+        Spend {{ next_tier_amount | money }} more to unlock {{ block.settings.tier_2_name }}
+      {% elsif current_total < block.settings.tier_3_amount %}
+        {% assign next_tier_amount = block.settings.tier_3_amount | minus: current_total %}
+        Spend {{ next_tier_amount | money }} more to unlock {{ block.settings.tier_3_name }}
+      {% elsif current_total < block.settings.tier_4_amount %}
+        {% assign next_tier_amount = block.settings.tier_4_amount | minus: current_total %}
+        Spend {{ next_tier_amount | money }} more to unlock {{ block.settings.tier_4_name }}
+      {% else %}
+        You've unlocked all rewards!
+      {% endif %}
+    </div>
+  </div>
+</cart-progress-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CartProgress{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.cartTotal = parseInt(this.dataset.cartTotal) || 0;
+        this.tiers = [
+          parseInt(this.dataset.tier1Amount) || 0,
+          parseInt(this.dataset.tier2Amount) || 0,
+          parseInt(this.dataset.tier3Amount) || 0,
+          parseInt(this.dataset.tier4Amount) || 0
+        ];
+        this.maxAmount = Math.max(...this.tiers);
+      }
+
+      connectedCallback() {
+        this.updateProgress();
+        this.setupCartListener();
+      }
+
+      setupCartListener() {
+        document.addEventListener('cart:updated', (event) => {
+          if (event.detail && event.detail.cart) {
+            this.cartTotal = event.detail.cart.total_price;
+            this.updateProgress();
+          }
+        });
+
+        document.addEventListener('change', (event) => {
+          if (event.target.matches('[name="updates[]"]') || 
+              event.target.matches('[name^="quantity"]')) {
+            setTimeout(() => {
+              fetch('/cart.js')
+                .then(response => response.json())
+                .then(cart => {
+                  this.cartTotal = cart.total_price;
+                  this.updateProgress();
+                })
+                .catch(error => console.error('Error fetching cart:', error));
+            }, 100);
+          }
+        });
+      }
+
+      updateProgress() {
+        const progressFill = this.querySelector('[data-progress-fill]');
+        const markers = this.querySelectorAll('[data-marker]');
+        const tierElements = this.querySelectorAll('[data-tier]');
+        const currentAmountElement = this.querySelector('[data-current-amount]');
+        const nextTierMessage = this.querySelector('[data-next-tier-message]');
+
+        const progressPercentage = Math.min((this.cartTotal / this.maxAmount) * 100, 100);
+        progressFill.style.width = `${progressPercentage}%`;
+
+        if (currentAmountElement) {
+          currentAmountElement.textContent = this.formatMoney(this.cartTotal);
+        }
+
+        markers.forEach((marker, index) => {
+          if (this.cartTotal >= this.tiers[index]) {
+            marker.classList.add('active');
+          } else {
+            marker.classList.remove('active');
+          }
+        });
+
+        tierElements.forEach((tier, index) => {
+          if (this.cartTotal >= this.tiers[index]) {
+            tier.classList.add('achieved');
+          } else {
+            tier.classList.remove('achieved');
+          }
+        });
+
+        this.updateNextTierMessage(nextTierMessage);
+      }
+
+      updateNextTierMessage(element) {
+        if (!element) return;
+
+        const tierNames = [
+          this.getTierName(1),
+          this.getTierName(2), 
+          this.getTierName(3),
+          this.getTierName(4)
+        ];
+
+        for (let i = 0; i < this.tiers.length; i++) {
+          if (this.cartTotal < this.tiers[i]) {
+            const remaining = this.tiers[i] - this.cartTotal;
+            element.textContent = `Spend ${this.formatMoney(remaining)} more to unlock ${tierNames[i]}`;
+            return;
+          }
+        }
+        
+        element.textContent = "You've unlocked all rewards!";
+      }
+
+      getTierName(tierNumber) {
+        const tierElement = this.querySelector(`[data-tier="${tierNumber}"] .ai-cart-progress__tier-name-{{ ai_gen_id }}`);
+        return tierElement ? tierElement.textContent.trim() : `Tier ${tierNumber}`;
+      }
+
+      formatMoney(cents) {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(cents / 100);
+      }
+    }
+
+    customElements.define('cart-progress-{{ ai_gen_id }}', CartProgress{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cart Progress Bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Unlock Rewards"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Add more to your cart to unlock exclusive discounts"
+    },
+    {
+      "type": "header",
+      "content": "Tier 1"
+    },
+    {
+      "type": "text",
+      "id": "tier_1_amount",
+      "label": "Tier 1 amount",
+      "default": "50"
+    },
+    {
+      "type": "text",
+      "id": "tier_1_name",
+      "label": "Tier 1 reward name",
+      "default": "5% Off"
+    },
+    {
+      "type": "header",
+      "content": "Tier 2"
+    },
+    {
+      "type": "text",
+      "id": "tier_2_amount",
+      "label": "Tier 2 amount",
+      "default": "100"
+    },
+    {
+      "type": "text",
+      "id": "tier_2_name",
+      "label": "Tier 2 reward name",
+      "default": "10% Off"
+    },
+    {
+      "type": "header",
+      "content": "Tier 3"
+    },
+    {
+      "type": "text",
+      "id": "tier_3_amount",
+      "label": "Tier 3 amount",
+      "default": "150"
+    },
+    {
+      "type": "text",
+      "id": "tier_3_name",
+      "label": "Tier 3 reward name",
+      "default": "15% Off"
+    },
+    {
+      "type": "header",
+      "content": "Tier 4"
+    },
+    {
+      "type": "text",
+      "id": "tier_4_amount",
+      "label": "Tier 4 amount",
+      "default": "200"
+    },
+    {
+      "type": "text",
+      "id": "tier_4_name",
+      "label": "Tier 4 reward name",
+      "default": "20% Off + Free Shipping"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "track_color",
+      "label": "Progress track color",
+      "default": "#e9ecef"
+    },
+    {
+      "type": "color",
+      "id": "progress_color_start",
+      "label": "Progress start color",
+      "default": "#28a745"
+    },
+    {
+      "type": "color",
+      "id": "progress_color_end",
+      "label": "Progress end color",
+      "default": "#20c997"
+    },
+    {
+      "type": "color",
+      "id": "marker_inactive_color",
+      "label": "Marker inactive color",
+      "default": "#dee2e6"
+    },
+    {
+      "type": "color",
+      "id": "marker_active_color",
+      "label": "Marker active color",
+      "default": "#28a745"
+    },
+    {
+      "type": "color",
+      "id": "achieved_color",
+      "label": "Achieved tier color",
+      "default": "#28a745"
+    },
+    {
+      "type": "color",
+      "id": "status_background_color",
+      "label": "Status background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Progress bar height",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "marker_size",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Marker size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "tier_amount_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Tier amount size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "tier_name_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Tier name size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "current_amount_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Current amount size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "next_tier_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Next tier message size",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Progress Bar"
+    }
+  ]
+}
+{% endschema %}
