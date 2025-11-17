@@ -438,6 +438,9 @@
     },
     "divider_GPxBjL": {
       "type": "divider",
+      "custom_css": [
+        ".divider__line {display: none;}"
+      ],
       "name": "t:names.divider_section",
       "settings": {
         "color_scheme": "",
