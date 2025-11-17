@@ -414,7 +414,7 @@
       "settings": {
         "heading": "Black Friday Deals by Discount",
         "subheading": "<p>Shop by discount tier and save big on your favorite collections</p>",
-        "layout_type": "carousel",
+        "layout_type": "grid",
         "columns": 4,
         "mobile_columns": "2",
         "columns_gap": 20,
