@@ -513,7 +513,7 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Shop now",
+            "label": "See Our Plant Of The Year",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
             "style_class": "button",
@@ -542,7 +542,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -555,7 +555,7 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-end": 30
       }
     },
     "split_deal_1": {
@@ -662,7 +662,7 @@
                 "label": "Shop Aeoniums",
                 "link": "shopify://collections/aeonium",
                 "open_in_new_tab": false,
-                "style_class": "button",
+                "style_class": "button-secondary",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -1654,7 +1654,7 @@
                 "label": "Explore Bundles",
                 "link": "shopify://collections/gifts-terrariums",
                 "open_in_new_tab": false,
-                "style_class": "button",
+                "style_class": "button-secondary",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fill",
