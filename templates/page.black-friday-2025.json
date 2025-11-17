@@ -1073,7 +1073,7 @@
             "proof_heading": {
               "type": "text",
               "settings": {
-                "text": "<h2><strong>Loved by Plant Enthusiasts Across the UK</strong></h2>",
+                "text": "<h2><strong>Loved by Plant Enthusiasts across the UK</strong></h2>",
                 "width": "fit-content",
                 "max_width": "wide",
                 "max_width_tablet": "inherit",
