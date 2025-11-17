@@ -104,7 +104,7 @@
             "border_opacity": 100,
             "border_radius": 24,
             "toggle_overlay": true,
-            "overlay_color": "#00000000",
+            "overlay_color": "rgba(0,0,0,0)",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "link": "",
@@ -449,6 +449,82 @@
         "padding-block-end": 0
       }
     },
+    "discount_collections_4dTj9e": {
+      "type": "discount-collections",
+      "blocks": {
+        "collection_aVeeQb": {
+          "type": "collection",
+          "settings": {
+            "collection": "aeonium",
+            "discount_percentage": 40,
+            "custom_badge_color": "",
+            "show_product_count": true,
+            "show_description": true
+          }
+        },
+        "collection_yGJK8f": {
+          "type": "collection",
+          "settings": {
+            "collection": "agave",
+            "discount_percentage": 30,
+            "custom_badge_color": "",
+            "show_product_count": true,
+            "show_description": true
+          }
+        },
+        "collection_waNKVz": {
+          "type": "collection",
+          "settings": {
+            "collection": "crassula",
+            "discount_percentage": 20,
+            "custom_badge_color": "",
+            "show_product_count": true,
+            "show_description": true
+          }
+        },
+        "collection_aUP4Di": {
+          "type": "collection",
+          "settings": {
+            "collection": "echeveria",
+            "discount_percentage": 10,
+            "custom_badge_color": "",
+            "show_product_count": true,
+            "show_description": true
+          }
+        }
+      },
+      "block_order": [
+        "collection_aVeeQb",
+        "collection_yGJK8f",
+        "collection_waNKVz",
+        "collection_aUP4Di"
+      ],
+      "name": "Discount Collections",
+      "settings": {
+        "heading": "Black Friday Deals by Discount",
+        "subheading": "<p>Shop by discount tier and save big on your favorite collections</p>",
+        "layout_type": "carousel",
+        "columns": 4,
+        "mobile_columns": "2",
+        "columns_gap": 20,
+        "section_width": "page-width",
+        "show_pagination": true,
+        "pagination_style": "arrows",
+        "badge_style": "solid",
+        "badge_position": "corner",
+        "default_badge_color": "#00000073",
+        "title_typography": "h4",
+        "count_typography": "p",
+        "description_typography": "rte",
+        "description_word_limit": 20,
+        "show_cta": true,
+        "cta_text": "Shop Now",
+        "color_scheme": "",
+        "card_background": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
     "split_deal_1": {
       "type": "hero",
       "blocks": {
@@ -491,34 +567,6 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "badge": {
-              "type": "text",
-              "settings": {
-                "text": "<p><strong>50% OFF</strong></p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "max_width_tablet": "inherit",
-                "max_width_desktop": "inherit",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "0.875rem",
-                "line_height": "normal",
-                "letter_spacing": "0.1em",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "color_scheme": "",
-                "background": true,
-                "background_color": "#d0312d",
-                "corner_radius": 24,
-                "padding-block-start": 8,
-                "padding-block-end": 8,
-                "padding-inline-start": 16,
-                "padding-inline-end": 16
-              },
-              "blocks": {}
-            },
             "deal_heading": {
               "type": "text",
               "settings": {
@@ -619,7 +667,6 @@
             }
           },
           "block_order": [
-            "badge",
             "deal_heading",
             "deal_description",
             "stock_indicator",
@@ -2173,6 +2220,7 @@
     "black_friday_hero",
     "divider_xThbYN",
     "blocks_WEma9k",
+    "discount_collections_4dTj9e",
     "split_deal_1",
     "featured_products_carousel",
     "split_deal_2",
