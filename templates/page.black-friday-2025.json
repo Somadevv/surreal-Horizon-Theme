@@ -175,7 +175,7 @@
             "subheading": {
               "type": "text",
               "settings": {
-                "text": "<h2>Rare & Unusual Succulents Up to 40% OFF</h2>",
+                "text": "<h2>Rare & Unusual Succulents up to 40% OFF</h2>",
                 "width": "fit-content",
                 "max_width": "wide",
                 "max_width_tablet": "inherit",
@@ -498,7 +498,7 @@
             "strength_6_custom_icon": "shopify://shop_images/Black-Discount-Icon.webp",
             "right_background_color": "#ffffffc7",
             "featured_title": "Award-Winning Quality",
-            "featured_description": "We're proud to be recognized for our commitment to excellence with multiple industry awards.",
+            "featured_description": "We're proud to be recognised for our commitment to excellence with multiple industry awards.",
             "featured_title_size": 24,
             "featured_title_color": "#000000",
             "featured_description_size": 16,
