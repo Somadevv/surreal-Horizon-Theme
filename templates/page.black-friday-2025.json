@@ -147,7 +147,7 @@
             "heading_1": {
               "type": "text",
               "settings": {
-                "text": "<h1><strong>BLACK FRIDAY 2025</strong></h1>",
+                "text": "<h2>BLACK FRIDAY 2025</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "max_width_tablet": "inherit",
@@ -319,7 +319,7 @@
         "section_height_custom": 90,
         "color_scheme": "scheme-1",
         "toggle_overlay": true,
-        "overlay_color": "#00000090",
+        "overlay_color": "#0000008f",
         "overlay_style": "solid",
         "gradient_direction": "to bottom",
         "blurred_reflection": true,
@@ -588,7 +588,7 @@
             "deal_heading": {
               "type": "text",
               "settings": {
-                "text": "<h2><strong>Award-Winning Aeoniums</strong></h2>",
+                "text": "<h2>Award-Winning Aeoniums</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "max_width_tablet": "inherit",
@@ -851,7 +851,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h1><strong>Gift Collection</strong></h1>",
+                    "text": "<h1>Gift Collection</h1>",
                     "width": "100%",
                     "max_width": "normal",
                     "max_width_tablet": "inherit",
@@ -1061,7 +1061,7 @@
             "proof_heading": {
               "type": "text",
               "settings": {
-                "text": "<h3><strong>Loved by Plant Enthusiasts across the UK</strong></h3>",
+                "text": "<h3>Loved by Plant Enthusiasts across the UK</h3>",
                 "width": "fit-content",
                 "max_width": "wide",
                 "max_width_tablet": "inherit",
@@ -1555,7 +1555,7 @@
             "deal2_heading": {
               "type": "text",
               "settings": {
-                "text": "<h2><strong>Exclusive Black Friday Bundles</strong></h2>",
+                "text": "<h2>Exclusive Black Friday Bundles</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "max_width_tablet": "inherit",
