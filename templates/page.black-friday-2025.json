@@ -267,25 +267,11 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "primary_cta": {
-                  "type": "button",
-                  "settings": {
-                    "label": "Shop All Deals",
-                    "link": "shopify://collections/all-plants",
-                    "open_in_new_tab": false,
-                    "style_class": "button",
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fill",
-                    "custom_width_mobile": 100
-                  },
-                  "blocks": {}
-                },
                 "secondary_cta": {
                   "type": "button",
                   "settings": {
                     "label": "View Bundles",
-                    "link": "shopify://collections/gifts-terrariums",
+                    "link": "shopify://collections/plant-bundles",
                     "open_in_new_tab": false,
                     "style_class": "button-secondary",
                     "width": "fit-content",
@@ -297,7 +283,6 @@
                 }
               },
               "block_order": [
-                "primary_cta",
                 "secondary_cta"
               ]
             }
@@ -997,6 +982,9 @@
       "block_order": [
         "group_acMYzN"
       ],
+      "custom_css": [
+        "@media screen and (min-width: 400px) {p {font-size: 20px; }}"
+      ],
       "name": "Hero: Gifts",
       "settings": {
         "media_type_1": "image",
@@ -1073,7 +1061,7 @@
             "proof_heading": {
               "type": "text",
               "settings": {
-                "text": "<h2><strong>Loved by Plant Enthusiasts across the UK</strong></h2>",
+                "text": "<h3><strong>Loved by Plant Enthusiasts across the UK</strong></h3>",
                 "width": "fit-content",
                 "max_width": "wide",
                 "max_width_tablet": "inherit",
@@ -1595,16 +1583,16 @@
             "deal2_description": {
               "type": "text",
               "settings": {
-                "text": "<p>Curated collections of complementary succulents, perfectly paired for stunning displays. Each bundle includes care instructions and our expert planting tips. <strong>Save up to 60% compared to buying individually.</strong></p>",
+                "text": "<p>Curated collections of complementary succulents, perfectly paired for stunning displays. Each bundle includes care instructions and our expert planting tips. <strong>Save up to 40% compared to buying individually.</strong></p>",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "max_width_tablet": "inherit",
                 "max_width_desktop": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "custom",
                 "font": "var(--font-body--family)",
-                "font_size": "1.125rem",
-                "line_height": "1.6",
+                "font_size": "1.25rem",
+                "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
@@ -1694,7 +1682,7 @@
         "section_height_custom": 0,
         "color_scheme": "scheme-1",
         "toggle_overlay": true,
-        "overlay_color": "#00000066",
+        "overlay_color": "#00000075",
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "blurred_reflection": false,
