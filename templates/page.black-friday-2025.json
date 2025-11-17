@@ -57,6 +57,8 @@
                 "text": "<p><strong>⚡ BLACK FRIDAY EXCLUSIVE: Up to 50% OFF + Free Shipping ⚡</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -66,6 +68,7 @@
                 "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -73,7 +76,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -84,6 +88,7 @@
       "block_order": [
         "announcement_group"
       ],
+      "name": "Hero: CTA",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -160,6 +165,8 @@
                 "text": "<p><em>Limited Time Only</em></p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-accent--family)",
@@ -169,6 +176,7 @@
                 "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -176,7 +184,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "heading_1": {
               "type": "text",
@@ -184,6 +193,8 @@
                 "text": "<h1><strong>BLACK FRIDAY 2025</strong></h1>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "h1",
                 "font": "var(--font-body--family)",
@@ -193,6 +204,7 @@
                 "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -200,7 +212,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "subheading": {
               "type": "text",
@@ -208,6 +221,8 @@
                 "text": "<h2>Rare & Unusual Succulents<br/>🏷️ Up to 50% OFF</h2>",
                 "width": "fit-content",
                 "max_width": "wide",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
@@ -217,6 +232,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -224,7 +240,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "hero_description": {
               "type": "text",
@@ -232,6 +249,8 @@
                 "text": "<p>Discover extraordinary savings on our award-winning collection of rare succulents, exclusive hybrids, and UK hardy varieties. Limited stock available.</p>",
                 "width": "fit-content",
                 "max_width": "narrow",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -241,6 +260,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -248,7 +268,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "cta_buttons": {
               "type": "group",
@@ -300,7 +321,8 @@
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 100
-                  }
+                  },
+                  "blocks": {}
                 },
                 "secondary_cta": {
                   "type": "button",
@@ -313,7 +335,8 @@
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 100
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -336,8 +359,8 @@
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "",
         "media_type_2": "image",
+        "hide_second_media_mobile": false,
         "link": "",
         "open_in_new_tab": false,
         "content_direction": "column",
@@ -365,9 +388,11 @@
     "urgency_strip": {
       "type": "marquee",
       "settings": {
+        "movement_direction": "normal",
         "color_scheme": "scheme-3",
         "padding-block-start": 16,
-        "padding-block-end": 16
+        "padding-block-end": 16,
+        "gap_between_elements": 24
       }
     },
     "split_deal_1": {
@@ -418,6 +443,8 @@
                 "text": "<p><strong>50% OFF</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -427,6 +454,7 @@
                 "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": true,
                 "background_color": "#d0312d",
                 "corner_radius": 24,
@@ -434,7 +462,8 @@
                 "padding-block-end": 8,
                 "padding-inline-start": 16,
                 "padding-inline-end": 16
-              }
+              },
+              "blocks": {}
             },
             "deal_heading": {
               "type": "text",
@@ -442,6 +471,8 @@
                 "text": "<h2><strong>Award-Winning Aeoniums</strong></h2>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
@@ -451,6 +482,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -458,7 +490,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "deal_description": {
               "type": "text",
@@ -466,6 +499,8 @@
                 "text": "<p>Discover our stunning collection of rare Aeonium varieties. From deep burgundy 'Schwarzkopf' to vibrant variegated beauties, each plant is hand-selected from our award-winning nursery.</p>",
                 "width": "fit-content",
                 "max_width": "narrow",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -475,6 +510,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -482,7 +518,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "stock_indicator": {
               "type": "text",
@@ -490,6 +527,8 @@
                 "text": "<p>⚠️ <strong>Only 12 left in stock</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -499,6 +538,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "#d0312d",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -506,7 +546,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "deal_button": {
               "type": "button",
@@ -519,7 +560,8 @@
                 "custom_width": 100,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -536,8 +578,8 @@
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "",
         "media_type_2": "image",
+        "hide_second_media_mobile": false,
         "link": "",
         "open_in_new_tab": false,
         "content_direction": "row",
@@ -565,18 +607,18 @@
     "featured_products_carousel": {
       "type": "product-list",
       "blocks": {
-        "header_section": {
+        "static-header": {
           "type": "_product-list-content",
           "static": true,
           "settings": {
             "content_direction": "column",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "center",
+            "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
+            "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
+            "gap": 12,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -597,185 +639,25 @@
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {
-            "section_title": {
-              "type": "_product-list-text",
-              "settings": {
-                "text": "<h2><strong>Flash Sale Favorites</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "3rem",
-                "line_height": "1.2",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "section_subtitle": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Handpicked collection of our most popular rare succulents at unbeatable Black Friday prices</p>",
-                "width": "fit-content",
-                "max_width": "narrow",
-                "alignment": "center",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1.125rem",
-                "line_height": "1.6",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": [
-            "section_title",
-            "section_subtitle"
-          ]
+          "blocks": {}
         },
-        "product_card": {
+        "static-product-card": {
           "type": "_product-card",
           "static": true,
           "settings": {
-            "product_card_gap": 12,
-            "inherit_color_scheme": false,
-            "color_scheme": "scheme-1",
-            "border": "all",
+            "product_card_gap": 16,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
             "border_width": 1,
-            "border_opacity": 10,
-            "border_radius": 16,
-            "padding-block-start": 16,
-            "padding-block-end": 16,
-            "padding-inline-start": 16,
-            "padding-inline-end": 16
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
-          "blocks": {
-            "product_gallery": {
-              "type": "_product-card-gallery",
-              "settings": {
-                "image_ratio": "square",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 12,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "product_info": {
-              "type": "_product-card-group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "link": "",
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "product_title": {
-                  "type": "product-title",
-                  "settings": {
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h5",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1.125rem",
-                    "line_height": "1.4",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  }
-                },
-                "product_price": {
-                  "type": "price",
-                  "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "h6",
-                    "width": "100%",
-                    "alignment": "left",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1.5rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "color": "var(--color-foreground)",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  }
-                }
-              },
-              "block_order": [
-                "product_title",
-                "product_price"
-              ]
-            }
-          },
-          "block_order": [
-            "product_gallery",
-            "product_info"
-          ]
+          "blocks": {}
         }
       },
       "settings": {
@@ -846,6 +728,8 @@
                 "text": "<p><strong>BUNDLE & SAVE</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -855,6 +739,7 @@
                 "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": true,
                 "background_color": "#2d7a3e",
                 "corner_radius": 24,
@@ -862,7 +747,8 @@
                 "padding-block-end": 8,
                 "padding-inline-start": 16,
                 "padding-inline-end": 16
-              }
+              },
+              "blocks": {}
             },
             "deal2_heading": {
               "type": "text",
@@ -870,6 +756,8 @@
                 "text": "<h2><strong>Exclusive Black Friday Bundles</strong></h2>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
@@ -879,6 +767,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -886,7 +775,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "deal2_description": {
               "type": "text",
@@ -894,6 +784,8 @@
                 "text": "<p>Curated collections of complementary succulents, perfectly paired for stunning displays. Each bundle includes care instructions and our expert planting tips. <strong>Save up to 60% compared to buying individually.</strong></p>",
                 "width": "fit-content",
                 "max_width": "narrow",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -903,6 +795,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -910,7 +803,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "features_list": {
               "type": "text",
@@ -918,6 +812,8 @@
                 "text": "<p>✓ Hand-selected varieties<br/>✓ Includes care guide<br/>✓ Ready-to-plant collections<br/>✓ Perfect gift option</p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -927,6 +823,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -934,7 +831,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "deal2_button": {
               "type": "button",
@@ -947,7 +845,8 @@
                 "custom_width": 100,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -964,8 +863,8 @@
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "",
         "media_type_2": "image",
+        "hide_second_media_mobile": false,
         "link": "",
         "open_in_new_tab": false,
         "content_direction": "row",
@@ -1038,6 +937,8 @@
                 "text": "<h2><strong>Loved by Plant Enthusiasts Across the UK</strong></h2>",
                 "width": "fit-content",
                 "max_width": "wide",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
@@ -1047,6 +948,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -1054,7 +956,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "stats_row": {
               "type": "group",
@@ -1140,6 +1043,8 @@
                         "text": "<p><strong>10+</strong></p>",
                         "width": "fit-content",
                         "max_width": "normal",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
                         "alignment": "center",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -1149,6 +1054,7 @@
                         "case": "none",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
+                        "color_scheme": "",
                         "background": false,
                         "background_color": "#00000026",
                         "corner_radius": 0,
@@ -1156,7 +1062,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     },
                     "stat1_label": {
                       "type": "text",
@@ -1164,6 +1071,8 @@
                         "text": "<p>RHS Gold Medals</p>",
                         "width": "fit-content",
                         "max_width": "normal",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
                         "alignment": "center",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -1173,6 +1082,7 @@
                         "case": "none",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
+                        "color_scheme": "",
                         "background": false,
                         "background_color": "#00000026",
                         "corner_radius": 0,
@@ -1180,7 +1090,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -1233,6 +1144,8 @@
                         "text": "<p><strong>500+</strong></p>",
                         "width": "fit-content",
                         "max_width": "normal",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
                         "alignment": "center",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -1242,6 +1155,7 @@
                         "case": "none",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
+                        "color_scheme": "",
                         "background": false,
                         "background_color": "#00000026",
                         "corner_radius": 0,
@@ -1249,7 +1163,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     },
                     "stat2_label": {
                       "type": "text",
@@ -1257,6 +1172,8 @@
                         "text": "<p>Rare Varieties</p>",
                         "width": "fit-content",
                         "max_width": "normal",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
                         "alignment": "center",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -1266,6 +1183,7 @@
                         "case": "none",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
+                        "color_scheme": "",
                         "background": false,
                         "background_color": "#00000026",
                         "corner_radius": 0,
@@ -1273,7 +1191,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -1326,6 +1245,8 @@
                         "text": "<p><strong>15k+</strong></p>",
                         "width": "fit-content",
                         "max_width": "normal",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
                         "alignment": "center",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -1335,6 +1256,7 @@
                         "case": "none",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
+                        "color_scheme": "",
                         "background": false,
                         "background_color": "#00000026",
                         "corner_radius": 0,
@@ -1342,7 +1264,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     },
                     "stat3_label": {
                       "type": "text",
@@ -1350,6 +1273,8 @@
                         "text": "<p>Happy Customers</p>",
                         "width": "fit-content",
                         "max_width": "normal",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
                         "alignment": "center",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -1359,6 +1284,7 @@
                         "case": "none",
                         "wrap": "pretty",
                         "color": "var(--color-foreground)",
+                        "color_scheme": "",
                         "background": false,
                         "background_color": "#00000026",
                         "corner_radius": 0,
@@ -1366,7 +1292,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -1467,6 +1394,8 @@
                 "text": "<h2><strong>Shop by Collection</strong></h2>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
@@ -1476,6 +1405,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -1483,7 +1413,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "grid_subtitle": {
               "type": "text",
@@ -1491,6 +1422,8 @@
                 "text": "<p>Every category features exclusive Black Friday discounts</p>",
                 "width": "fit-content",
                 "max_width": "narrow",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -1500,6 +1433,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -1507,7 +1441,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -1515,65 +1450,40 @@
             "grid_subtitle"
           ]
         },
-        "collection_card": {
+        "static-collection-card": {
           "type": "_collection-card",
           "static": true,
           "settings": {
-            "placement": "over_image",
-            "horizontal_alignment": "center",
-            "vertical_alignment": "flex-end",
-            "collection_card_gap": 12,
+            "placement": "on_image",
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "collection_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 20
+            "border_radius": 0
           },
           "blocks": {
-            "collection_title": {
-              "type": "text",
-              "settings": {
-                "text": "<h3><strong>{{ closest.collection.title }}</strong></h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "1.75rem",
-                "line_height": "1.2",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "#ffffff",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "collection_image": {
+            "collection-card-image": {
               "type": "_collection-card-image",
               "static": true,
               "settings": {
                 "image_ratio": "portrait",
-                "toggle_overlay": true,
-                "overlay_color": "#000000b3",
-                "overlay_style": "gradient",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
                 "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
-                "border_radius": 20
-              }
+                "border_radius": 0
+              },
+              "blocks": {}
             }
           },
-          "block_order": [
-            "collection_title"
-          ]
+          "block_order": []
         }
       },
       "block_order": [
@@ -1691,11 +1601,11 @@
                   "type": "icon",
                   "settings": {
                     "icon": "truck",
-                    "image_upload": "",
                     "width": 40,
                     "link": "",
                     "open_in_new_tab": false
-                  }
+                  },
+                  "blocks": {}
                 },
                 "title_1": {
                   "type": "text",
@@ -1703,6 +1613,8 @@
                     "text": "<p><strong>Free Shipping</strong></p>",
                     "width": "fit-content",
                     "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
                     "alignment": "center",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
@@ -1712,6 +1624,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "color_scheme": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -1719,7 +1632,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_1": {
                   "type": "text",
@@ -1727,6 +1641,8 @@
                     "text": "<p>On orders over £50</p>",
                     "width": "fit-content",
                     "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
                     "alignment": "center",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1736,6 +1652,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "color_scheme": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -1743,7 +1660,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -1795,11 +1713,11 @@
                   "type": "icon",
                   "settings": {
                     "icon": "leaf",
-                    "image_upload": "",
                     "width": 40,
                     "link": "",
                     "open_in_new_tab": false
-                  }
+                  },
+                  "blocks": {}
                 },
                 "title_2": {
                   "type": "text",
@@ -1807,6 +1725,8 @@
                     "text": "<p><strong>Plant Health Guarantee</strong></p>",
                     "width": "fit-content",
                     "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
                     "alignment": "center",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
@@ -1816,6 +1736,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "color_scheme": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -1823,7 +1744,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_2": {
                   "type": "text",
@@ -1831,6 +1753,8 @@
                     "text": "<p>30-day money back</p>",
                     "width": "fit-content",
                     "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
                     "alignment": "center",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1840,6 +1764,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "color_scheme": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -1847,7 +1772,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -1899,11 +1825,11 @@
                   "type": "icon",
                   "settings": {
                     "icon": "box",
-                    "image_upload": "",
                     "width": 40,
                     "link": "",
                     "open_in_new_tab": false
-                  }
+                  },
+                  "blocks": {}
                 },
                 "title_3": {
                   "type": "text",
@@ -1911,6 +1837,8 @@
                     "text": "<p><strong>Secure Packaging</strong></p>",
                     "width": "fit-content",
                     "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
                     "alignment": "center",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
@@ -1920,6 +1848,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "color_scheme": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -1927,7 +1856,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_3": {
                   "type": "text",
@@ -1935,6 +1865,8 @@
                     "text": "<p>100% plastic-free</p>",
                     "width": "fit-content",
                     "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
                     "alignment": "center",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1944,6 +1876,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "color_scheme": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -1951,7 +1884,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -2047,6 +1981,8 @@
                 "text": "<p><em>Don't Let These Deals Slip Away</em></p>",
                 "width": "fit-content",
                 "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-accent--family)",
@@ -2056,6 +1992,7 @@
                 "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -2063,7 +2000,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "final_heading": {
               "type": "text",
@@ -2071,6 +2009,8 @@
                 "text": "<h2><strong>Last Chance for Black Friday Savings</strong></h2>",
                 "width": "fit-content",
                 "max_width": "wide",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "h1",
                 "font": "var(--font-body--family)",
@@ -2080,6 +2020,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -2087,7 +2028,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "final_text": {
               "type": "text",
@@ -2095,6 +2037,8 @@
                 "text": "<p>Stock is selling fast. Secure your rare succulents before they're gone forever.</p>",
                 "width": "fit-content",
                 "max_width": "narrow",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -2104,6 +2048,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "color_scheme": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -2111,7 +2056,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "final_button": {
               "type": "button",
@@ -2124,7 +2070,8 @@
                 "custom_width": 100,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -2140,8 +2087,8 @@
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "",
         "media_type_2": "image",
+        "hide_second_media_mobile": false,
         "link": "",
         "open_in_new_tab": false,
         "content_direction": "column",
