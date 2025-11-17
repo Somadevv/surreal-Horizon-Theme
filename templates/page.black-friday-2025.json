@@ -334,7 +334,7 @@
         "section_height_custom": 90,
         "color_scheme": "scheme-1",
         "toggle_overlay": true,
-        "overlay_color": "#000000b6",
+        "overlay_color": "#000000b5",
         "overlay_style": "gradient",
         "gradient_direction": "to bottom",
         "blurred_reflection": true,
@@ -508,10 +508,26 @@
             "image_border_radius": 12
           },
           "blocks": {}
+        },
+        "button_RcNi3N": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_205c66c_DaHyRH"
+        "ai_gen_block_205c66c_DaHyRH",
+        "button_RcNi3N"
       ],
       "name": "Brand Strengths Grid",
       "settings": {
@@ -520,7 +536,7 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
+        "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 12,
         "section_width": "page-width",
@@ -734,185 +750,282 @@
         "padding-block-end": 0
       }
     },
-    "split_deal_2": {
+    "hero_CrYghe": {
       "type": "hero",
       "blocks": {
-        "deal2_content": {
+        "group_acMYzN": {
           "type": "group",
+          "name": "t:names.group",
           "settings": {
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 20,
+            "gap": 18,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "scheme-2",
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-6",
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
+            "border_radius": 14,
+            "toggle_overlay": true,
+            "overlay_color": "#0000003b",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "link": "",
             "open_in_new_tab": false,
             "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-block-start": 7,
+            "padding-block-end": 7,
+            "padding-inline-start": 7,
+            "padding-inline-end": 7
           },
           "blocks": {
-            "deal2_heading": {
-              "type": "text",
+            "group_Ux73pq": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h2><strong>Exclusive Black Friday Bundles</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "max_width_tablet": "inherit",
-                "max_width_desktop": "inherit",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "2.5rem",
-                "line_height": "1.2",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "color_scheme": "scheme-2",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "deal2_description": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Curated collections of complementary succulents, perfectly paired for stunning displays. Each bundle includes care instructions and our expert planting tips. <strong>Save up to 60% compared to buying individually.</strong></p>",
-                "width": "fit-content",
-                "max_width": "narrow",
-                "max_width_tablet": "inherit",
-                "max_width_desktop": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1.125rem",
-                "line_height": "1.6",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "color_scheme": "scheme-2",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "features_list": {
-              "type": "text",
-              "settings": {
-                "text": "<p>✓ Hand-selected varieties<br/>✓ Includes care guide<br/>✓ Ready-to-plant collections<br/>✓ Perfect gift option</p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "max_width_tablet": "inherit",
-                "max_width_desktop": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "1.8",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "color_scheme": "scheme-2",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "deal2_button": {
-              "type": "button",
-              "settings": {
-                "label": "Explore Bundles",
-                "link": "shopify://collections/gifts-terrariums",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 7,
+                "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
-                "custom_width_mobile": 100
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "text_Az9gnp": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2><em>Browse our</em></h2>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
+                    "alignment": "left",
+                    "type_preset": "h6",
+                    "font": "var(--font-accent--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "color_scheme": "scheme-2",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_a6Baxe": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h1><strong>Gift Collection</strong></h1>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
+                    "alignment": "left",
+                    "type_preset": "h2",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "color_scheme": "scheme-2",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_Az9gnp",
+                "text_a6Baxe"
+              ]
+            },
+            "group_9dg4Vm": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_UgHxHc": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Take a look at our amazing gift collection, perfect for giving a loved one something special</p>",
+                    "width": "fit-content",
+                    "max_width": "none",
+                    "max_width_tablet": "inherit",
+                    "max_width_desktop": "inherit",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "color_scheme": "scheme-2",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_xQnHRc": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Shop Gifts",
+                    "link": "shopify://collections/gifts-terrariums",
+                    "open_in_new_tab": false,
+                    "style_class": "button",
+                    "width": "custom",
+                    "custom_width": 36,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_UgHxHc",
+                "button_xQnHRc"
+              ]
             }
           },
           "block_order": [
-            "deal2_heading",
-            "deal2_description",
-            "features_list",
-            "deal2_button"
+            "group_Ux73pq",
+            "group_9dg4Vm"
           ]
         }
       },
       "block_order": [
-        "deal2_content"
+        "group_acMYzN"
       ],
+      "name": "Hero: Gifts",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/IMG_1700.jpg",
+        "image_1": "shopify://shop_images/Hex-terrarium-1.jpg",
         "media_type_2": "image",
-        "hide_second_media_mobile": false,
-        "link": "",
+        "image_2": "shopify://shop_images/12cm-terrerium-1.jpg",
+        "hide_second_media_mobile": true,
+        "link": "shopify://collections/gifts-terrariums",
         "open_in_new_tab": false,
-        "content_direction": "row",
+        "content_direction": "column",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
+        "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 64,
-        "section_width": "full-width",
-        "section_height": "fit",
-        "section_height_custom": 0,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-end",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "large",
+        "section_height_custom": 50,
         "color_scheme": "scheme-1",
-        "toggle_overlay": true,
-        "overlay_color": "#00000066",
-        "overlay_style": "solid",
+        "toggle_overlay": false,
+        "overlay_color": "#00000063",
+        "overlay_style": "gradient",
         "gradient_direction": "to top",
         "blurred_reflection": false,
-        "reflection_opacity": 0,
-        "padding-block-start": 80,
-        "padding-block-end": 80
+        "reflection_opacity": 75,
+        "padding-block-start": 40,
+        "padding-block-end": 40
       }
     },
     "social_proof": {
@@ -1409,20 +1522,20 @@
         "padding-block-end": 80
       }
     },
-    "final_cta": {
+    "split_deal_2": {
       "type": "hero",
       "blocks": {
-        "final_content": {
+        "deal2_content": {
           "type": "group",
           "settings": {
             "content_direction": "column",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "center",
+            "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 24,
+            "gap": 20,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -1430,7 +1543,7 @@
             "height": "fit",
             "custom_height": 100,
             "inherit_color_scheme": true,
-            "color_scheme": "",
+            "color_scheme": "scheme-2",
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -1451,47 +1564,19 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "final_eyebrow": {
+            "deal2_heading": {
               "type": "text",
               "settings": {
-                "text": "<p><em>Don't Let These Deals Slip Away</em></p>",
+                "text": "<h2><strong>Exclusive Black Friday Bundles</strong></h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "max_width_tablet": "inherit",
                 "max_width_desktop": "inherit",
-                "alignment": "center",
-                "type_preset": "rte",
-                "font": "var(--font-accent--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "0.1em",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "color_scheme": "scheme-2",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "final_heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h2><strong>Last Chance for Black Friday Savings</strong></h2>",
-                "width": "fit-content",
-                "max_width": "wide",
-                "max_width_tablet": "inherit",
-                "max_width_desktop": "inherit",
-                "alignment": "center",
-                "type_preset": "h1",
+                "alignment": "left",
+                "type_preset": "h2",
                 "font": "var(--font-body--family)",
-                "font_size": "3.5rem",
-                "line_height": "1.1",
+                "font_size": "2.5rem",
+                "line_height": "1.2",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
@@ -1507,18 +1592,18 @@
               },
               "blocks": {}
             },
-            "final_text": {
+            "deal2_description": {
               "type": "text",
               "settings": {
-                "text": "<p>Stock is selling fast. Secure your rare succulents before they're gone forever.</p>",
+                "text": "<p>Curated collections of complementary succulents, perfectly paired for stunning displays. Each bundle includes care instructions and our expert planting tips. <strong>Save up to 60% compared to buying individually.</strong></p>",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "max_width_tablet": "inherit",
                 "max_width_desktop": "normal",
-                "alignment": "center",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
-                "font_size": "1.25rem",
+                "font_size": "1.125rem",
                 "line_height": "1.6",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -1535,11 +1620,39 @@
               },
               "blocks": {}
             },
-            "final_button": {
+            "features_list": {
+              "type": "text",
+              "settings": {
+                "text": "<p>✓ Hand-selected varieties<br/>✓ Includes care guide<br/>✓ Ready-to-plant collections<br/>✓ Perfect gift option</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "1.8",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "color_scheme": "scheme-2",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "deal2_button": {
               "type": "button",
               "settings": {
-                "label": "Shop All Black Friday Deals",
-                "link": "shopify://collections/all-plants",
+                "label": "Explore Bundles",
+                "link": "shopify://collections/gifts-terrariums",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -1551,43 +1664,43 @@
             }
           },
           "block_order": [
-            "final_eyebrow",
-            "final_heading",
-            "final_text",
-            "final_button"
+            "deal2_heading",
+            "deal2_description",
+            "features_list",
+            "deal2_button"
           ]
         }
       },
       "block_order": [
-        "final_content"
+        "deal2_content"
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/40445369-2A88-4B28-B4B6-6BDCA9E6FCEA_6c4160b9-03b5-41eb-a2c9-911606897fa9.jpg",
+        "image_1": "shopify://shop_images/IMG_1700.jpg",
         "media_type_2": "image",
         "hide_second_media_mobile": false,
         "link": "",
         "open_in_new_tab": false,
-        "content_direction": "column",
+        "content_direction": "row",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
+        "horizontal_alignment": "space-between",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 20,
+        "gap": 64,
         "section_width": "full-width",
-        "section_height": "large",
+        "section_height": "fit",
         "section_height_custom": 0,
         "color_scheme": "scheme-1",
         "toggle_overlay": true,
-        "overlay_color": "#00000055",
-        "overlay_style": "gradient",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": true,
-        "reflection_opacity": 50,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "overlay_color": "#00000066",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 0,
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     }
   },
@@ -1600,8 +1713,8 @@
     "blocks_WEma9k",
     "split_deal_1",
     "1763368380ff65eda3",
-    "split_deal_2",
+    "hero_CrYghe",
     "social_proof",
-    "final_cta"
+    "split_deal_2"
   ]
 }
