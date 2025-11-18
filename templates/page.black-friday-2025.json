@@ -405,7 +405,7 @@
         "subheading": "<p>Shop by discount tier and save big on your favorite collections</p>",
         "layout_type": "grid",
         "columns": 4,
-        "mobile_columns": "2",
+        "mobile_columns": "1",
         "columns_gap": 20,
         "section_width": "page-width",
         "show_pagination": true,
