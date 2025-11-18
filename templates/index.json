@@ -168,7 +168,7 @@
             "text_gJGWzF": {
               "type": "text",
               "settings": {
-                "text": "<h3><strong>Browse our collection</strong></h3>",
+                "text": "<h3>Browse our collection</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "max_width_tablet": "inherit",
@@ -335,9 +335,9 @@
         "icons_style": "arrow",
         "icons_shape": "circle",
         "section_width": "page-width",
-        "gap": 12,
+        "gap": 20,
         "color_scheme": "scheme-1",
-        "padding-block-start": 10,
+        "padding-block-start": 25,
         "padding-block-end": 25
       }
     },
@@ -579,7 +579,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h1><strong>Gift Collection</strong></h1>",
+                    "text": "<h1>Gift Collection</h1>",
                     "width": "100%",
                     "max_width": "normal",
                     "max_width_tablet": "inherit",
@@ -780,7 +780,7 @@
             "product_list_text_qLCTNF": {
               "type": "_product-list-text",
               "settings": {
-                "text": "<h3><strong>{{ closest.collection.title }}</strong></h3>",
+                "text": "<h3>{{ closest.collection.title }}</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -827,7 +827,7 @@
             "product_card_gallery_JgqDGj": {
               "type": "_product-card-gallery",
               "settings": {
-                "image_ratio": "portrait",
+                "image_ratio": "adapt",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -964,7 +964,7 @@
         "icons_shape": "none",
         "section_width": "page-width",
         "horizontal_alignment": "center",
-        "gap": 20,
+        "gap": 40,
         "color_scheme": "scheme-1",
         "padding-block-start": 35,
         "padding-block-end": 20
@@ -978,7 +978,7 @@
           "name": "t:names.title",
           "static": true,
           "settings": {
-            "text": "<h3><strong>Full Care Guides</strong></h3>",
+            "text": "<h3>Full Care Guides</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -1110,9 +1110,9 @@
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
-        "gap": 64,
+        "gap": 40,
         "color_scheme": "",
-        "padding-block-start": 48,
+        "padding-block-start": 30,
         "padding-block-end": 48
       }
     },
@@ -1163,7 +1163,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2><strong>Frequently Asked <br/>Succulent Questions</strong></h2>",
+                "text": "<h2>Frequently Asked <br/>Succulent Questions</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "max_width_tablet": "inherit",
