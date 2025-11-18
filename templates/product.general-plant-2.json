@@ -670,11 +670,23 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "ideal_environment_IdEnv1": {
+          "type": "ideal-environment",
+          "name": "Ideal Environment",
+          "settings": {
+            "padding-block-start": 20,
+            "padding-block-end": 20,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "text_NDp9eH",
-        "plant_characteristics_MzHCTw"
+        "plant_characteristics_MzHCTw",
+        "ideal_environment_IdEnv1"
       ],
       "name": "Plant Attributes",
       "settings": {
