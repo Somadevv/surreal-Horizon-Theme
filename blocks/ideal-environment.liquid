@@ -5,55 +5,58 @@
   endif
 %}
 
-{% if product %}
+{%- if product.metafields.custom.ideal_location -%}
   <div class="ideal-environment" {{ block.shopify_attributes }}>
     {%- comment -%} Section Title {%- endcomment -%}
-    <h2 class="ideal-environment__title">
+    <h3 class="ideal-environment__title">
       Ideal Environment for {{ product.title }}
-    </h2>
+    </h3>
 
     {%- comment -%} Environment Items Container {%- endcomment -%}
     <div class="ideal-environment__items">
-
-      {%- comment -%} Sunlight Item {%- endcomment -%}
-      {%- if product.metafields.custom.sunlight -%}
+      {%- for location in product.metafields.custom.ideal_location.value -%}
         <div class="environment-item">
           <div class="environment-item__icon">
-            {% render 'icon-sun' %}
+            {% case location %}
+              {% when 'Outdoor full sun' %}
+                {% render 'icon-full-sun' %}
+              {% when 'Outdoor part shade' %}
+                {% render 'icon-part-shade' %}
+              {% when 'Outdoor full shade' %}
+                {% render 'icon-full-shade' %}
+              {% when 'Outdoor sheltered from wind' %}
+                {% render 'icon-sheltered' %}
+              {% when 'Outdoor sheltered from rain' %}
+                {% render 'icon-sheltered-rain' %}
+              {% when 'Indoor unheated, bright and good airflow' %}
+                {% render 'icon-indoor' %}
+              {% when 'Indoor bright windowsill' %}
+                {% render 'icon-windowsill' %}
+            {% endcase %}
           </div>
           <div class="environment-item__label">
-            {{ product.metafields.custom.sunlight | metafield_text }}
+            {% case location %}
+              {% when 'Outdoor full sun' %}
+                Full Sun
+              {% when 'Outdoor part shade' %}
+                Part Shade
+              {% when 'Outdoor full shade' %}
+                Full Shade
+              {% when 'Outdoor sheltered from wind' %}
+                Wind Sheltered
+              {% when 'Outdoor sheltered from rain' %}
+                Rain Sheltered
+              {% when 'Indoor unheated, bright and good airflow' %}
+                Indoor Bright
+              {% when 'Indoor bright windowsill' %}
+                Windowsill
+            {% endcase %}
           </div>
         </div>
-      {%- endif -%}
-
-      {%- comment -%} Wind/Location Item {%- endcomment -%}
-      {%- if product.metafields.custom.wind_exposure -%}
-        <div class="environment-item">
-          <div class="environment-item__icon">
-            {% render 'icon-wind' %}
-          </div>
-          <div class="environment-item__label">
-            {{ product.metafields.custom.wind_exposure | metafield_text }}
-          </div>
-        </div>
-      {%- endif -%}
-
-      {%- comment -%} Indoor/Outdoor Item {%- endcomment -%}
-      {%- if product.metafields.custom.indoor_outdoor -%}
-        <div class="environment-item">
-          <div class="environment-item__icon">
-            {% render 'icon-home' %}
-          </div>
-          <div class="environment-item__label">
-            {{ product.metafields.custom.indoor_outdoor | metafield_text }}
-          </div>
-        </div>
-      {%- endif -%}
-
+      {%- endfor -%}
     </div>
   </div>
-{% endif %}
+{%- endif -%}
 
 {% stylesheet %}
   /* Main container styling */
