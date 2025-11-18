@@ -17,6 +17,7 @@
     {% if section.settings.card_background != blank %}
       --card-background: {{ section.settings.card_background }};
     {% endif %}
+     --card-border-color: {{ section.settings.card_border_color | default: '#000000' }};
     --card-border-width: {{ section.settings.border_width | default: 1 }}px;
     --card-border-opacity: {{ section.settings.border_opacity | divided_by: 100 | default: 1 }};
     --card-border-radius: {{ section.settings.border_radius | default: 0 }}px;
