@@ -208,10 +208,10 @@
             "collection_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
-            "border": "none",
+            "border": "solid",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0
+            "border_radius": 25
           },
           "blocks": {
             "text_kGgUQm": {
@@ -298,6 +298,10 @@
       "block_order": [
         "group_xgmwLY"
       ],
+      "custom_css": [
+        ".collection-card__content {padding: 10px;}",
+        ".collection-card {padding-bottom: 10px;}"
+      ],
       "settings": {
         "collection_list": [
           "aeonium",
@@ -331,8 +335,8 @@
         "section_width": "page-width",
         "gap": 12,
         "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 10
+        "padding-block-start": 10,
+        "padding-block-end": 25
       }
     },
     "divider_WxKckc": {
