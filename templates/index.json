@@ -301,6 +301,7 @@
       "custom_css": [
         ".collection-card__content {padding: 10px;}",
         ".collection-card {padding-bottom: 10px; box-shadow: 1px 1px 10px #eaeaea;}",
+        ".collection-card:hover {transition-delay: 0.3ms; transform: scale(1.02);}",
         ".collection-card__image {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}"
       ],
       "settings": {
