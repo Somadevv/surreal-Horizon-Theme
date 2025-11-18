@@ -225,10 +225,9 @@
     transition: transform 0.3s ease;
     background: var(--card-background, rgb(var(--color-background-rgb)));
     overflow: hidden;
-    /* border: var(--card-border-width) solid rgba(var(--color-foreground-rgb), var(--card-border-opacity)); */
-    border: var(--card-border-width) solid black;
+    border: var(--card-border-width) solid var(--card-border-color);
     border-radius: var(--card-border-radius);
-    box-sizing: border-box;
+  box-sizing: border-box;
   }
 
   .discount-collections__grid--grid .discount-collection-card,
@@ -986,11 +985,11 @@
       "content": "Card Styles"
     },
     {
-  "type": "color",
-  "id": "card_border_color",
-  "label": "Card border colour",
-  "default": "#000000"
-},
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border colour",
+      "default": "#000000"
+    },
     {
       "type": "range",
       "id": "border_width",
