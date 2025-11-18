@@ -1,0 +1,225 @@
+{% liquid
+  assign product = closest.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+%}
+
+{%- if product.metafields.custom.ideal_location -%}
+  <div class="ideal-environment" {{ block.shopify_attributes }}>
+    {%- comment -%} Section Title {%- endcomment -%}
+    <h3 class="ideal-environment__title">
+      Ideal Environment for {{ product.title }}
+    </h3>
+
+    {%- comment -%} Environment Items Container {%- endcomment -%}
+    <div class="ideal-environment__items">
+      {%- for location in product.metafields.custom.ideal_location.value -%}
+        <div class="environment-item">
+          <div class="environment-item__icon">
+            {% case location %}
+              {% when 'Outdoor full sun' %}
+                {% render 'icon-full-sun' %}
+              {% when 'Outdoor part shade' %}
+                {% render 'icon-part-shade' %}
+              {% when 'Outdoor full shade' %}
+                {% render 'icon-full-shade' %}
+              {% when 'Outdoor sheltered from wind' %}
+                {% render 'icon-sheltered' %}
+              {% when 'Outdoor sheltered from rain' %}
+                {% render 'icon-sheltered-rain' %}
+              {% when 'Indoor unheated, bright and good airflow' %}
+                {% render 'icon-indoor' %}
+              {% when 'Indoor bright windowsill' %}
+                {% render 'icon-windowsill' %}
+            {% endcase %}
+          </div>
+          <div class="environment-item__label">
+            {% case location %}
+              {% when 'Outdoor full sun' %}
+                Full Sun
+              {% when 'Outdoor part shade' %}
+                Part Shade
+              {% when 'Outdoor full shade' %}
+                Full Shade
+              {% when 'Outdoor sheltered from wind' %}
+                Wind Sheltered
+              {% when 'Outdoor sheltered from rain' %}
+                Rain Sheltered
+              {% when 'Indoor unheated, bright and good airflow' %}
+                Indoor Bright
+              {% when 'Indoor bright windowsill' %}
+                Windowsill
+            {% endcase %}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  /* Main container styling */
+  .ideal-environment {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background-color: rgba(var(--color-foreground-rgb), 0.02);
+    border-radius: 12px;
+    font-family: inherit;
+  }
+
+  /* Title styling */
+  .ideal-environment__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(var(--color-foreground-rgb), 0.9);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Items container - horizontal layout */
+  .ideal-environment__items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  /* Individual environment item */
+  .environment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-width: 120px;
+  }
+
+  /* Icon styling */
+  .environment-item__icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .environment-item:hover .environment-item__icon {
+    transform: scale(1.1);
+  }
+
+  .environment-item__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Label styling */
+  .environment-item__label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(var(--color-foreground-rgb), 0.85);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Mobile responsiveness */
+  @media screen and (max-width: 767px) {
+    .ideal-environment {
+      padding: 1.5rem;
+    }
+
+    .ideal-environment__title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ideal-environment__items {
+      gap: 2rem;
+    }
+
+    .environment-item {
+      min-width: 100px;
+    }
+
+    .environment-item__icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .environment-item__label {
+      font-size: 1rem;
+    }
+  }
+
+  /* Tablet responsiveness */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .environment-item__icon {
+      width: 70px;
+      height: 70px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ideal Environment",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Displays ideal environment conditions from product metafields (sunlight, wind exposure, indoor/outdoor)"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ideal Environment",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
