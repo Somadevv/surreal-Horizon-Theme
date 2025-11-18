@@ -68,7 +68,11 @@
             {% comment %} Discount Badge {% endcomment %}
             <div
               class="discount-badge discount-badge--{{ badge_style }} discount-badge--{{ badge_position }}"
-              style="--badge-bg-color: {{ badge_color }};"
+              style="--badge-bg-color: {{ badge_color }}  box-shadow: 
+    var(--card-box-shadow-x-offset) 
+    var(--card-box-shadow-y-offset) 
+    var(--card-box-shadow-blur-radius) 
+    var(--card-box-shadow-color);"
             >
               <span class="discount-badge__percentage">{{ discount_percentage }}%</span>
               <span class="discount-badge__label">OFF</span>
