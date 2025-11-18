@@ -205,7 +205,7 @@
             "placement": "below_image",
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-end",
-            "collection_card_gap": 8,
+            "collection_card_gap": 12,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "solid",
@@ -300,7 +300,8 @@
       ],
       "custom_css": [
         ".collection-card__content {padding: 10px;}",
-        ".collection-card {padding-bottom: 10px; box-shadow: 1px 1px 10px #eaeaea;}"
+        ".collection-card {padding-bottom: 10px; box-shadow: 1px 1px 10px #eaeaea;}",
+        ".collection-card__image {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}"
       ],
       "settings": {
         "collection_list": [
