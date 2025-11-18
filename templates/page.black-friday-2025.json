@@ -396,7 +396,8 @@
         "collection_aUP4Di"
       ],
       "custom_css": [
-        ".discount-collections {padding-bottom: 30px;}"
+        ".discount-collections {padding-bottom: 30px;}",
+        ".discount-collection-card {box-shadow: 1px 1px 10px #eaeaea;}"
       ],
       "name": "Discount Collections",
       "settings": {
