@@ -63,7 +63,23 @@
           endif
         %}
 
-        <div class="discount-collection-card" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+    <div
+  class="discount-collection-card"
+  data-index="{{ forloop.index0 }}"
+  {{ block.shopify_attributes }}
+  style="
+    --card-border-width: {{ block.settings.border_width | default: 1 }}px;
+    --card-border-opacity: {{ block.settings.border_opacity | divided_by: 100.0 }};
+    --card-border-radius: {{ block.settings.border_radius | default: 0 }}px;
+    --card-padding-top: {{ block.settings.padding_top | default: 20 }}px;
+    --card-padding-bottom: {{ block.settings.padding_bottom | default: 20 }}px;
+    --card-shadow-x: {{ block.settings.shadow_x_offset | default: 0 }}px;
+    --card-shadow-y: {{ block.settings.shadow_y_offset | default: 10 }}px;
+    --card-shadow-blur: {{ block.settings.shadow_blur | default: 30 }}px;
+    --card-shadow-color: {{ block.settings.shadow_color | default: '#00000033' }};
+  "
+>
+
           <a href="{{ collection.url }}" class="discount-collection-card__link">
             {% comment %} Discount Badge {% endcomment %}
             <div
