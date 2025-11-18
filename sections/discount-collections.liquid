@@ -31,7 +31,10 @@
   {% endif %}
 
   <div class="discount-collections__carousel-wrapper">
-    <div class="discount-collections__grid discount-collections__grid--{{ layout_type }} discount-collections__grid--badge-{{ badge_position }}" id="carousel-{{ section.id }}">
+    <div
+      class="discount-collections__grid discount-collections__grid--{{ layout_type }} discount-collections__grid--badge-{{ badge_position }}"
+      id="carousel-{{ section.id }}"
+    >
       {% for block in section.blocks %}
         {% liquid
           assign collection = block.settings.collection
@@ -80,9 +83,13 @@
 
             {% comment %} Collection Info {% endcomment %}
             <div class="discount-collection-card__content">
-              <h3 class="discount-collection-card__title {{ section.settings.title_typography }}">{{ collection.title }}</h3>
+              <h3 class="discount-collection-card__title {{ section.settings.title_typography }}">
+                {{ collection.title }}
+              </h3>
               {% if block.settings.show_product_count %}
-                <p class="discount-collection-card__count {{ section.settings.count_typography }}">{{ collection.products_count }} products</p>
+                <p class="discount-collection-card__count {{ section.settings.count_typography }}">
+                  {{ collection.products_count }} products
+                </p>
               {% endif %}
               {% if block.settings.show_description and collection.description != blank %}
                 <div class="discount-collection-card__description {{ section.settings.description_typography }}">
@@ -113,7 +120,11 @@
         {% if pagination_style == 'dots' or pagination_style == 'arrows-dots' %}
           <div class="carousel-dots">
             {% for block in section.blocks %}
-              <button class="carousel-dot" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+              <button
+                class="carousel-dot"
+                data-index="{{ forloop.index0 }}"
+                aria-label="Go to slide {{ forloop.index }}"
+              ></button>
             {% endfor %}
           </div>
         {% endif %}
@@ -579,7 +590,7 @@
       }
 
       if (this.dots.length > 0) {
-        this.dots.forEach(dot => {
+        this.dots.forEach((dot) => {
           dot.addEventListener('click', () => {
             const index = parseInt(dot.dataset.index);
             this.scrollToCard(index);
@@ -605,7 +616,7 @@
         card.scrollIntoView({
           behavior: 'smooth',
           block: 'nearest',
-          inline: 'start'
+          inline: 'start',
         });
       }
     }
@@ -963,8 +974,39 @@
       "info": "Custom background color for collection cards. Leave empty to use theme default."
     },
     {
-  "type": "header",
-"content": "Card Styles"},
+      "type": "header",
+      "content": "Card Styles"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "label": "t:settings.border_width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:settings.border_opacity",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:settings.border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
     {
       "type": "header",
       "content": "Padding"
