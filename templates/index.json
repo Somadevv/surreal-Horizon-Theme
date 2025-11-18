@@ -1092,6 +1092,10 @@
           "block_order": []
         }
       },
+      "custom_css": [
+        ".blog-post-details {padding-left: 12px;}",
+        ".blog-post-card__content-text {padding-left: 12px; padding-bottom: 16px;}"
+      ],
       "name": "t:names.blog_posts_editorial",
       "settings": {
         "blog": "plant-care-advice",
