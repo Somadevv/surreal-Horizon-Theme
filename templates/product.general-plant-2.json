@@ -631,292 +631,335 @@
     "section_VbwfeX": {
       "type": "section",
       "blocks": {
-        "text_NDp9eH": {
-          "type": "text",
-          "name": "t:names.heading",
+        "group_plant_char_wrapper": {
+          "type": "group",
+          "name": "Plant Characteristics Column",
           "settings": {
-            "text": "<p>About {{ closest.product.title }}</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "max_width_tablet": "inherit",
-            "max_width_desktop": "inherit",
-            "alignment": "left",
-            "type_preset": "h3",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 50,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
             "color_scheme": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "plant_characteristics_MzHCTw": {
-          "type": "plant-characteristics",
-          "name": "Plant Characteristics",
-          "settings": {
-            "padding-block-start": 20,
-            "padding-block-end": 20,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "ideal_environment_IdEnv1": {
-          "type": "ideal-environment",
-          "name": "Ideal Environment",
-          "settings": {
-            "padding-block-start": 20,
-            "padding-block-end": 20,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_NDp9eH",
-        "plant_characteristics_MzHCTw",
-        "ideal_environment_IdEnv1"
-      ],
-      "name": "Plant Attributes",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "small",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "section_fE9mAi": {
-      "type": "section",
-      "blocks": {
-        "text_PRAtPd": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<h3>How to care for {{ closest.product.title }}</h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "max_width_tablet": "inherit",
-            "max_width_desktop": "inherit",
-            "alignment": "left",
-            "type_preset": "h3",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "color_scheme": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 16,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "accordion_A4FHdA": {
-          "type": "accordion",
-          "name": "t:names.accordion",
-          "settings": {
-            "icon": "plus",
-            "dividers": true,
-            "type_preset": "h5",
-            "inherit_color_scheme": false,
-            "color_scheme": "scheme-3",
-            "border": "none",
-            "border_width": 0,
-            "border_opacity": 100,
-            "border_radius": 14,
-            "padding-block-start": 10,
-            "padding-block-end": 10,
-            "padding-inline-start": 20,
-            "padding-inline-end": 20
+            "padding-inline-end": 16
           },
           "blocks": {
-            "accordion_row_cC9aED": {
-              "type": "_accordion-row",
+            "text_NDp9eH": {
+              "type": "text",
+              "name": "Plant Characteristics Heading",
               "settings": {
-                "heading": "How often should I water {{ closest.product.title }}? 💦",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
+                "text": "<h3>Plant Characteristics</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "color_scheme": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 12,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
-              "blocks": {
-                "text_M6Utxm": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>The key to <strong>watering </strong>{{ closest.product.title }} is to “soak and dry”. Water thoroughly, then allow the soil to completely dry before watering again. In active growth, this may be every 1–2 weeks, depending on conditions. In cooler months or dormancy, reduce or stop watering to prevent rot. It is recommended to use pots with drainage holes and never let succulents sit in standing water. Overwatering is the most common cause of succulent problems.</p>",
-                    "width": "100%",
-                    "max_width": "none",
-                    "max_width_tablet": "inherit",
-                    "max_width_desktop": "inherit",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "color_scheme": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_M6Utxm"
-              ]
+              "blocks": {}
             },
-            "accordion_row_UnQz98": {
-              "type": "_accordion-row",
+            "plant_characteristics_MzHCTw": {
+              "type": "plant-characteristics",
+              "name": "Plant Characteristics",
               "settings": {
-                "heading": "What soil is best for {{ closest.product.title }}? 🪴",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
-              "blocks": {
-                "text_xYdmqW": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>{{ closest.product.title }} needs <a href=\"/products/succulent-compost-mix\" title=\"General Succulent Compost Mix\"><strong>free-draining soil</strong></a> to thrive. Use a specialist cactus and succulent mix, or blend compost with <a href=\"/products/horticultural-grit\" title=\"Cornish Horticultural Grit\">horticultural grit</a>, sand, or <a href=\"/products/perlite\" title=\"Perlite\">perlite</a>. This keeps the roots aerated and prevents excess moisture, which can cause root rot. Adding a gritty top-dressing not only looks attractive but also keeps foliage dry, reduces fungus gnats, and helps regulate moisture. Healthy soil is the foundation of successful succulent care.</p>",
-                    "width": "100%",
-                    "max_width": "none",
-                    "max_width_tablet": "inherit",
-                    "max_width_desktop": "inherit",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "color_scheme": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_NDp9eH",
+            "plant_characteristics_MzHCTw"
+          ]
+        },
+        "group_care_wrapper": {
+          "type": "group",
+          "name": "How to Care Column",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 50,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 16,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_PRAtPd": {
+              "type": "text",
+              "name": "How to Care Heading",
+              "settings": {
+                "text": "<h3>How to care for {{ closest.product.title }}</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "max_width_tablet": "inherit",
+                "max_width_desktop": "inherit",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "color_scheme": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 12,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
-              "block_order": [
-                "text_xYdmqW"
-              ]
+              "blocks": {}
             },
-            "accordion_row_nXJDzF": {
-              "type": "_accordion-row",
+            "accordion_A4FHdA": {
+              "type": "accordion",
+              "name": "Care Instructions",
               "settings": {
-                "heading": "Does {{ closest.product.title }} need fertiliser? 🌱",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": false,
+                "color_scheme": "scheme-3",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 14,
+                "padding-block-start": 10,
+                "padding-block-end": 10,
+                "padding-inline-start": 20,
+                "padding-inline-end": 20
               },
               "blocks": {
-                "text_36H8fF": {
-                  "type": "text",
-                  "name": "t:names.text",
+                "accordion_row_cC9aED": {
+                  "type": "_accordion-row",
                   "settings": {
-                    "text": "<p>Yes, but only in moderation. Feeding helps maintain healthy growth and strong colours. Use a <strong>diluted </strong><a href=\"/products/liquid-seaweed-feed\" title=\"Organic Liquid Seaweed Feed\"><strong>liquid fertiliser for succulents</strong></a> or a balanced cactus feed during the growing season (spring and summer). Apply every few weeks when watering. Avoid fertilising during dormancy in winter, as plants are resting and don’t need extra nutrients. Too much fertiliser can cause weak, leggy growth, so always err on the side of less.</p>",
-                    "width": "100%",
-                    "max_width": "none",
-                    "max_width_tablet": "inherit",
-                    "max_width_desktop": "inherit",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "color_scheme": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "heading": "How often should I water {{ closest.product.title }}? 💦",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
                   },
-                  "blocks": {}
+                  "blocks": {
+                    "text_M6Utxm": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>The key to <strong>watering </strong>{{ closest.product.title }} is to "soak and dry". Water thoroughly, then allow the soil to completely dry before watering again. In active growth, this may be every 1–2 weeks, depending on conditions. In cooler months or dormancy, reduce or stop watering to prevent rot. It is recommended to use pots with drainage holes and never let succulents sit in standing water. Overwatering is the most common cause of succulent problems.</p>",
+                        "width": "100%",
+                        "max_width": "none",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "color_scheme": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_M6Utxm"
+                  ]
+                },
+                "accordion_row_UnQz98": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "What soil is best for {{ closest.product.title }}? 🪴",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_xYdmqW": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>{{ closest.product.title }} needs <a href=\"/products/succulent-compost-mix\" title=\"General Succulent Compost Mix\"><strong>free-draining soil</strong></a> to thrive. Use a specialist cactus and succulent mix, or blend compost with <a href=\"/products/horticultural-grit\" title=\"Cornish Horticultural Grit\">horticultural grit</a>, sand, or <a href=\"/products/perlite\" title=\"Perlite\">perlite</a>. This keeps the roots aerated and prevents excess moisture, which can cause root rot. Adding a gritty top-dressing not only looks attractive but also keeps foliage dry, reduces fungus gnats, and helps regulate moisture. Healthy soil is the foundation of successful succulent care.</p>",
+                        "width": "100%",
+                        "max_width": "none",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "color_scheme": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_xYdmqW"
+                  ]
+                },
+                "accordion_row_nXJDzF": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Does {{ closest.product.title }} need fertiliser? 🌱",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_36H8fF": {
+                      "type": "text",
+                      "name": "t:names.text",
+                      "settings": {
+                        "text": "<p>Yes, but only in moderation. Feeding helps maintain healthy growth and strong colours. Use a <strong>diluted </strong><a href=\"/products/liquid-seaweed-feed\" title=\"Organic Liquid Seaweed Feed\"><strong>liquid fertiliser for succulents</strong></a> or a balanced cactus feed during the growing season (spring and summer). Apply every few weeks when watering. Avoid fertilising during dormancy in winter, as plants are resting and don't need extra nutrients. Too much fertiliser can cause weak, leggy growth, so always err on the side of less.</p>",
+                        "width": "100%",
+                        "max_width": "none",
+                        "max_width_tablet": "inherit",
+                        "max_width_desktop": "inherit",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "color_scheme": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_36H8fF"
+                  ]
                 }
               },
               "block_order": [
-                "text_36H8fF"
+                "accordion_row_cC9aED",
+                "accordion_row_UnQz98",
+                "accordion_row_nXJDzF"
               ]
             }
           },
           "block_order": [
-            "accordion_row_cC9aED",
-            "accordion_row_UnQz98",
-            "accordion_row_nXJDzF"
+            "text_PRAtPd",
+            "accordion_A4FHdA"
           ]
         }
       },
       "block_order": [
-        "text_PRAtPd",
-        "accordion_A4FHdA"
+        "group_plant_char_wrapper",
+        "group_care_wrapper"
       ],
-      "name": "General plant care tips",
+      "name": "Plant Characteristics & Care (50/50 Layout)",
       "settings": {
-        "content_direction": "column",
+        "content_direction": "row",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
+        "vertical_alignment": "flex-start",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
+        "gap": 32,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -932,7 +975,7 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
+        "padding-block-start": 45,
         "padding-block-end": 45
       }
     },
@@ -2399,7 +2442,6 @@
     "main",
     "section_khX8Fz",
     "section_VbwfeX",
-    "section_fE9mAi",
     "section_EMBEFy",
     "section_fTF4AT",
     "product_recommendations_qggXJq",
