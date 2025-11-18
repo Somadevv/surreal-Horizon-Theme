@@ -300,7 +300,7 @@
       ],
       "custom_css": [
         ".collection-card__content {padding: 10px;}",
-        ".collection-card {padding-bottom: 10px;}"
+        ".collection-card {padding-bottom: 10px; box-shadow: 1px 1px 10px #eaeaea;}"
       ],
       "settings": {
         "collection_list": [
