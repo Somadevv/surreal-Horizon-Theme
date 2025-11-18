@@ -17,6 +17,9 @@
     {% if section.settings.card_background != blank %}
       --card-background: {{ section.settings.card_background }};
     {% endif %}
+    --card-border-width: {{ section.settings.border_width | default: 1 }}px;
+    --card-border-opacity: {{ section.settings.border_opacity | divided_by: 100 | default: 1 }};
+    --card-border-radius: {{ section.settings.border_radius | default: 0 }}px;
   "
 >
   {% if section.settings.heading != blank or section.settings.subheading != blank %}
@@ -221,6 +224,9 @@
     transition: transform 0.3s ease;
     background: var(--card-background, rgb(var(--color-background-rgb)));
     overflow: hidden;
+     border: var(--card-border-width) solid rgba(var(--color-foreground-rgb), var(--card-border-opacity));
+  border-radius: var(--card-border-radius);
+  box-sizing: border-box;
   }
 
   .discount-collections__grid--grid .discount-collection-card,
