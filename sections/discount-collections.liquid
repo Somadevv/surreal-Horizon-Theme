@@ -17,10 +17,18 @@
     {% if section.settings.card_background != blank %}
       --card-background: {{ section.settings.card_background }};
     {% endif %}
-     --card-border-color: {{ section.settings.card_border_color | default: '#000000' }};
+
+     {% # Card Border radius %}
+    --card-border-color: {{ section.settings.card_border_color | default: '#000000' }};
     --card-border-width: {{ section.settings.border_width | default: 1 }}px;
     --card-border-opacity: {{ section.settings.border_opacity | divided_by: 100 | default: 1 }};
     --card-border-radius: {{ section.settings.border_radius | default: 0 }}px;
+
+     {% # Card Box Shadow %}
+    --card-box-shadow-x-offset: {{ section.settings.shadow_x_offset | append: 'px' }};
+    --card-box-shadow-y-offset: {{ section.settings.shadow_y_offset | append: 'px' }};
+    --card-box-shadow-blur-radius: {{ section.settings.shadow_blur | append: 'px' }};
+    --card-box-shadow-color: {{ section.settings.shadow_color }};
   "
 >
   {% if section.settings.heading != blank or section.settings.subheading != blank %}
@@ -228,6 +236,11 @@
     border: var(--card-border-width) solid var(--card-border-color);
     border-radius: var(--card-border-radius);
     box-sizing: border-box;
+    box-shadow: var(--card-box-shadow-x-offset) var(--card-box-shadow-y-offset) var(--card-box-shadow-blur-radius) var(--card-box-shadow-color);
+
+    box-shadow: 1px 1px 5px #eaeaea;
+
+    box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color];
   }
 
   .discount-collections__grid--grid .discount-collection-card,
@@ -1020,6 +1033,47 @@
       "unit": "px",
       "default": 0
     },
+    {
+      "type": "header",
+      "content": "Card Box Shadow"
+    },
+    {
+      "type": "range",
+      "id": "shadow_x_offset",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow X Offset",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_y_offset",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow Y Offset",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow Blur",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Shadow Color",
+      "default": "#00000033"
+    },
+
     {
       "type": "header",
       "content": "Padding"
