@@ -276,7 +276,7 @@
                     "style_class": "button-secondary",
                     "width": "fit-content",
                     "custom_width": 100,
-                    "width_mobile": "fill",
+                    "width_mobile": "fit-content",
                     "custom_width_mobile": 100
                   },
                   "blocks": {}
@@ -658,7 +658,7 @@
                 "style_class": "button-secondary",
                 "width": "fit-content",
                 "custom_width": 100,
-                "width_mobile": "fill",
+                "width_mobile": "fit-content",
                 "custom_width_mobile": 100
               },
               "blocks": {}
@@ -1653,7 +1653,7 @@
                 "style_class": "button-secondary",
                 "width": "fit-content",
                 "custom_width": 100,
-                "width_mobile": "fill",
+                "width_mobile": "fit-content",
                 "custom_width_mobile": 100
               },
               "blocks": {}
