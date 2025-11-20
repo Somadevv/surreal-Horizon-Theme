@@ -34,10 +34,21 @@
 
       <div class="desc-env__cards">
         {%- if product.metafields.custom.ideal_location -%}
+          {%- comment -%} DEBUG: Show what's in the metafield {%- endcomment -%}
+          {%- if request.design_mode -%}
+            <div style="background: #f0f0f0; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; font-size: 0.875rem;">
+              <strong>DEBUG (only visible in editor):</strong><br>
+              Product has ideal_location metafield<br>
+              Values: {{ product.metafields.custom.ideal_location.value | join: ', ' }}
+            </div>
+          {%- endif -%}
+
           {%- for location in product.metafields.custom.ideal_location.value -%}
             {%- comment -%} Find matching block for this location value {%- endcomment -%}
+            {%- assign found_match = false -%}
             {%- for block in section.blocks -%}
               {%- if block.settings.location_value == location -%}
+                {%- assign found_match = true -%}
                 <div class="env-card" {{ block.shopify_attributes }}>
                   {% if block.settings.icon_image != blank %}
                     <div class="env-card__icon">
@@ -53,7 +64,23 @@
                 {%- break -%}
               {%- endif -%}
             {%- endfor -%}
+
+            {%- comment -%} DEBUG: Show unmatched locations {%- endcomment -%}
+            {%- if request.design_mode and found_match == false -%}
+              <div style="background: #fff3cd; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 8px; font-size: 0.875rem; border-left: 3px solid #ffc107;">
+                <strong>⚠️ No block found for:</strong> "{{ location }}"<br>
+                <small>Add a block with location_value = "{{ location }}"</small>
+              </div>
+            {%- endif -%}
           {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} DEBUG: Product has no metafield {%- endcomment -%}
+          {%- if request.design_mode -%}
+            <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; font-size: 0.875rem; border-left: 3px solid #dc3545;">
+              <strong>❌ No ideal_location metafield found</strong><br>
+              This product doesn't have the ideal_location metafield set.
+            </div>
+          {%- endif -%}
         {%- endif -%}
       </div>
     </div>
