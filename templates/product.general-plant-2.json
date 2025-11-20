@@ -1887,16 +1887,8 @@
         "care_accordion_3CCAEx": {
           "type": "care_accordion",
           "settings": {
-            "title": "How often should I water?",
-            "content": "<p>Water when soil is completely dry. This is typically every 1-2 weeks.</p>",
-            "open_by_default": false
-          }
-        },
-        "care_accordion_cHE3xf": {
-          "type": "care_accordion",
-          "settings": {
-            "title": "How often should I water?",
-            "content": "<p>Water when soil is completely dry. This is typically every 1-2 weeks.</p>",
+            "title": "Does Crassula {{ product.title }} need fertiliser? 🌱",
+            "content": "<p>Yes, but only in moderation. Feeding helps maintain healthy growth and strong colours. Use a <strong>diluted </strong><a href=\"https://sreal-succulents.myshopify.com/products/liquid-seaweed-feed\" title=\"Organic Liquid Seaweed Feed\"><strong>liquid fertiliser for succulents </strong></a>or a balanced cactus feed during the growing season (spring and summer). Apply every few weeks when watering. Avoid fertilising during dormancy in winter, as plants are resting and don’t need extra nutrients. Too much fertiliser can cause weak, leggy growth, so always err on the side of less.</p>",
             "open_by_default": false
           }
         }
@@ -1904,8 +1896,7 @@
       "block_order": [
         "care_accordion_XAhCbF",
         "care_accordion_CUrMc9",
-        "care_accordion_3CCAEx",
-        "care_accordion_cHE3xf"
+        "care_accordion_3CCAEx"
       ],
       "name": "Plant Care Split",
       "settings": {
