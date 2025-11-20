@@ -34,32 +34,50 @@
 
       <div class="desc-env__cards">
         {%- if product.metafields.custom.ideal_location -%}
-          {%- assign locations = product.metafields.custom.ideal_location.value -%}
-          
-          {%- for location in locations -%}
-            {%- assign matched_block = section.blocks | where: "settings.location_value", location | first -%}
+          {%- for location in product.metafields.custom.ideal_location.value -%}
 
-            {%- if matched_block != blank -%}
-              <div class="env-card">
-                {% if matched_block.settings.icon_image != blank %}
-                  <div class="env-card__icon">
-                    <img src="{{ matched_block.settings.icon_image | image_url: width: section.settings.icon_size }}"
-                         alt="{{ matched_block.settings.label }}"
-                         loading="lazy"
-                         width="{{ section.settings.icon_size }}"
-                         height="{{ section.settings.icon_size }}">
-                  </div>
-                {% endif %}
-                <div class="env-card__label">
-                  {{ matched_block.settings.label }}
+            {% comment %}
+              Map long metafield values to short labels and optional icon images
+            {% endcomment %}
+            {% case location %}
+              {% when 'Outdoor full sun' %}
+                {% assign label = 'Full Sun' %}
+                {% assign icon = section.settings.icon_outdoor_full_sun %}
+              {% when 'Outdoor part shade' %}
+                {% assign label = 'Part Shade' %}
+                {% assign icon = section.settings.icon_outdoor_part_shade %}
+              {% when 'Outdoor full shade' %}
+                {% assign label = 'Full Shade' %}
+                {% assign icon = section.settings.icon_outdoor_full_shade %}
+              {% when 'Outdoor sheltered from wind' %}
+                {% assign label = 'Wind Sheltered' %}
+                {% assign icon = section.settings.icon_outdoor_wind_sheltered %}
+              {% when 'Outdoor sheltered from rain' %}
+                {% assign label = 'Rain Sheltered' %}
+                {% assign icon = section.settings.icon_outdoor_rain_sheltered %}
+              {% when 'Indoor unheated, bright and good airflow' %}
+                {% assign label = 'Indoor Bright' %}
+                {% assign icon = section.settings.icon_indoor_bright %}
+              {% when 'Indoor bright windowsill' %}
+                {% assign label = 'Windowsill' %}
+                {% assign icon = section.settings.icon_indoor_windowsill %}
+              {% else %}
+                {% assign label = location %}
+                {% assign icon = blank %}
+            {% endcase %}
+
+            <div class="env-card">
+              {% if icon != blank %}
+                <div class="env-card__icon">
+                  <img src="{{ icon | image_url: width: section.settings.icon_size }}"
+                       alt="{{ label }}"
+                       loading="lazy"
+                       width="{{ section.settings.icon_size }}"
+                       height="{{ section.settings.icon_size }}">
                 </div>
-              </div>
-            {%- else -%}
-              {%- comment -%} fallback: display text if no block matches {% endcomment -%}
-              <div class="env-card">
-                <div class="env-card__label">{{ location }}</div>
-              </div>
-            {%- endif -%}
+              {% endif %}
+              <div class="env-card__label">{{ label }}</div>
+            </div>
 
           {%- endfor -%}
         {%- endif -%}
@@ -68,6 +86,7 @@
 
   </div>
 </div>
+
 
 
 <style>
