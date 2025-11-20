@@ -565,32 +565,6 @@
     },
     "product_description_environment_8B6tqk": {
       "type": "product-description-environment",
-      "blocks": {
-        "environment_card_CRbnBV": {
-          "type": "environment_card",
-          "settings": {
-            "icon_image": "shopify://shop_images/i-need-a-sun-icon.png",
-            "label": "{{ product.metafields.custom.ideal_location | metafield_text }}"
-          }
-        },
-        "environment_card_iJr6jH": {
-          "type": "environment_card",
-          "settings": {
-            "label": "Indoor Bright"
-          }
-        },
-        "environment_card_EJq4y8": {
-          "type": "environment_card",
-          "settings": {
-            "label": "Windowsill"
-          }
-        }
-      },
-      "block_order": [
-        "environment_card_CRbnBV",
-        "environment_card_iJr6jH",
-        "environment_card_EJq4y8"
-      ],
       "name": "Description + Environment",
       "settings": {
         "description": "{{ product.description }}",
@@ -599,7 +573,8 @@
         "description_line_height": 1.7,
         "description_max_width": 850,
         "environment_heading": "Ideal Environment for {{ product.title }}",
-        "heading_size": 24,
+        "show_product_in_heading": true,
+        "heading_size": 20,
         "heading_weight": 300,
         "container_gap": 48,
         "cards_per_row_desktop": "3",
@@ -607,6 +582,13 @@
         "cards_per_row_mobile": "3",
         "card_gap": 24,
         "icon_size": 60,
+        "icon_outdoor_full_sun": "shopify://shop_images/sunlight-Photoroom.png",
+        "icon_outdoor_part_shade": "shopify://shop_images/part-shade.png",
+        "icon_outdoor_full_shade": "shopify://shop_images/full-shade-icon.jpg",
+        "icon_outdoor_wind_sheltered": "shopify://shop_images/wind-sheltered-icon.png",
+        "icon_outdoor_rain_sheltered": "shopify://shop_images/rain-sheltered.png",
+        "icon_indoor_bright": "shopify://shop_images/indoor-bright-icon.png",
+        "icon_indoor_windowsill": "shopify://shop_images/windowsill-icon.jpg",
         "mobile_icon_size": 50,
         "mobile_description_font_size": 14,
         "padding_top": 36,
