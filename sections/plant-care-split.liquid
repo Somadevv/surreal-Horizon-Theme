@@ -67,8 +67,11 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Growth Rate</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growth_rate | metafield_text }}</div>
+                  <!-- DEBUG: {{ product.metafields.custom.growth_rate.definition | json }} -->
                   {%- if product.metafields.custom.growth_rate.definition.description -%}
                     <div class="characteristic-card__description">{{ product.metafields.custom.growth_rate.definition.description }}</div>
+                  {%- else -%}
+                    <div class="characteristic-card__description" style="color: red;">DEBUG: No definition.description found</div>
                   {%- endif -%}
                 </div>
               </div>
