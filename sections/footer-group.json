@@ -271,7 +271,7 @@
                   "type": "menu",
                   "name": "t:names.menu",
                   "settings": {
-                    "menu": "footer-column-1",
+                    "menu": "footer-customer-info",
                     "heading": "Customer Info",
                     "menu_spacing": 12,
                     "show_as_accordion": false,
