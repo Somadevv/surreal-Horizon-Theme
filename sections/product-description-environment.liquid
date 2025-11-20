@@ -25,23 +25,44 @@
     <div class="desc-env__environment">
       <h3 class="desc-env__heading"
           style="font-size: {{ section.settings.heading_size }}px; font-weight: {{ section.settings.heading_weight }};">
-        {{ section.settings.environment_heading }}
+        {% if section.settings.show_product_in_heading and product.title != blank %}
+          {{ section.settings.environment_heading }} for {{ product.title }}
+        {% else %}
+          {{ section.settings.environment_heading }}
+        {% endif %}
       </h3>
 
       <div class="desc-env__cards">
         {% for block in section.blocks %}
-          <div class="env-card" {{ block.shopify_attributes }}>
-            {% if block.settings.icon_image != blank %}
-              <div class="env-card__icon">
-                <img src="{{ block.settings.icon_image | image_url: width: section.settings.icon_size }}"
-                     alt="{{ block.settings.label }}"
-                     loading="lazy"
-                     width="{{ section.settings.icon_size }}"
-                     height="{{ section.settings.icon_size }}">
+          {%- liquid
+            assign metafield_value = null
+            if block.settings.metafield_key != blank
+              assign metafield_key = block.settings.metafield_key
+              assign metafield_value = product.metafields.custom[metafield_key]
+            endif
+          -%}
+
+          {%- comment -%} Only show card if metafield exists and has a value {%- endcomment -%}
+          {% if metafield_value != blank %}
+            <div class="env-card" {{ block.shopify_attributes }}>
+              {% if block.settings.icon_image != blank %}
+                <div class="env-card__icon">
+                  <img src="{{ block.settings.icon_image | image_url: width: section.settings.icon_size }}"
+                       alt="{{ block.settings.label }}"
+                       loading="lazy"
+                       width="{{ section.settings.icon_size }}"
+                       height="{{ section.settings.icon_size }}">
+                </div>
+              {% endif %}
+              <div class="env-card__label">
+                {% if block.settings.use_metafield_value %}
+                  {{ metafield_value | metafield_text }}
+                {% else %}
+                  {{ block.settings.label }}
+                {% endif %}
               </div>
-            {% endif %}
-            <div class="env-card__label">{{ block.settings.label }}</div>
-          </div>
+            </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -275,6 +296,13 @@
       "default": "Ideal Environment"
     },
     {
+      "type": "checkbox",
+      "id": "show_product_in_heading",
+      "label": "Show Product Name in Heading",
+      "info": "If enabled, displays 'Ideal Environment for [Product Name]'",
+      "default": true
+    },
+    {
       "type": "range",
       "id": "heading_size",
       "label": "Heading Font Size",
@@ -450,6 +478,13 @@
       "name": "Environment Card",
       "settings": [
         {
+          "type": "text",
+          "id": "metafield_key",
+          "label": "Product Metafield Key",
+          "info": "The custom metafield key (e.g., 'env_full_sun', 'env_wind_sheltered'). Card only shows if product has this metafield.",
+          "placeholder": "env_full_sun"
+        },
+        {
           "type": "image_picker",
           "id": "icon_image",
           "label": "Icon Image",
@@ -458,8 +493,16 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Label",
+          "label": "Card Label",
+          "info": "Display label for this environment type",
           "default": "Full Sun"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_metafield_value",
+          "label": "Use Metafield Value as Label",
+          "info": "If enabled, displays the metafield value instead of the custom label above",
+          "default": false
         }
       ]
     }
@@ -472,19 +515,22 @@
         {
           "type": "environment_card",
           "settings": {
+            "metafield_key": "env_full_sun",
             "label": "Full Sun"
           }
         },
         {
           "type": "environment_card",
           "settings": {
-            "label": "Indoor Bright"
+            "metafield_key": "env_wind_sheltered",
+            "label": "Wind Sheltered"
           }
         },
         {
           "type": "environment_card",
           "settings": {
-            "label": "Windowsill"
+            "metafield_key": "env_indoor_bright",
+            "label": "Indoor Bright"
           }
         }
       ]
