@@ -1,248 +1,192 @@
+{% comment %}
+  Custom Footer Section
+  Auto-pulls:
+    - Footer menu links (linklists.footer-menu)
+    - Social links (linklists.social-links)
+    - Payment icons
+{% endcomment %}
 
+<footer class="site-footer section-spacing color-scheme">
+  <div class="footer-top page-width">
+    
+    <!-- Brand / About -->
+    <div class="footer-column footer-brand">
+      {% if settings.logo %}
+        <img src="{{ settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" class="footer-logo">
+      {% endif %}
+      <p>{{ settings.footer_text }}</p>
+    </div>
 
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div
-  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
->
-  {% liquid
-    assign total_blocks = section.blocks.size
+    <!-- Quick Links Menu -->
+    <div class="footer-column footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        {% for link in linklists.footer-menu.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
 
-    # Grid layout calculations
-    assign grid_columns = total_blocks | at_most: 4
+    <!-- Social + Newsletter -->
+    <div class="footer-column footer-social">
+      {% if linklists.social-links.links.size > 0 %}
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          {% for link in linklists.social-links.links %}
+            <a href="{{ link.url }}" target="_blank" rel="noopener">
+              {% if link.icon != blank %}
+                <img src="{{ link.icon | image_url: width: 24 }}" alt="{{ link.title }}">
+              {% else %}
+                {{ link.title }}
+              {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
 
-    # Calculate last row counts using modulo arithmetic
-    # last_row_count = (total_blocks - 1) % N + 1
-    assign last_row_count = total_blocks | minus: 1 | modulo: 4 | plus: 1
-    assign tablet_last_row_count = total_blocks | minus: 1 | modulo: 3 | plus: 1
+      {% if section.settings.enable_newsletter %}
+        <h4>Subscribe</h4>
+        <form method="post" action="/contact#contact_form" accept-charset="UTF-8" class="newsletter-form">
+          <input type="email" name="contact[email]" placeholder="Email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      {% endif %}
+    </div>
 
-    # Check if there are orphaned elements (single item in last row)
-    assign has_isolated_grid_item_desktop = false
-    assign has_isolated_grid_item_tablet = false
-
-    if total_blocks > 4 and last_row_count == 1
-      assign has_isolated_grid_item_desktop = true
-    endif
-
-    if total_blocks > 3 and tablet_last_row_count == 1
-      assign has_isolated_grid_item_tablet = true
-    endif
-  %}
-  <div
-    class="
-      footer-content
-      spacing-style
-      {% if has_isolated_grid_item_desktop %}footer-content--isolated-grid-item-desktop{% endif %}
-      {% if has_isolated_grid_item_tablet %}footer-content--isolated-grid-item-tablet{% endif %}
-    "
-    style="
-      {%  render 'spacing-style', settings: section.settings %}
-      --footer-gap: {{ section.settings.gap }}px;
-      --grid-columns: {{ grid_columns }};
-      --last-row-count: {{ last_row_count }};
-      --tablet-last-row-count: {{ tablet_last_row_count }};
-    "
-  >
-    {% content_for 'blocks' %}
   </div>
-</div>
 
-{% stylesheet %}
-  /* Mobile: Single column layout (base styles) */
-  .footer-content {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--footer-gap);
-  }
-
-  @media screen and (min-width: 750px) and (max-width: 989px) {
-    .footer-content {
-      grid-template-columns: repeat(min(var(--grid-columns), 3), 1fr);
-      grid-auto-flow: row;
-    }
-    .footer-content--isolated-grid-item-tablet > :last-child {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .footer-content {
-      grid-template-columns: repeat(var(--grid-columns), 1fr);
-    }
-
-    /* Single item centered */
-    .footer-content[style*='--grid-columns: 1'] {
-      justify-items: center;
-    }
-
-    .footer-content--isolated-grid-item-desktop > :last-child {
-      grid-column: 1 / -1;
-    }
-  }
-{% endstylesheet %}
+  <!-- Footer Bottom -->
+  <div class="footer-bottom page-width">
+    <div class="payment-icons">
+      {% for type in shop.enabled_payment_types %}
+        <span class="payment-icon payment-{{ type | downcase }}"></span>
+      {% endfor %}
+    </div>
+    <p>© {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
+  </div>
+</footer>
 
 {% schema %}
 {
-  "name": "t:names.footer",
-  "class": "section-wrapper",
-  "tag": "footer",
-  "blocks": [
-    {
-      "type": "_divider"
-    },
-    {
-      "type": "@app"
-    },
-    {
-      "type": "button"
-    },
-    {
-      "type": "follow-on-shop"
-    },
-    {
-      "type": "group"
-    },
-    {
-      "type": "icon"
-    },
-    {
-      "type": "image"
-    },
-    {
-      "type": "menu"
-    },
-    {
-      "type": "payment-icons"
-    },
-    {
-      "type": "text"
-    },
-    {
-      "type": "logo"
-    },
-    {
-      "type": "jumbo-text"
-    },
-    {
-      "type": "social-links"
-    },
-    {
-      "type": "email-signup"
-    }
-  ],
-  "enabled_on": {
-    "groups": ["footer"]
-  },
+  "name": "Custom Footer",
   "settings": [
     {
-      "type": "select",
-      "id": "section_width",
-      "label": "t:settings.width",
-      "options": [
-        {
-          "value": "page-width",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
-      ],
-      "default": "page-width"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
     },
     {
-      "type": "range",
-      "id": "gap",
-      "label": "t:settings.gap",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer Description",
+      "default": "Delivering the best plants to your home and garden."
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:settings.color_scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:content.padding"
-    },
-    {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "t:settings.top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "t:settings.bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 20
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable Newsletter Signup",
+      "default": true
     }
   ],
   "presets": [
     {
-      "name": "t:names.footer",
-      "category": "t:categories.footer",
-      "settings": {
-        "gap": 20,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 36,
-        "padding-block-end": 36
-      },
-      "blocks": {
-        "newsletter-group": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 6,
-            "width": "fill",
-            "inherit_color_scheme": true
-          },
-          "blocks": {
-            "newsletter-heading": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Join our email list</h2>",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "h3"
-              }
-            },
-            "newsletter-text": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "rte"
-              }
-            }
-          },
-          "block_order": ["newsletter-heading", "newsletter-text"]
-        },
-        "newsletter-form": {
-          "type": "email-signup",
-          "settings": {
-            "width": "fill"
-          }
-        }
-      },
-      "block_order": ["newsletter-group", "newsletter-form"]
+      "name": "Custom Footer"
     }
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+.site-footer {
+  background: #111;
+  color: #fff;
+  padding: 4rem 2rem;
+  font-family: sans-serif;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-column h4 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-column a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+  max-width: 150px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.social-icons img {
+  width: 24px;
+  height: 24px;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+}
+
+.newsletter-form button {
+  background: #fff;
+  color: #111;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.payment-icons {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 749px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstylesheet %}
