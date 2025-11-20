@@ -363,22 +363,10 @@
       "id": "cards_per_row_desktop",
       "label": "Cards Per Row (Desktop)",
       "options": [
-        {
-          "value": "1",
-          "label": "1 Card"
-        },
-        {
-          "value": "2",
-          "label": "2 Cards"
-        },
-        {
-          "value": "3",
-          "label": "3 Cards"
-        },
-        {
-          "value": "4",
-          "label": "4 Cards"
-        }
+        {"value": "1","label": "1 Card"},
+        {"value": "2","label": "2 Cards"},
+        {"value": "3","label": "3 Cards"},
+        {"value": "4","label": "4 Cards"}
       ],
       "default": "3"
     },
@@ -387,18 +375,9 @@
       "id": "cards_per_row_tablet",
       "label": "Cards Per Row (Tablet)",
       "options": [
-        {
-          "value": "1",
-          "label": "1 Card"
-        },
-        {
-          "value": "2",
-          "label": "2 Cards"
-        },
-        {
-          "value": "3",
-          "label": "3 Cards"
-        }
+        {"value": "1","label": "1 Card"},
+        {"value": "2","label": "2 Cards"},
+        {"value": "3","label": "3 Cards"}
       ],
       "default": "2"
     },
@@ -407,18 +386,9 @@
       "id": "cards_per_row_mobile",
       "label": "Cards Per Row (Mobile)",
       "options": [
-        {
-          "value": "1",
-          "label": "1 Card"
-        },
-        {
-          "value": "2",
-          "label": "2 Cards"
-        },
-        {
-          "value": "3",
-          "label": "3 Cards"
-        }
+        {"value": "1","label": "1 Card"},
+        {"value": "2","label": "2 Cards"},
+        {"value": "3","label": "3 Cards"}
       ],
       "default": "3"
     },
@@ -441,6 +411,45 @@
       "step": 5,
       "unit": "px",
       "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Environment Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_outdoor_full_sun",
+      "label": "Icon: Full Sun"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_outdoor_part_shade",
+      "label": "Icon: Part Shade"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_outdoor_full_shade",
+      "label": "Icon: Full Shade"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_outdoor_wind_sheltered",
+      "label": "Icon: Wind Sheltered"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_outdoor_rain_sheltered",
+      "label": "Icon: Rain Sheltered"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_indoor_bright",
+      "label": "Icon: Indoor Bright"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_indoor_windowsill",
+      "label": "Icon: Windowsill"
     },
     {
       "type": "header",
@@ -491,90 +500,13 @@
       "default": 36
     }
   ],
-  "blocks": [
-    {
-      "type": "environment_card",
-      "name": "Environment Card",
-      "settings": [
-        {
-          "type": "text",
-          "id": "location_value",
-          "label": "Ideal Location Value",
-          "info": "Must match EXACTLY the value from product.metafields.custom.ideal_location (e.g., 'Outdoor full sun', 'Indoor bright windowsill')",
-          "placeholder": "Outdoor full sun"
-        },
-        {
-          "type": "image_picker",
-          "id": "icon_image",
-          "label": "Icon Image",
-          "info": "Select an icon from your media library"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Display Label",
-          "info": "Short label shown below icon (e.g., 'Full Sun', 'Windowsill')",
-          "default": "Full Sun"
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "presets": [
     {
       "name": "Description + Environment",
-      "category": "Product",
-      "blocks": [
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Outdoor full sun",
-            "label": "Full Sun"
-          }
-        },
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Outdoor part shade",
-            "label": "Part Shade"
-          }
-        },
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Outdoor full shade",
-            "label": "Full Shade"
-          }
-        },
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Outdoor sheltered from wind",
-            "label": "Wind Sheltered"
-          }
-        },
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Outdoor sheltered from rain",
-            "label": "Rain Sheltered"
-          }
-        },
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Indoor unheated, bright and good airflow",
-            "label": "Indoor Bright"
-          }
-        },
-        {
-          "type": "environment_card",
-          "settings": {
-            "location_value": "Indoor bright windowsill",
-            "label": "Windowsill"
-          }
-        }
-      ]
+      "category": "Product"
     }
   ]
 }
 {% endschema %}
+
