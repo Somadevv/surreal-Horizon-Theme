@@ -29,14 +29,17 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Difficulty
-                    {%- if product.metafields.custom.growability.definition.description -%}
+                    <!-- DEBUG: {{ product.metafields.custom.growability.definition }} -->
+                    <!-- DEBUG DESC: {{ product.metafields.custom.growability.definition.description }} -->
+                    {%- assign metafield_def = product.metafields.custom.growability.definition -%}
+                    {%- if metafield_def.description -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.growability.definition.description }}</span>
+                        <span class="info-tooltip">{{ metafield_def.description }}</span>
                       </span>
                     {%- endif -%}
                   </div>
