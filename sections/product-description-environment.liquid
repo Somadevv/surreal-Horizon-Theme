@@ -33,37 +33,28 @@
       </h3>
 
       <div class="desc-env__cards">
-        {% for block in section.blocks %}
-          {%- liquid
-            assign metafield_value = null
-            if block.settings.metafield_key != blank
-              assign metafield_key = block.settings.metafield_key
-              assign metafield_value = product.metafields.custom[metafield_key]
-            endif
-          -%}
-
-          {%- comment -%} Only show card if metafield exists and has a value {%- endcomment -%}
-          {% if metafield_value != blank %}
-            <div class="env-card" {{ block.shopify_attributes }}>
-              {% if block.settings.icon_image != blank %}
-                <div class="env-card__icon">
-                  <img src="{{ block.settings.icon_image | image_url: width: section.settings.icon_size }}"
-                       alt="{{ block.settings.label }}"
-                       loading="lazy"
-                       width="{{ section.settings.icon_size }}"
-                       height="{{ section.settings.icon_size }}">
+        {%- if product.metafields.custom.ideal_location -%}
+          {%- for location in product.metafields.custom.ideal_location.value -%}
+            {%- comment -%} Find matching block for this location value {%- endcomment -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.location_value == location -%}
+                <div class="env-card" {{ block.shopify_attributes }}>
+                  {% if block.settings.icon_image != blank %}
+                    <div class="env-card__icon">
+                      <img src="{{ block.settings.icon_image | image_url: width: section.settings.icon_size }}"
+                           alt="{{ block.settings.label }}"
+                           loading="lazy"
+                           width="{{ section.settings.icon_size }}"
+                           height="{{ section.settings.icon_size }}">
+                    </div>
+                  {% endif %}
+                  <div class="env-card__label">{{ block.settings.label }}</div>
                 </div>
-              {% endif %}
-              <div class="env-card__label">
-                {% if block.settings.use_metafield_value %}
-                  {{ metafield_value | metafield_text }}
-                {% else %}
-                  {{ block.settings.label }}
-                {% endif %}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        {%- endif -%}
       </div>
     </div>
 
@@ -479,10 +470,10 @@
       "settings": [
         {
           "type": "text",
-          "id": "metafield_key",
-          "label": "Product Metafield Key",
-          "info": "The custom metafield key (e.g., 'env_full_sun', 'env_wind_sheltered'). Card only shows if product has this metafield.",
-          "placeholder": "env_full_sun"
+          "id": "location_value",
+          "label": "Ideal Location Value",
+          "info": "Must match EXACTLY the value from product.metafields.custom.ideal_location (e.g., 'Outdoor full sun', 'Indoor bright windowsill')",
+          "placeholder": "Outdoor full sun"
         },
         {
           "type": "image_picker",
@@ -493,16 +484,9 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Card Label",
-          "info": "Display label for this environment type",
+          "label": "Display Label",
+          "info": "Short label shown below icon (e.g., 'Full Sun', 'Windowsill')",
           "default": "Full Sun"
-        },
-        {
-          "type": "checkbox",
-          "id": "use_metafield_value",
-          "label": "Use Metafield Value as Label",
-          "info": "If enabled, displays the metafield value instead of the custom label above",
-          "default": false
         }
       ]
     }
@@ -515,22 +499,50 @@
         {
           "type": "environment_card",
           "settings": {
-            "metafield_key": "env_full_sun",
+            "location_value": "Outdoor full sun",
             "label": "Full Sun"
           }
         },
         {
           "type": "environment_card",
           "settings": {
-            "metafield_key": "env_wind_sheltered",
+            "location_value": "Outdoor part shade",
+            "label": "Part Shade"
+          }
+        },
+        {
+          "type": "environment_card",
+          "settings": {
+            "location_value": "Outdoor full shade",
+            "label": "Full Shade"
+          }
+        },
+        {
+          "type": "environment_card",
+          "settings": {
+            "location_value": "Outdoor sheltered from wind",
             "label": "Wind Sheltered"
           }
         },
         {
           "type": "environment_card",
           "settings": {
-            "metafield_key": "env_indoor_bright",
+            "location_value": "Outdoor sheltered from rain",
+            "label": "Rain Sheltered"
+          }
+        },
+        {
+          "type": "environment_card",
+          "settings": {
+            "location_value": "Indoor unheated, bright and good airflow",
             "label": "Indoor Bright"
+          }
+        },
+        {
+          "type": "environment_card",
+          "settings": {
+            "location_value": "Indoor bright windowsill",
+            "label": "Windowsill"
           }
         }
       ]
