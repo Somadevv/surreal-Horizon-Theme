@@ -594,10 +594,22 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "ideal_environment_B6HCm3": {
+          "type": "ideal-environment",
+          "name": "Ideal Environment",
+          "settings": {
+            "padding-block-start": 20,
+            "padding-block-end": 20,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "text_WwrzYy"
+        "text_WwrzYy",
+        "ideal_environment_B6HCm3"
       ],
       "name": "Product description",
       "settings": {
@@ -1918,9 +1930,9 @@
         "card_min_height": 110,
         "card_border_radius": 12,
         "card_title_size": 12,
-        "card_title_weight": 700,
-        "card_value_size": 18,
-        "card_value_weight": 400,
+        "card_title_weight": 500,
+        "card_value_size": 15,
+        "card_value_weight": 600,
         "grid_columns_desktop": "2",
         "grid_columns_tablet": "1",
         "grid_columns_mobile": "1",
