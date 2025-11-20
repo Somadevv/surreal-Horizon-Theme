@@ -29,7 +29,9 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Difficulty</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growability | metafield_text }}</div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_difficulty | default: "Indicates how easy or challenging this plant is to grow and maintain." }}</div>
+                  {%- if product.metafields.custom.growability.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.growability.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -48,7 +50,9 @@
                       <span>{{ form }}{% unless forloop.last %}, {% endunless %}</span>
                     {% endfor %}
                   </div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_growth_form | default: "Describes the natural shape and growth habit of the plant." }}</div>
+                  {%- if product.metafields.custom.growth_form.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.growth_form.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -63,7 +67,9 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Growth Rate</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growth_rate | metafield_text }}</div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_growth_rate | default: "How fast the plant grows under ideal conditions." }}</div>
+                  {%- if product.metafields.custom.growth_rate.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.growth_rate.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -79,7 +85,9 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Minimum Temperature</div>
                   <div class="characteristic-card__value">{{ temp }}°C</div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_min_temp | default: "The lowest temperature this plant can tolerate without damage." }}</div>
+                  {%- if product.metafields.custom.hardiness_celsius_.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.hardiness_celsius_.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -94,7 +102,9 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Maximum Size</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.maximum_height_and_spread | metafield_text }}</div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_max_size | default: "The typical maximum dimensions this plant can reach when mature." }}</div>
+                  {%- if product.metafields.custom.maximum_height_and_spread.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.maximum_height_and_spread.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -111,7 +121,9 @@
                   <div class="characteristic-card__value">
                     {{ product.metafields.custom.featured_colour | metafield_text }}
                   </div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_colour | default: "The predominant colours displayed by this plant." }}</div>
+                  {%- if product.metafields.custom.featured_colour.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.featured_colour.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -128,7 +140,9 @@
                   <div class="characteristic-card__value">
                     <span class="pbr-badge">PBR Protected</span>
                   </div>
-                  <div class="characteristic-card__description">{{ section.settings.desc_pbr | default: "This plant variety is protected by Plant Breeders' Rights." }}</div>
+                  {%- if product.metafields.custom.plant_breeders_rights.definition.description -%}
+                    <div class="characteristic-card__description">{{ product.metafields.custom.plant_breeders_rights.definition.description }}</div>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -174,6 +188,7 @@
   .plant-care-split--{{ section.id }} .plant-characteristics__grid {
     grid-template-columns: repeat({{ section.settings.grid_columns_desktop }}, 1fr);
     gap: {{ section.settings.grid_gap }}px;
+    grid-auto-rows: 1fr;
   }
 
   .plant-care-split--{{ section.id }} .characteristic-card {
