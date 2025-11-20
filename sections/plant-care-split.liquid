@@ -27,7 +27,19 @@
                   {% render 'icon-difficulty' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Difficulty</div>
+                  <div class="characteristic-card__title">
+                    Difficulty
+                    {%- if product.metafields.custom.growability.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.growability.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growability | metafield_text }}</div>
                 </div>
               </div>
@@ -41,7 +53,19 @@
                   {% render 'icon-plant' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Growth Form</div>
+                  <div class="characteristic-card__title">
+                    Growth Form
+                    {%- if product.metafields.custom.growth_form.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.growth_form.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">
                     {% for form in product.metafields.custom.growth_form.value %}
                       <span>{{ form }}{% unless forloop.last %}, {% endunless %}</span>
@@ -59,7 +83,19 @@
                   {% render 'icon-speed' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Growth Rate</div>
+                  <div class="characteristic-card__title">
+                    Growth Rate
+                    {%- if product.metafields.custom.growth_rate.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.growth_rate.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growth_rate | metafield_text }}</div>
                 </div>
               </div>
@@ -74,7 +110,19 @@
                   {% render 'icon-thermometer' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Minimum Temperature</div>
+                  <div class="characteristic-card__title">
+                    Minimum Temperature
+                    {%- if product.metafields.custom.hardiness_celsius_.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.hardiness_celsius_.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">{{ temp }}°C</div>
                 </div>
               </div>
@@ -88,7 +136,19 @@
                   {% render 'icon-growing' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Maximum Size</div>
+                  <div class="characteristic-card__title">
+                    Maximum Size
+                    {%- if product.metafields.custom.maximum_height_and_spread.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.maximum_height_and_spread.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.maximum_height_and_spread | metafield_text }}</div>
                 </div>
               </div>
@@ -102,7 +162,19 @@
                   {% render 'swatch-multi', colours: product.metafields.custom.featured_colour, size: 60 %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Featured Colour</div>
+                  <div class="characteristic-card__title">
+                    Featured Colour
+                    {%- if product.metafields.custom.featured_colour.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.featured_colour.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">
                     {{ product.metafields.custom.featured_colour | metafield_text }}
                   </div>
@@ -118,7 +190,19 @@
                   {% render 'icon-check-mark' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">Special Status</div>
+                  <div class="characteristic-card__title">
+                    Special Status
+                    {%- if product.metafields.custom.plant_breeders_rights.definition.description -%}
+                      <span class="info-icon-wrapper">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
+                        </svg>
+                        <span class="info-tooltip">{{ product.metafields.custom.plant_breeders_rights.definition.description }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
                   <div class="characteristic-card__value">
                     <span class="pbr-badge">PBR Protected</span>
                   </div>
@@ -252,6 +336,7 @@
     padding: 1.25rem;
     background-color: rgba(var(--color-foreground-rgb), 0.03);
     min-height: 110px;
+    height: 100%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     overflow: hidden;
     display: flex;
@@ -301,6 +386,9 @@
     text-transform: uppercase;
     color: rgba(var(--color-foreground-rgb), 0.6);
     margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 
   .characteristic-card__value {
@@ -308,6 +396,99 @@
     font-weight: 400;
     color: rgba(var(--color-foreground-rgb), 0.9);
     line-height: 1.3;
+  }
+
+  /* Info Icon & Tooltip Styles */
+  .info-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: help;
+  }
+
+  .info-icon {
+    width: 14px;
+    height: 14px;
+    color: rgba(var(--color-foreground-rgb), 0.45);
+    transition: color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .info-icon-wrapper:hover .info-icon {
+    color: rgba(var(--color-foreground-rgb), 0.7);
+    transform: scale(1.1);
+  }
+
+  .info-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(var(--color-foreground-rgb), 0.95);
+    color: rgb(var(--color-background-rgb));
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
+    width: max-content;
+    max-width: 280px;
+    text-transform: none;
+    letter-spacing: normal;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    z-index: 100;
+    text-align: left;
+  }
+
+  /* Tooltip arrow */
+  .info-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(var(--color-foreground-rgb), 0.95);
+  }
+
+  /* Desktop: Show tooltip on hover */
+  @media (hover: hover) and (pointer: fine) {
+    .info-icon-wrapper:hover .info-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-4px);
+    }
+  }
+
+  /* Mobile: Show tooltip on tap/active */
+  @media (hover: none) and (pointer: coarse) {
+    .info-icon-wrapper:active .info-tooltip,
+    .info-icon-wrapper:focus-within .info-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    /* Make info icons slightly larger on mobile for easier tapping */
+    .info-icon {
+      width: 16px;
+      height: 16px;
+      padding: 2px;
+    }
+
+    /* Ensure tooltip stays visible briefly after tap */
+    .info-tooltip {
+      transition: opacity 0.2s ease 0.5s, visibility 0.2s ease 0.5s, transform 0.2s ease;
+    }
+
+    .info-icon-wrapper:active .info-tooltip {
+      transition-delay: 0s;
+    }
   }
 
   /* Border styling - controlled by settings */
@@ -432,6 +613,7 @@
     .characteristic-card {
       padding: 1rem;
       min-height: 95px;
+      height: 100%;
     }
 
     .characteristic-card__icon {
