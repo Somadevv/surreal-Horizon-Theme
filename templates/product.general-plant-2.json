@@ -1914,8 +1914,8 @@
       "settings": {
         "characteristics_heading": "Plant Characteristics",
         "care_heading": "How to Care For {{ product.title }}",
-        "heading_size": 24,
-        "heading_weight": 600,
+        "heading_size": 26,
+        "heading_weight": 300,
         "desc_difficulty": "Indicates how easy or challenging this plant is to grow and maintain.",
         "desc_growth_form": "Describes the natural shape and growth habit of the plant.",
         "desc_growth_rate": "How fast the plant grows under ideal conditions.",
