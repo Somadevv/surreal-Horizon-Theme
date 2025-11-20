@@ -381,6 +381,8 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    position: relative;
+    z-index: 1;
   }
 
   .characteristic-card__value {
@@ -396,12 +398,11 @@
     display: inline-flex;
     align-items: center;
     cursor: help;
-    z-index: 1;
   }
 
   /* Elevate card z-index when hovering info icon */
-  .characteristic-card:has(.info-icon-wrapper:hover) {
-    z-index: 10;
+  .info-icon-wrapper:hover {
+    z-index: 1000;
   }
 
   .info-icon {
@@ -439,7 +440,7 @@
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
     pointer-events: none;
-    z-index: 100;
+    z-index: 9999;
     text-align: left;
   }
 
