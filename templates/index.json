@@ -94,6 +94,7 @@
         "spacer_kzXtKV",
         "button_RbC8XQ"
       ],
+      "name": "Hero: CTA",
       "settings": {
         "media_type_1": "image",
         "image_1": "shopify://shop_images/1ded1785-8203-4289-a4b5-659bebeb2e9d.jpg",
@@ -304,6 +305,7 @@
         ".collection-card:hover {transition-delay: 0.3ms; transform: scale(1.02);}",
         ".collection-card__image {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}"
       ],
+      "name": "Browse our collection",
       "settings": {
         "collection_list": [
           "aeonium",
@@ -950,6 +952,7 @@
           ]
         }
       },
+      "name": "New for 2025",
       "settings": {
         "collection": "new-in",
         "layout_type": "carousel",
@@ -1096,7 +1099,7 @@
         ".blog-post-details {padding-left: 12px;}",
         ".blog-post-card__content-text {padding-left: 12px; padding-bottom: 16px;}"
       ],
-      "name": "t:names.blog_posts_editorial",
+      "name": "Full care guides",
       "settings": {
         "blog": "plant-care-advice",
         "layout_type": "carousel",
@@ -1456,7 +1459,7 @@
         "group_g7cpCn",
         "group_eE3Y6M"
       ],
-      "name": "t:names.custom_section",
+      "name": "FAQS",
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
@@ -1632,7 +1635,6 @@
         "image_phM9cw",
         "group_3QLB6C"
       ],
-      "disabled": true,
       "name": "Nursery Shop",
       "settings": {
         "content_direction": "row",
