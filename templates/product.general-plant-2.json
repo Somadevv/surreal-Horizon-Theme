@@ -1879,8 +1879,8 @@
         "care_accordion_CUrMc9": {
           "type": "care_accordion",
           "settings": {
-            "title": "How often should I water?",
-            "content": "<p>Water when soil is completely dry. This is typically every 1-2 weeks.</p>",
+            "title": "What soil is best for {{ product.title }}? 🪴",
+            "content": "<p>Crassula 'Candy Cane' needs <a href=\"https://sreal-succulents.myshopify.com/products/succulent-compost-mix\" title=\"General Succulent Compost Mix\"><strong>free-draining soil </strong></a>to thrive. Use a specialist cactus and succulent mix, or blend compost with <a href=\"https://sreal-succulents.myshopify.com/products/horticultural-grit\" title=\"Cornish Horticultural Grit\">horticultural grit</a>, sand, or <a href=\"https://sreal-succulents.myshopify.com/products/perlite\" title=\"Perlite\">perlite</a>. This keeps the roots aerated and prevents excess moisture, which can cause root rot. Adding a gritty top-dressing not only looks attractive but also keeps foliage dry, reduces fungus gnats, and helps regulate moisture. Healthy soil is the foundation of successful succulent care.</p>",
             "open_by_default": false
           }
         },
@@ -1913,6 +1913,13 @@
         "care_heading": "How to Care For {{ product.title }}",
         "heading_size": 24,
         "heading_weight": 600,
+        "desc_difficulty": "Indicates how easy or challenging this plant is to grow and maintain.",
+        "desc_growth_form": "Describes the natural shape and growth habit of the plant.",
+        "desc_growth_rate": "How fast the plant grows under ideal conditions.",
+        "desc_min_temp": "The lowest temperature this plant can tolerate without damage.",
+        "desc_max_size": "The typical maximum dimensions this plant can reach when mature.",
+        "desc_colour": "The predominant colours displayed by this plant.",
+        "desc_pbr": "This plant variety is protected by Plant Breeders' Rights.",
         "container_gap": 48,
         "card_border_style": "normal",
         "card_border_width": 1,
