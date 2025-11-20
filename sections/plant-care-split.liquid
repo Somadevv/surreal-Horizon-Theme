@@ -27,18 +27,9 @@
                   {% render 'icon-difficulty' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Difficulty
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_difficulty | default: "Indicates how easy or challenging this plant is to grow and maintain." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Difficulty</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growability | metafield_text }}</div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_difficulty | default: "Indicates how easy or challenging this plant is to grow and maintain." }}</div>
                 </div>
               </div>
             </div>
@@ -51,22 +42,13 @@
                   {% render 'icon-plant' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Growth Form
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_growth_form | default: "Describes the natural shape and growth habit of the plant." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Growth Form</div>
                   <div class="characteristic-card__value">
                     {% for form in product.metafields.custom.growth_form.value %}
                       <span>{{ form }}{% unless forloop.last %}, {% endunless %}</span>
                     {% endfor %}
                   </div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_growth_form | default: "Describes the natural shape and growth habit of the plant." }}</div>
                 </div>
               </div>
             </div>
@@ -79,18 +61,9 @@
                   {% render 'icon-speed' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Growth Rate
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_growth_rate | default: "How fast the plant grows under ideal conditions." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Growth Rate</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.growth_rate | metafield_text }}</div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_growth_rate | default: "How fast the plant grows under ideal conditions." }}</div>
                 </div>
               </div>
             </div>
@@ -104,18 +77,9 @@
                   {% render 'icon-thermometer' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Minimum Temperature
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_min_temp | default: "The lowest temperature this plant can tolerate without damage." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Minimum Temperature</div>
                   <div class="characteristic-card__value">{{ temp }}°C</div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_min_temp | default: "The lowest temperature this plant can tolerate without damage." }}</div>
                 </div>
               </div>
             </div>
@@ -128,18 +92,9 @@
                   {% render 'icon-growing' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Maximum Size
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_max_size | default: "The typical maximum dimensions this plant can reach when mature." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Maximum Size</div>
                   <div class="characteristic-card__value">{{ product.metafields.custom.maximum_height_and_spread | metafield_text }}</div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_max_size | default: "The typical maximum dimensions this plant can reach when mature." }}</div>
                 </div>
               </div>
             </div>
@@ -152,20 +107,11 @@
                   {% render 'swatch-multi', colours: product.metafields.custom.featured_colour, size: 60 %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Featured Colour
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_colour | default: "The predominant colours displayed by this plant." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Featured Colour</div>
                   <div class="characteristic-card__value">
                     {{ product.metafields.custom.featured_colour | metafield_text }}
                   </div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_colour | default: "The predominant colours displayed by this plant." }}</div>
                 </div>
               </div>
             </div>
@@ -178,20 +124,11 @@
                   {% render 'icon-check-mark' %}
                 </div>
                 <div class="characteristic-card__content">
-                  <div class="characteristic-card__title">
-                    Special Status
-                    <span class="info-icon-wrapper">
-                      <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-                      </svg>
-                      <span class="info-tooltip">{{ section.settings.desc_pbr | default: "This plant variety is protected by Plant Breeders' Rights." }}</span>
-                    </span>
-                  </div>
+                  <div class="characteristic-card__title">Special Status</div>
                   <div class="characteristic-card__value">
                     <span class="pbr-badge">PBR Protected</span>
                   </div>
+                  <div class="characteristic-card__description">{{ section.settings.desc_pbr | default: "This plant variety is protected by Plant Breeders' Rights." }}</div>
                 </div>
               </div>
             </div>
@@ -320,14 +257,14 @@
   .characteristic-card {
     position: relative;
     border-radius: 12px;
-    padding: 10px;
+    padding: 1.25rem;
     background-color: rgba(var(--color-foreground-rgb), 0.03);
-    min-height: 110px;
+    min-height: 140px;
     height: 100%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     overflow: visible;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
 
   /* Ensure colored border doesn't overflow */
@@ -337,7 +274,7 @@
 
   .characteristic-card__inner {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     z-index: 2;
     width: 100%;
@@ -377,12 +314,7 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: rgba(var(--color-foreground-rgb), 0.6);
-    margin-bottom: 0.35rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    position: relative;
-    z-index: 1;
+    margin-bottom: 0.5rem;
   }
 
   .characteristic-card__value {
@@ -390,104 +322,16 @@
     font-weight: 400;
     color: rgba(var(--color-foreground-rgb), 0.9);
     line-height: 1.3;
+    margin-bottom: 0.5rem;
   }
 
-  /* Info Icon & Tooltip Styles */
-  .info-icon-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    cursor: help;
-  }
-
-  /* Elevate card z-index when hovering info icon */
-  .info-icon-wrapper:hover {
-    z-index: 1000;
-  }
-
-  .info-icon {
-    width: 14px;
-    height: 14px;
-    color: rgba(var(--color-foreground-rgb), 0.45);
-    transition: color 0.2s ease, transform 0.2s ease;
-    flex-shrink: 0;
-  }
-
-  .info-icon-wrapper:hover .info-icon {
-    color: rgba(var(--color-foreground-rgb), 0.7);
-    transform: scale(1.1);
-  }
-
-  .info-tooltip {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(var(--color-foreground-rgb), 0.95);
-    color: rgb(var(--color-background-rgb));
-    padding: 0.65rem 0.85rem;
-    border-radius: 8px;
-    font-size: 0.8rem;
+  .characteristic-card__description {
+    font-size: 0.75rem;
     font-weight: 400;
     line-height: 1.5;
-    white-space: normal;
-    width: max-content;
-    max-width: 280px;
+    color: rgba(var(--color-foreground-rgb), 0.55);
     text-transform: none;
     letter-spacing: normal;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-    pointer-events: none;
-    z-index: 9999;
-    text-align: left;
-  }
-
-  /* Tooltip arrow */
-  .info-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: rgba(var(--color-foreground-rgb), 0.95);
-  }
-
-  /* Desktop: Show tooltip on hover */
-  @media (hover: hover) and (pointer: fine) {
-    .info-icon-wrapper:hover .info-tooltip {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(-4px);
-    }
-  }
-
-  /* Mobile: Show tooltip on tap/active */
-  @media (hover: none) and (pointer: coarse) {
-    .info-icon-wrapper:active .info-tooltip,
-    .info-icon-wrapper:focus-within .info-tooltip {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(-4px);
-    }
-
-    /* Make info icons slightly larger on mobile for easier tapping */
-    .info-icon {
-      width: 16px;
-      height: 16px;
-      padding: 2px;
-    }
-
-    /* Ensure tooltip stays visible briefly after tap */
-    .info-tooltip {
-      transition: opacity 0.2s ease 0.5s, visibility 0.2s ease 0.5s, transform 0.2s ease;
-    }
-
-    .info-icon-wrapper:active .info-tooltip {
-      transition-delay: 0s;
-    }
   }
 
   /* Border styling - controlled by settings */
