@@ -34,53 +34,54 @@
 
       <div class="desc-env__cards">
         {%- if product.metafields.custom.ideal_location -%}
-          {%- comment -%} DEBUG: Show what's in the metafield {%- endcomment -%}
-          {%- if request.design_mode -%}
-            <div style="background: #f0f0f0; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; font-size: 0.875rem;">
-              <strong>DEBUG (only visible in editor):</strong><br>
-              Product has ideal_location metafield<br>
-              Values: {{ product.metafields.custom.ideal_location.value | join: ', ' }}
-            </div>
-          {%- endif -%}
-
           {%- for location in product.metafields.custom.ideal_location.value -%}
-            {%- comment -%} Find matching block for this location value {%- endcomment -%}
-            {%- assign found_match = false -%}
-            {%- for block in section.blocks -%}
-              {%- if block.settings.location_value == location -%}
-                {%- assign found_match = true -%}
-                <div class="env-card" {{ block.shopify_attributes }}>
-                  {% if block.settings.icon_image != blank %}
-                    <div class="env-card__icon">
-                      <img src="{{ block.settings.icon_image | image_url: width: section.settings.icon_size }}"
-                           alt="{{ block.settings.label }}"
-                           loading="lazy"
-                           width="{{ section.settings.icon_size }}"
-                           height="{{ section.settings.icon_size }}">
-                    </div>
-                  {% endif %}
-                  <div class="env-card__label">{{ block.settings.label }}</div>
-                </div>
-                {%- break -%}
-              {%- endif -%}
-            {%- endfor -%}
+            {%- liquid
+              assign icon_image = null
+              assign label = ''
 
-            {%- comment -%} DEBUG: Show unmatched locations {%- endcomment -%}
-            {%- if request.design_mode and found_match == false -%}
-              <div style="background: #fff3cd; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 8px; font-size: 0.875rem; border-left: 3px solid #ffc107;">
-                <strong>⚠️ No block found for:</strong> "{{ location }}"<br>
-                <small>Add a block with location_value = "{{ location }}"</small>
+              case location
+                when 'Outdoor full sun'
+                  assign icon_image = section.settings.icon_outdoor_full_sun
+                  assign label = 'Full Sun'
+                when 'Outdoor part shade'
+                  assign icon_image = section.settings.icon_outdoor_part_shade
+                  assign label = 'Part Shade'
+                when 'Outdoor full shade'
+                  assign icon_image = section.settings.icon_outdoor_full_shade
+                  assign label = 'Full Shade'
+                when 'Outdoor sheltered from wind'
+                  assign icon_image = section.settings.icon_outdoor_wind_sheltered
+                  assign label = 'Wind Sheltered'
+                when 'Outdoor sheltered from rain'
+                  assign icon_image = section.settings.icon_outdoor_rain_sheltered
+                  assign label = 'Rain Sheltered'
+                when 'Indoor unheated, bright and good airflow'
+                  assign icon_image = section.settings.icon_indoor_bright
+                  assign label = 'Indoor Bright'
+                when 'Indoor bright windowsill'
+                  assign icon_image = section.settings.icon_indoor_windowsill
+                  assign label = 'Windowsill'
+              endcase
+            -%}
+
+            {%- if icon_image != blank -%}
+              <div class="env-card">
+                <div class="env-card__icon">
+                  <img src="{{ icon_image | image_url: width: section.settings.icon_size }}"
+                       alt="{{ label }}"
+                       loading="lazy"
+                       width="{{ section.settings.icon_size }}"
+                       height="{{ section.settings.icon_size }}">
+                </div>
+                <div class="env-card__label">{{ label }}</div>
+              </div>
+            {%- else -%}
+              {%- comment -%} Show location as text if no icon configured {%- endcomment -%}
+              <div class="env-card">
+                <div class="env-card__label">{{ location }}</div>
               </div>
             {%- endif -%}
           {%- endfor -%}
-        {%- else -%}
-          {%- comment -%} DEBUG: Product has no metafield {%- endcomment -%}
-          {%- if request.design_mode -%}
-            <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; font-size: 0.875rem; border-left: 3px solid #dc3545;">
-              <strong>❌ No ideal_location metafield found</strong><br>
-              This product doesn't have the ideal_location metafield set.
-            </div>
-          {%- endif -%}
         {%- endif -%}
       </div>
     </div>

@@ -5,58 +5,62 @@
   endif
 %}
 
-{%- if product.metafields.custom.ideal_location -%}
+{% assign environment_values = product.metafields.custom.ideal_location.value %}
+
+{%- if environment_values != blank -%}
   <div class="ideal-environment" {{ block.shopify_attributes }}>
-    {%- comment -%} Section Title {%- endcomment -%}
+    
     <h3 class="ideal-environment__title">
       Ideal Environment for {{ product.title }}
     </h3>
 
-    {%- comment -%} Environment Items Container {%- endcomment -%}
     <div class="ideal-environment__items">
-      {%- for location in product.metafields.custom.ideal_location.value -%}
+
+      {%- for location in environment_values -%}
+        {% case location %}
+          {% when 'Outdoor full sun' %}
+            {% assign icon = 'icon-full-sun' %}
+            {% assign label = 'Full Sun' %}
+
+          {% when 'Outdoor part shade' %}
+            {% assign icon = 'icon-part-shade' %}
+            {% assign label = 'Part Shade' %}
+
+          {% when 'Outdoor full shade' %}
+            {% assign icon = 'icon-full-shade' %}
+            {% assign label = 'Full Shade' %}
+
+          {% when 'Outdoor sheltered from wind' %}
+            {% assign icon = 'icon-sheltered' %}
+            {% assign label = 'Wind Sheltered' %}
+
+          {% when 'Outdoor sheltered from rain' %}
+            {% assign icon = 'icon-sheltered-rain' %}
+            {% assign label = 'Rain Sheltered' %}
+
+          {% when 'Indoor unheated, bright and good airflow' %}
+            {% assign icon = 'icon-indoor' %}
+            {% assign label = 'Indoor Bright' %}
+
+          {% when 'Indoor bright windowsill' %}
+            {% assign icon = 'icon-windowsill' %}
+            {% assign label = 'Windowsill' %}
+        {% endcase %}
+
         <div class="environment-item">
           <div class="environment-item__icon">
-            {% case location %}
-              {% when 'Outdoor full sun' %}
-                {% render 'icon-full-sun' %}
-              {% when 'Outdoor part shade' %}
-                {% render 'icon-part-shade' %}
-              {% when 'Outdoor full shade' %}
-                {% render 'icon-full-shade' %}
-              {% when 'Outdoor sheltered from wind' %}
-                {% render 'icon-sheltered' %}
-              {% when 'Outdoor sheltered from rain' %}
-                {% render 'icon-sheltered-rain' %}
-              {% when 'Indoor unheated, bright and good airflow' %}
-                {% render 'icon-indoor' %}
-              {% when 'Indoor bright windowsill' %}
-                {% render 'icon-windowsill' %}
-            {% endcase %}
+            {% render icon %}
           </div>
           <div class="environment-item__label">
-            {% case location %}
-              {% when 'Outdoor full sun' %}
-                Full Sun
-              {% when 'Outdoor part shade' %}
-                Part Shade
-              {% when 'Outdoor full shade' %}
-                Full Shade
-              {% when 'Outdoor sheltered from wind' %}
-                Wind Sheltered
-              {% when 'Outdoor sheltered from rain' %}
-                Rain Sheltered
-              {% when 'Indoor unheated, bright and good airflow' %}
-                Indoor Bright
-              {% when 'Indoor bright windowsill' %}
-                Windowsill
-            {% endcase %}
+            {{ label }}
           </div>
         </div>
+
       {%- endfor -%}
     </div>
   </div>
 {%- endif -%}
+
 
 {% stylesheet %}
   /* Main container styling */
