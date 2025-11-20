@@ -153,7 +153,7 @@
               </div>
 
             {% when 'care_accordion' %}
-              <details class="care-accordion" {{ block.shopify_attributes }} {% if block.settings.open_by_default %}open{% endif %}>
+              <details class="care-accordion" {{ block.shopify_attributes }} {% if forloop.first %}open{% endif %}>
                 <summary class="care-accordion__summary">
                   {{ block.settings.title }}
                   <span class="care-accordion__icon">+</span>
@@ -170,11 +170,29 @@
   </div>
 </div>
 
+<script>
+  (function() {
+    const accordions = document.querySelectorAll('.plant-care-split--{{ section.id }} .care-accordion');
+
+    accordions.forEach(accordion => {
+      accordion.addEventListener('toggle', function() {
+        if (this.open) {
+          // Close all other accordions in this section
+          accordions.forEach(otherAccordion => {
+            if (otherAccordion !== this && otherAccordion.open) {
+              otherAccordion.open = false;
+            }
+          });
+        }
+      });
+    });
+  })();
+</script>
+
 <style>
   .plant-care-split--{{ section.id }} .plant-characteristics__grid {
     grid-template-columns: repeat({{ section.settings.grid_columns_desktop }}, 1fr);
     gap: {{ section.settings.grid_gap }}px;
-    grid-auto-rows: 1fr;
   }
 
   .plant-care-split--{{ section.id }} .characteristic-card {
@@ -260,8 +278,6 @@
     border-radius: 12px;
     padding: 1.25rem;
     background-color: rgba(var(--color-foreground-rgb), 0.03);
-    min-height: 140px;
-    height: 100%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     overflow: visible;
     display: flex;
