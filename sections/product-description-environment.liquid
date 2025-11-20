@@ -34,53 +34,33 @@
 
       <div class="desc-env__cards">
         {%- if product.metafields.custom.ideal_location -%}
-          {%- for location in product.metafields.custom.ideal_location.value -%}
-            {%- liquid
-              assign icon_image = null
-              assign label = ''
+          {%- assign locations = product.metafields.custom.ideal_location.value -%}
+          
+          {%- for location in locations -%}
+            {%- assign matched_block = section.blocks | where: "settings.location_value", location | first -%}
 
-              case location
-                when 'Outdoor full sun'
-                  assign icon_image = section.settings.icon_outdoor_full_sun
-                  assign label = 'Full Sun'
-                when 'Outdoor part shade'
-                  assign icon_image = section.settings.icon_outdoor_part_shade
-                  assign label = 'Part Shade'
-                when 'Outdoor full shade'
-                  assign icon_image = section.settings.icon_outdoor_full_shade
-                  assign label = 'Full Shade'
-                when 'Outdoor sheltered from wind'
-                  assign icon_image = section.settings.icon_outdoor_wind_sheltered
-                  assign label = 'Wind Sheltered'
-                when 'Outdoor sheltered from rain'
-                  assign icon_image = section.settings.icon_outdoor_rain_sheltered
-                  assign label = 'Rain Sheltered'
-                when 'Indoor unheated, bright and good airflow'
-                  assign icon_image = section.settings.icon_indoor_bright
-                  assign label = 'Indoor Bright'
-                when 'Indoor bright windowsill'
-                  assign icon_image = section.settings.icon_indoor_windowsill
-                  assign label = 'Windowsill'
-              endcase
-            -%}
-
-            {%- if icon_image != blank -%}
+            {%- if matched_block != blank -%}
               <div class="env-card">
-                <div class="env-card__icon">
-                  <img src="{{ icon_image | image_url: width: section.settings.icon_size }}"
-                       alt="{{ label }}"
-                       loading="lazy"
-                       width="{{ section.settings.icon_size }}"
-                       height="{{ section.settings.icon_size }}">
+                {% if matched_block.settings.icon_image != blank %}
+                  <div class="env-card__icon">
+                    <img src="{{ matched_block.settings.icon_image | image_url: width: section.settings.icon_size }}"
+                         alt="{{ matched_block.settings.label }}"
+                         loading="lazy"
+                         width="{{ section.settings.icon_size }}"
+                         height="{{ section.settings.icon_size }}">
+                  </div>
+                {% endif %}
+                <div class="env-card__label">
+                  {{ matched_block.settings.label }}
                 </div>
-                <div class="env-card__label">{{ label }}</div>
               </div>
             {%- else -%}
-              {%- comment -%} Show location as text if no icon configured {%- endcomment -%}
+              {%- comment -%} fallback: display text if no block matches {% endcomment -%}
               <div class="env-card">
                 <div class="env-card__label">{{ location }}</div>
               </div>
             {%- endif -%}
+
           {%- endfor -%}
         {%- endif -%}
       </div>
@@ -88,6 +68,7 @@
 
   </div>
 </div>
+
 
 <style>
   .desc-env--{{ section.id }} .desc-env__heading {
