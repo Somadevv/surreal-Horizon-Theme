@@ -19,6 +19,8 @@
             "text": "<h1>{{ closest.page.title }}</h1>",
             "width": "100%",
             "max_width": "normal",
+            "max_width_tablet": "inherit",
+            "max_width_desktop": "inherit",
             "alignment": "left",
             "type_preset": "h1",
             "font": "var(--font-primary--family)",
@@ -28,8 +30,10 @@
             "case": "none",
             "wrap": "pretty",
             "color": "",
+            "color_scheme": "",
             "background": false,
             "background_color": "#00000026",
+            "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -54,9 +58,25 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "seo_sitemap_JgUmyx": {
+      "type": "seo-sitemap",
+      "name": "Auto Sitemap",
+      "settings": {
+        "heading": "Site Map",
+        "description": "",
+        "show_collections": true,
+        "show_products": true,
+        "show_pages": true,
+        "show_blogs": true,
+        "color_scheme": "",
+        "padding_block_start": 40,
+        "padding_block_end": 80
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "seo_sitemap_JgUmyx"
   ]
 }
