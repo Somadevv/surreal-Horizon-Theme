@@ -1,0 +1,424 @@
+{% liquid
+  assign product = closest.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+%}
+
+<div class="desc-env desc-env--{{ section.id }}"
+     style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="desc-env__container"
+       style="gap: {{ section.settings.container_gap }}px;">
+
+    {%- comment -%} Left Side: Description {%- endcomment -%}
+    <div class="desc-env__description">
+      <div class="desc-env__description-content">
+        {{ section.settings.description }}
+      </div>
+    </div>
+
+    {%- comment -%} Right Side: Ideal Environment {%- endcomment -%}
+    <div class="desc-env__environment">
+      <h3 class="desc-env__heading"
+          style="font-size: {{ section.settings.heading_size }}px; font-weight: {{ section.settings.heading_weight }};">
+        {{ section.settings.environment_heading }}
+      </h3>
+
+      <div class="desc-env__cards">
+        {% for block in section.blocks %}
+          <div class="env-card" {{ block.shopify_attributes }}>
+            <div class="env-card__icon">
+              {{ block.settings.icon_svg }}
+            </div>
+            <div class="env-card__label">{{ block.settings.label }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .desc-env--{{ section.id }} .desc-env__heading {
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
+  }
+
+  .desc-env--{{ section.id }} .desc-env__cards {
+    grid-template-columns: repeat({{ section.settings.cards_per_row_desktop }}, 1fr);
+    gap: {{ section.settings.card_gap }}px;
+  }
+
+  .desc-env--{{ section.id }} .env-card__icon {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .desc-env--{{ section.id }} .desc-env__cards {
+      grid-template-columns: repeat({{ section.settings.cards_per_row_tablet }}, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .desc-env--{{ section.id }} .desc-env__cards {
+      grid-template-columns: repeat({{ section.settings.cards_per_row_mobile }}, 1fr);
+    }
+  }
+</style>
+
+{% stylesheet %}
+  .desc-env {
+    font-family: inherit;
+  }
+
+  /* Main container - 50/50 split */
+  .desc-env__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* Description Side */
+  .desc-env__description {
+    padding: 2rem;
+    background-color: rgba(var(--color-foreground-rgb), 0.02);
+    border-radius: 12px;
+  }
+
+  .desc-env__description-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(var(--color-foreground-rgb), 0.85);
+  }
+
+  .desc-env__description-content p {
+    margin-bottom: 1rem;
+  }
+
+  .desc-env__description-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Environment Side */
+  .desc-env__environment {
+    padding: 2rem;
+    background-color: rgba(var(--color-foreground-rgb), 0.02);
+    border-radius: 12px;
+  }
+
+  .desc-env__heading {
+    color: rgba(var(--color-foreground-rgb), 0.9);
+    margin-bottom: 1.5rem;
+  }
+
+  .desc-env__cards {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  /* Environment Cards */
+  .env-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background-color: rgba(var(--color-foreground-rgb), 0.03);
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .env-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .env-card__icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .env-card__icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  .env-card__label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(var(--color-foreground-rgb), 0.9);
+  }
+
+  /* Mobile responsiveness */
+  @media screen and (max-width: 767px) {
+    .desc-env__container {
+      grid-template-columns: 1fr;
+      gap: 2rem !important;
+    }
+
+    .desc-env__description,
+    .desc-env__environment {
+      padding: 1.5rem;
+    }
+
+    .desc-env__description-content {
+      font-size: 0.95rem;
+    }
+
+    .env-card {
+      padding: 1.25rem 0.75rem;
+    }
+
+    .env-card__icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.75rem;
+    }
+
+    .env-card__label {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Tablet responsiveness */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .desc-env__container {
+      gap: 2rem !important;
+    }
+
+    .env-card__icon {
+      width: 55px;
+      height: 55px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Description + Environment",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Headings"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Product Description",
+      "default": "<p>Add your product description here.</p>"
+    },
+    {
+      "type": "text",
+      "id": "environment_heading",
+      "label": "Environment Section Heading",
+      "default": "Ideal Environment"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Font Size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "container_gap",
+      "label": "Gap Between Columns",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Environment Cards Grid"
+    },
+    {
+      "type": "select",
+      "id": "cards_per_row_desktop",
+      "label": "Cards Per Row (Desktop)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 Card"
+        },
+        {
+          "value": "2",
+          "label": "2 Cards"
+        },
+        {
+          "value": "3",
+          "label": "3 Cards"
+        },
+        {
+          "value": "4",
+          "label": "4 Cards"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "cards_per_row_tablet",
+      "label": "Cards Per Row (Tablet)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 Card"
+        },
+        {
+          "value": "2",
+          "label": "2 Cards"
+        },
+        {
+          "value": "3",
+          "label": "3 Cards"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "cards_per_row_mobile",
+      "label": "Cards Per Row (Mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 Card"
+        },
+        {
+          "value": "2",
+          "label": "2 Cards"
+        },
+        {
+          "value": "3",
+          "label": "3 Cards"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card Gap",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "environment_card",
+      "name": "Environment Card",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG Code",
+          "info": "Paste your SVG code here",
+          "default": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"5\"/><line x1=\"12\" y1=\"1\" x2=\"12\" y2=\"3\"/><line x1=\"12\" y1=\"21\" x2=\"12\" y2=\"23\"/><line x1=\"4.22\" y1=\"4.22\" x2=\"5.64\" y2=\"5.64\"/><line x1=\"18.36\" y1=\"18.36\" x2=\"19.78\" y2=\"19.78\"/><line x1=\"1\" y1=\"12\" x2=\"3\" y2=\"12\"/><line x1=\"21\" y1=\"12\" x2=\"23\" y2=\"12\"/><line x1=\"4.22\" y1=\"19.78\" x2=\"5.64\" y2=\"18.36\"/><line x1=\"18.36\" y1=\"5.64\" x2=\"19.78\" y2=\"4.22\"/></svg>"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Full Sun"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Description + Environment",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "environment_card",
+          "settings": {
+            "label": "Full Sun",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"5\"/><line x1=\"12\" y1=\"1\" x2=\"12\" y2=\"3\"/><line x1=\"12\" y1=\"21\" x2=\"12\" y2=\"23\"/><line x1=\"4.22\" y1=\"4.22\" x2=\"5.64\" y2=\"5.64\"/><line x1=\"18.36\" y1=\"18.36\" x2=\"19.78\" y2=\"19.78\"/><line x1=\"1\" y1=\"12\" x2=\"3\" y2=\"12\"/><line x1=\"21\" y1=\"12\" x2=\"23\" y2=\"12\"/><line x1=\"4.22\" y1=\"19.78\" x2=\"5.64\" y2=\"18.36\"/><line x1=\"18.36\" y1=\"5.64\" x2=\"19.78\" y2=\"4.22\"/></svg>"
+          }
+        },
+        {
+          "type": "environment_card",
+          "settings": {
+            "label": "Indoor Bright",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"/><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"/></svg>"
+          }
+        },
+        {
+          "type": "environment_card",
+          "settings": {
+            "label": "Windowsill",
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"9\" y1=\"21\" x2=\"9\" y2=\"9\"/></svg>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
