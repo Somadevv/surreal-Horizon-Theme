@@ -29,14 +29,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Difficulty
-                    {%- if product.metafields.custom.growability.definition.description -%}
+                    {%- if section.settings.desc_difficulty != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.growability.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_difficulty }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -55,14 +55,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Growth Form
-                    {%- if product.metafields.custom.growth_form.definition.description -%}
+                    {%- if section.settings.desc_growth_form != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.growth_form.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_growth_form }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -85,14 +85,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Growth Rate
-                    {%- if product.metafields.custom.growth_rate.definition.description -%}
+                    {%- if section.settings.desc_growth_rate != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.growth_rate.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_growth_rate }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -112,14 +112,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Minimum Temperature
-                    {%- if product.metafields.custom.hardiness_celsius_.definition.description -%}
+                    {%- if section.settings.desc_min_temp != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.hardiness_celsius_.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_min_temp }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -138,14 +138,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Maximum Size
-                    {%- if product.metafields.custom.maximum_height_and_spread.definition.description -%}
+                    {%- if section.settings.desc_max_size != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.maximum_height_and_spread.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_max_size }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -164,14 +164,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Featured Colour
-                    {%- if product.metafields.custom.featured_colour.definition.description -%}
+                    {%- if section.settings.desc_colour != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.featured_colour.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_colour }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -192,14 +192,14 @@
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">
                     Special Status
-                    {%- if product.metafields.custom.plant_breeders_rights.definition.description -%}
+                    {%- if section.settings.desc_pbr != blank -%}
                       <span class="info-icon-wrapper">
                         <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
                           <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                           <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
                         </svg>
-                        <span class="info-tooltip">{{ product.metafields.custom.plant_breeders_rights.definition.description }}</span>
+                        <span class="info-tooltip">{{ section.settings.desc_pbr }}</span>
                       </span>
                     {%- endif -%}
                   </div>
@@ -694,6 +694,52 @@
       "max": 900,
       "step": 100,
       "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Tooltip Descriptions"
+    },
+    {
+      "type": "textarea",
+      "id": "desc_difficulty",
+      "label": "Difficulty Description",
+      "default": "Indicates how easy or challenging this plant is to grow and maintain."
+    },
+    {
+      "type": "textarea",
+      "id": "desc_growth_form",
+      "label": "Growth Form Description",
+      "default": "Describes the natural shape and growth habit of the plant."
+    },
+    {
+      "type": "textarea",
+      "id": "desc_growth_rate",
+      "label": "Growth Rate Description",
+      "default": "How fast the plant grows under ideal conditions."
+    },
+    {
+      "type": "textarea",
+      "id": "desc_min_temp",
+      "label": "Minimum Temperature Description",
+      "default": "The lowest temperature this plant can tolerate without damage."
+    },
+    {
+      "type": "textarea",
+      "id": "desc_max_size",
+      "label": "Maximum Size Description",
+      "default": "The typical maximum dimensions this plant can reach when mature."
+    },
+    {
+      "type": "textarea",
+      "id": "desc_colour",
+      "label": "Featured Colour Description",
+      "default": "The predominant colours displayed by this plant."
+    },
+    {
+      "type": "textarea",
+      "id": "desc_pbr",
+      "label": "PBR Status Description",
+      "default": "This plant variety is protected by Plant Breeders' Rights."
     },
     {
       "type": "header",
