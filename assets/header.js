@@ -56,7 +56,13 @@ class HeaderComponent extends Component {
    * The duration to wait for hiding animation, when sticky behavior is 'scroll-up'
    * @constant {number}
    */
-  #animationDelay = 150;
+  #animationDelay = 500;
+
+  /**
+   * Tracks if a scroll animation frame is already scheduled
+   * @type {boolean}
+   */
+  #scrollTicking = false;
 
   /**
    * Keeps the global `--header-height` custom property up to date,
@@ -126,6 +132,16 @@ class HeaderComponent extends Component {
   }
 
   #handleWindowScroll = () => {
+    if (!this.#scrollTicking) {
+      requestAnimationFrame(() => {
+        this.#processScroll();
+        this.#scrollTicking = false;
+      });
+      this.#scrollTicking = true;
+    }
+  };
+
+  #processScroll = () => {
     const stickyMode = this.getAttribute('sticky');
     if (!this.#offscreen && stickyMode !== 'always') return;
 
