@@ -14,7 +14,11 @@
         <div class="characteristic-card difficulty-{{ product.metafields.custom.growability.value[0] | downcase }}">
           <div class="characteristic-card__inner">
             <div class="characteristic-card__icon">
-              {% render block.settings.difficulty_icon %}
+              {%- if block.settings.difficulty_icon != blank -%}
+                <img src="{{ block.settings.difficulty_icon | image_url: width: 200 }}" alt="Difficulty" loading="lazy">
+              {%- else -%}
+                {% render 'icon-difficulty' %}
+              {%- endif -%}
             </div>
             <div class="characteristic-card__content">
               <div class="characteristic-card__title">Difficulty</div>
@@ -28,7 +32,11 @@
         <div class="characteristic-card">
           <div class="characteristic-card__inner">
             <div class="characteristic-card__icon">
-              {% render block.settings.growth_form_icon %}
+              {%- if block.settings.growth_form_icon != blank -%}
+                <img src="{{ block.settings.growth_form_icon | image_url: width: 200 }}" alt="Growth Form" loading="lazy">
+              {%- else -%}
+                {% render 'icon-plant' %}
+              {%- endif -%}
             </div>
             <div class="characteristic-card__content">
               <div class="characteristic-card__title">Growth Form</div>
@@ -46,7 +54,11 @@
         <div class="characteristic-card growth-{{ product.metafields.custom.growth_rate | metafield_text | downcase }}">
           <div class="characteristic-card__inner">
             <div class="characteristic-card__icon">
-              {% render block.settings.growth_rate_icon %}
+              {%- if block.settings.growth_rate_icon != blank -%}
+                <img src="{{ block.settings.growth_rate_icon | image_url: width: 200 }}" alt="Growth Rate" loading="lazy">
+              {%- else -%}
+                {% render 'icon-speed' %}
+              {%- endif -%}
             </div>
             <div class="characteristic-card__content">
               <div class="characteristic-card__title">Growth Rate</div>
@@ -61,7 +73,11 @@
         <div class="characteristic-card{% if temp > 0 %} temp-hot{% elsif temp <= 0 and temp > -7 %} temp-mild{% else %} temp-cold{% endif %}">
           <div class="characteristic-card__inner">
             <div class="characteristic-card__icon">
-              {% render block.settings.temperature_icon %}
+              {%- if block.settings.temperature_icon != blank -%}
+                <img src="{{ block.settings.temperature_icon | image_url: width: 200 }}" alt="Temperature" loading="lazy">
+              {%- else -%}
+                {% render 'icon-thermometer' %}
+              {%- endif -%}
             </div>
             <div class="characteristic-card__content">
               <div class="characteristic-card__title">Minimum Temperature</div>
@@ -75,7 +91,11 @@
         <div class="characteristic-card">
           <div class="characteristic-card__inner">
             <div class="characteristic-card__icon">
-              {% render block.settings.maximum_size_icon %}
+              {%- if block.settings.maximum_size_icon != blank -%}
+                <img src="{{ block.settings.maximum_size_icon | image_url: width: 200 }}" alt="Maximum Size" loading="lazy">
+              {%- else -%}
+                {% render 'icon-growing' %}
+              {%- endif -%}
             </div>
             <div class="characteristic-card__content">
               <div class="characteristic-card__title">Maximum Size</div>
@@ -105,7 +125,11 @@
         <div class="characteristic-card">
           <div class="characteristic-card__inner">
             <div class="characteristic-card__icon">
-              {% render block.settings.special_status_icon %}
+              {%- if block.settings.special_status_icon != blank -%}
+                <img src="{{ block.settings.special_status_icon | image_url: width: 200 }}" alt="Special Status" loading="lazy">
+              {%- else -%}
+                {% render 'icon-check-mark' %}
+              {%- endif -%}
             </div>
             <div class="characteristic-card__content">
               <div class="characteristic-card__title">Special Status</div>
@@ -157,15 +181,20 @@
 
   /* Icon styling */
   .characteristic-card__icon {
-    width: 70px;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
     flex-shrink: 0;
     margin-right: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .characteristic-card__icon svg,
   .characteristic-card__icon img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
   }
 
   /* Content area styling */
@@ -295,168 +324,50 @@
       "content": "Icon Settings"
     },
     {
-      "type": "select",
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size (applies to all icons)",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "image_picker",
       "id": "difficulty_icon",
-      "label": "Difficulty Icon",
-      "options": [
-        {
-          "value": "icon-difficulty",
-          "label": "Difficulty (Default)"
-        },
-        {
-          "value": "icon-plant",
-          "label": "Plant"
-        },
-        {
-          "value": "icon-growing",
-          "label": "Growing"
-        },
-        {
-          "value": "icon-check-mark",
-          "label": "Check Mark"
-        },
-        {
-          "value": "icon-sun",
-          "label": "Sun"
-        },
-        {
-          "value": "icon-home",
-          "label": "Home"
-        }
-      ],
-      "default": "icon-difficulty"
+      "label": "Difficulty Icon (leave empty for default)",
+      "info": "Upload a custom icon or leave empty to use the default difficulty icon"
     },
     {
-      "type": "select",
+      "type": "image_picker",
       "id": "growth_form_icon",
-      "label": "Growth Form Icon",
-      "options": [
-        {
-          "value": "icon-plant",
-          "label": "Plant (Default)"
-        },
-        {
-          "value": "icon-growing",
-          "label": "Growing"
-        },
-        {
-          "value": "icon-difficulty",
-          "label": "Difficulty"
-        },
-        {
-          "value": "icon-sun",
-          "label": "Sun"
-        },
-        {
-          "value": "icon-home",
-          "label": "Home"
-        }
-      ],
-      "default": "icon-plant"
+      "label": "Growth Form Icon (leave empty for default)",
+      "info": "Upload a custom icon or leave empty to use the default plant icon"
     },
     {
-      "type": "select",
+      "type": "image_picker",
       "id": "growth_rate_icon",
-      "label": "Growth Rate Icon",
-      "options": [
-        {
-          "value": "icon-speed",
-          "label": "Speed (Default)"
-        },
-        {
-          "value": "icon-growing",
-          "label": "Growing"
-        },
-        {
-          "value": "icon-plant",
-          "label": "Plant"
-        },
-        {
-          "value": "icon-sun",
-          "label": "Sun"
-        }
-      ],
-      "default": "icon-speed"
+      "label": "Growth Rate Icon (leave empty for default)",
+      "info": "Upload a custom icon or leave empty to use the default speed icon"
     },
     {
-      "type": "select",
+      "type": "image_picker",
       "id": "temperature_icon",
-      "label": "Temperature Icon",
-      "options": [
-        {
-          "value": "icon-thermometer",
-          "label": "Thermometer (Default)"
-        },
-        {
-          "value": "icon-sun",
-          "label": "Sun"
-        },
-        {
-          "value": "icon-full-sun",
-          "label": "Full Sun"
-        },
-        {
-          "value": "icon-home",
-          "label": "Home"
-        },
-        {
-          "value": "icon-sheltered",
-          "label": "Sheltered"
-        }
-      ],
-      "default": "icon-thermometer"
+      "label": "Temperature Icon (leave empty for default)",
+      "info": "Upload a custom icon or leave empty to use the default thermometer icon"
     },
     {
-      "type": "select",
+      "type": "image_picker",
       "id": "maximum_size_icon",
-      "label": "Maximum Size Icon",
-      "options": [
-        {
-          "value": "icon-growing",
-          "label": "Growing (Default)"
-        },
-        {
-          "value": "icon-plant",
-          "label": "Plant"
-        },
-        {
-          "value": "icon-sun",
-          "label": "Sun"
-        },
-        {
-          "value": "icon-home",
-          "label": "Home"
-        }
-      ],
-      "default": "icon-growing"
+      "label": "Maximum Size Icon (leave empty for default)",
+      "info": "Upload a custom icon or leave empty to use the default growing icon"
     },
     {
-      "type": "select",
+      "type": "image_picker",
       "id": "special_status_icon",
-      "label": "Special Status Icon",
-      "options": [
-        {
-          "value": "icon-check-mark",
-          "label": "Check Mark (Default)"
-        },
-        {
-          "value": "icon-difficulty",
-          "label": "Difficulty"
-        },
-        {
-          "value": "icon-plant",
-          "label": "Plant"
-        },
-        {
-          "value": "icon-sun",
-          "label": "Sun"
-        },
-        {
-          "value": "icon-home",
-          "label": "Home"
-        }
-      ],
-      "default": "icon-check-mark"
+      "label": "Special Status Icon (leave empty for default)",
+      "info": "Upload a custom icon or leave empty to use the default check mark icon"
     },
     {
       "type": "header",
