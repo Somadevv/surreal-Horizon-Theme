@@ -83,11 +83,24 @@
 
           {%- if product.metafields.custom.hardiness_celsius_ -%}
             {% assign temp = product.metafields.custom.hardiness_celsius_ | metafield_text | times: 1 %}
-            <div class="characteristic-card{% if temp > 0 %} temp-hot{% elsif temp <= 0 and temp > -7 %} temp-mild{% else %} temp-cold{% endif %}">
+
+            {%- comment -%} Determine temperature zone and icon based on value {%- endcomment -%}
+            {%- if temp <= -5 -%}
+              {% assign temp_zone = 'temp-cold' %}
+              {% assign temp_icon = section.settings.temperature_icon_green %}
+            {%- elsif temp > -5 and temp <= 0 -%}
+              {% assign temp_zone = 'temp-mild' %}
+              {% assign temp_icon = section.settings.temperature_icon_amber %}
+            {%- else -%}
+              {% assign temp_zone = 'temp-hot' %}
+              {% assign temp_icon = section.settings.temperature_icon_red %}
+            {%- endif -%}
+
+            <div class="characteristic-card {{ temp_zone }}">
               <div class="characteristic-card__inner">
                 <div class="characteristic-card__icon">
-                  {%- if section.settings.temperature_icon != blank -%}
-                    <img src="{{ section.settings.temperature_icon | image_url: width: 200 }}" alt="Temperature" loading="lazy">
+                  {%- if temp_icon != blank -%}
+                    <img src="{{ temp_icon | image_url: width: 200 }}" alt="Temperature" loading="lazy">
                   {%- else -%}
                     {% render 'icon-thermometer' %}
                   {%- endif -%}
@@ -848,9 +861,21 @@
     },
     {
       "type": "image_picker",
-      "id": "temperature_icon",
-      "label": "Temperature Icon (leave empty for default)",
-      "info": "Upload a custom icon or leave empty to use the default thermometer icon"
+      "id": "temperature_icon_green",
+      "label": "Temperature Icon: Green Zone (\u2264 -5\u00b0C)",
+      "info": "Icon for temperatures -5\u00b0C and below"
+    },
+    {
+      "type": "image_picker",
+      "id": "temperature_icon_amber",
+      "label": "Temperature Icon: Amber Zone (-5\u00b0C to 0\u00b0C)",
+      "info": "Icon for temperatures between -5\u00b0C and 0\u00b0C"
+    },
+    {
+      "type": "image_picker",
+      "id": "temperature_icon_red",
+      "label": "Temperature Icon: Red Zone (> 0\u00b0C)",
+      "info": "Icon for temperatures above 0\u00b0C"
     },
     {
       "type": "image_picker",
