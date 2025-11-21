@@ -567,7 +567,7 @@
       "type": "product-description-environment",
       "name": "Description + Environment",
       "settings": {
-        "description": "{{ product.description }}",
+        "description": "<p>{{ product.description }}</p>",
         "description_font_size": 16,
         "description_font_weight": 400,
         "description_line_height": 1.7,
@@ -656,6 +656,9 @@
         "grid_columns_mobile": "1",
         "grid_gap": 16,
         "icon_size": 50,
+        "temperature_icon_green": "shopify://shop_images/green-zone-icon.png",
+        "temperature_icon_amber": "shopify://shop_images/amber-zone-icon.png",
+        "temperature_icon_red": "shopify://shop_images/red-zone-icon.png",
         "padding_top": 36,
         "padding_bottom": 36
       }
