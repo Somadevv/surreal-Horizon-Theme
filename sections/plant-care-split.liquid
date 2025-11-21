@@ -24,11 +24,7 @@
             <div class="characteristic-card difficulty-{{ product.metafields.custom.growability.value[0] | downcase }}">
               <div class="characteristic-card__inner">
                 <div class="characteristic-card__icon">
-                  {%- if section.settings.difficulty_icon != blank -%}
-                    <img src="{{ section.settings.difficulty_icon | image_url: width: 200 }}" alt="Difficulty" loading="lazy">
-                  {%- else -%}
-                    {% render 'icon-difficulty' %}
-                  {%- endif -%}
+                  {% render 'icon-difficulty' %}
                 </div>
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Difficulty</div>
@@ -43,11 +39,7 @@
             <div class="characteristic-card">
               <div class="characteristic-card__inner">
                 <div class="characteristic-card__icon">
-                  {%- if section.settings.growth_form_icon != blank -%}
-                    <img src="{{ section.settings.growth_form_icon | image_url: width: 200 }}" alt="Growth Form" loading="lazy">
-                  {%- else -%}
-                    {% render 'icon-plant' %}
-                  {%- endif -%}
+                  {% render 'icon-growth-form' %}
                 </div>
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Growth Form</div>
@@ -66,11 +58,7 @@
             <div class="characteristic-card growth-{{ product.metafields.custom.growth_rate | metafield_text | downcase }}">
               <div class="characteristic-card__inner">
                 <div class="characteristic-card__icon">
-                  {%- if section.settings.growth_rate_icon != blank -%}
-                    <img src="{{ section.settings.growth_rate_icon | image_url: width: 200 }}" alt="Growth Rate" loading="lazy">
-                  {%- else -%}
-                    {% render 'icon-speed' %}
-                  {%- endif -%}
+                  {% render 'icon-growth-rate' %}
                 </div>
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Growth Rate</div>
@@ -118,11 +106,7 @@
             <div class="characteristic-card">
               <div class="characteristic-card__inner">
                 <div class="characteristic-card__icon">
-                  {%- if section.settings.maximum_size_icon != blank -%}
-                    <img src="{{ section.settings.maximum_size_icon | image_url: width: 200 }}" alt="Maximum Size" loading="lazy">
-                  {%- else -%}
-                    {% render 'icon-growing' %}
-                  {%- endif -%}
+                  {% render 'icon-maximum-size' %}
                 </div>
                 <div class="characteristic-card__content">
                   <div class="characteristic-card__title">Maximum Height & Spread</div>
@@ -843,24 +827,6 @@
     },
     {
       "type": "image_picker",
-      "id": "difficulty_icon",
-      "label": "Difficulty Icon (leave empty for default)",
-      "info": "Upload a custom icon or leave empty to use the default difficulty icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "growth_form_icon",
-      "label": "Growth Form Icon (leave empty for default)",
-      "info": "Upload a custom icon or leave empty to use the default plant icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "growth_rate_icon",
-      "label": "Growth Rate Icon (leave empty for default)",
-      "info": "Upload a custom icon or leave empty to use the default speed icon"
-    },
-    {
-      "type": "image_picker",
       "id": "temperature_icon_green",
       "label": "Temperature Icon: Green Zone (\u2264 -5\u00b0C)",
       "info": "Icon for temperatures -5\u00b0C and below"
@@ -876,12 +842,6 @@
       "id": "temperature_icon_red",
       "label": "Temperature Icon: Red Zone (> 0\u00b0C)",
       "info": "Icon for temperatures above 0\u00b0C"
-    },
-    {
-      "type": "image_picker",
-      "id": "maximum_size_icon",
-      "label": "Maximum Size Icon (leave empty for default)",
-      "info": "Upload a custom icon or leave empty to use the default growing icon"
     },
     {
       "type": "image_picker",
