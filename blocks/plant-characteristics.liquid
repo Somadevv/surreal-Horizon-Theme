@@ -188,13 +188,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: visible;
   }
 
-  .characteristic-card__icon svg,
+  .characteristic-card__icon svg {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: auto;
+  }
+
   .characteristic-card__icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    display: block;
   }
 
   /* Content area styling */
